@@ -1708,6 +1708,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .uv .overlay {
   position: absolute;
+  box-shadow: 1px -1px rgba(0, 0, 0, 0.1);
 }
 .uv .overlay .top {
   width: 100%;

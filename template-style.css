@@ -110,11 +110,10 @@ body > section {
 }
 
 .viewer {
-    border:black solid 1px;
     margin-bottom:15px;
     background-image: url(background-blur-wildlife.jpg);
     background-repeat: no-repeat;
-    height: 120px;
+    height: 135px;
 }
 
 .viewer .uv .canvas-container {

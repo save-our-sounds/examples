@@ -1932,7 +1932,7 @@ a.ui-button:active,
 .uv .centerPanel .iiif-av-component .controls-container .time-display {
   padding-top: 10px;
 }
-@media only screen and (min-width: 0px) and (max-width: 813px) {
+@media only screen and (min-width: 0px) and (max-width: 600px) {
   .uv .centerPanel .iiif-av-component .controls-container .time-display {
     display: none;
   }
@@ -1941,7 +1941,7 @@ a.ui-button:active,
   display: inline-block;
   float: none;
 }
-@media only screen and (min-width: 0px) and (max-width: 813px) {
+@media only screen and (min-width: 0px) and (max-width: 600px) {
   .uv .centerPanel .iiif-av-component .controls-container .volume {
     display: none;
   }
@@ -3388,6 +3388,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .uv .overlay {
   position: absolute;
+  box-shadow: 1px -1px rgba(0, 0, 0, 0.1);
 }
 .uv .overlay .top {
   width: 100%;
