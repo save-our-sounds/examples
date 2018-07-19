@@ -4345,9 +4345,15 @@ input[type=range]:focus::-ms-fill-upper {
     display: block;
   }
 }
+.uv.en-gb .centerPanel .iiif-av-component .poster-image {
+  display: none;
+}
 .uv.en-gb .footerPanel .searchPager .controls .searchResultsInfo {
   width: 337px;
 }
 .uv {
   background: #000;
+}
+.uv .mobileFooterPanel {
+  margin-top: -78px;
 }
