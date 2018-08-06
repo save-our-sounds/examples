@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="22px" viewBox="0 0 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>SettingsIcon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BritishLibraryIcons" transform="translate(-142.000000, -20.000000)">
+            <g id="SettingsIcon" transform="translate(142.000000, 20.000000)">
+                <ellipse id="Oval-12" stroke="#FFFFFF" stroke-width="2.03461538" cx="11.5603147" cy="11" rx="8.23094406" ry="8.2458502"></ellipse>
+                <rect id="Rectangle-44" fill="#FFFFFF" x="10.4042832" y="0" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(16.184441, 2.977870) rotate(-330.000000) translate(-16.184441, -2.977870) " x="15.0284091" y="1.24102784" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(19.569536, 6.368421) rotate(-300.000000) translate(-19.569536, -6.368421) " x="18.4135042" y="4.63157895" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(20.808566, 11.000000) rotate(-270.000000) translate(-20.808566, -11.000000) " x="19.652535" y="9.26315789" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(19.569536, 15.631579) rotate(-600.000000) translate(-19.569536, -15.631579) " x="18.4135042" y="13.8947368" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(16.184441, 19.022130) rotate(-570.000000) translate(-16.184441, -19.022130) " x="15.0284091" y="17.285288" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(11.560315, 20.263158) rotate(-180.000000) translate(-11.560315, -20.263158) " x="10.4042832" y="18.5263158" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(6.936189, 19.022130) rotate(-510.000000) translate(-6.936189, -19.022130) " x="5.78015734" y="17.285288" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(3.551094, 15.631579) rotate(-480.000000) translate(-3.551094, -15.631579) " x="2.39506226" y="13.8947368" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(2.312063, 11.000000) rotate(-450.000000) translate(-2.312063, -11.000000) " x="1.15603147" y="9.26315789" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(3.551094, 6.368421) rotate(-780.000000) translate(-3.551094, -6.368421) " x="2.39506226" y="4.63157895" width="2.31206294" height="3.47368421"></rect>
+                <rect id="Rectangle-44" fill="#FFFFFF" transform="translate(6.936189, 2.977870) rotate(-750.000000) translate(-6.936189, -2.977870) " x="5.78015734" y="1.24102784" width="2.31206294" height="3.47368421"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

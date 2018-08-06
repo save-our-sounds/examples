@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="22px" height="21px" viewBox="0 0 22 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>button__volume</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Fina-Designs-17th-June-2018" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mainPlayer-desktop-wide-view" transform="translate(-505.000000, -560.000000)" fill="#FFFFFF">
+            <g id="VolumeControl" transform="translate(505.000000, 560.000000)">
+                <g id="button/volume">
+                    <path d="M12.9117251,0 L12.9117251,2.4084566 C16.3039874,3.41392877 18.780691,6.54726065 18.780691,10.2534778 C18.780691,13.959695 16.3039874,17.0930269 12.9117251,18.0984991 L12.9117251,20.5069557 C17.6186357,19.4430258 21.1282774,15.2574556 21.1282774,10.2534778 C21.1282774,5.24950006 17.6186357,1.06392986 12.9117251,0 Z M15.846208,10.2534778 C15.846208,8.18407582 14.648939,6.40696221 12.9117251,5.54178848 L12.9117251,14.9534757 C14.648939,14.0999935 15.846208,12.3228799 15.846208,10.2534778 Z M0,6.74601678 L0,13.7609389 L4.69517275,13.7609389 L10.5641387,19.6067073 L10.5641387,0.90024834 L4.69517275,6.74601678 L0,6.74601678 Z" id="Page-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
