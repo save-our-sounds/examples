@@ -3641,9 +3641,6 @@ input[type=range]:focus::-ms-fill-upper {
     display: none;
   }
 }
-.uv .mobileFooterPanel {
-  margin-top: -78px;
-}
 @media only screen and (min-width: 0px) and (max-width: 813px) {
   .uv .mobileFooterPanel {
     width: 93px;
