@@ -148,11 +148,17 @@
             manifest = $('#manifest').val();
 
             uv.set({
+                root: './uv',
                 iiifResourceUri: manifest,
                 collectionIndex: 0,
                 manifestIndex: 0,
                 sequenceIndex: 0,
-                canvasIndex: 0
+                canvasIndex: 0,
+                locales: [
+					{
+						name: 'en-GB'
+					}
+				]
             });
         });
 
