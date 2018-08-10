@@ -20,6 +20,11 @@
         "defaultToTreeEnabled": true
       }
     },
+    "avCenterPanel": {
+      "options": {
+        "autoPlay": false
+      }
+    },
     "moreInfoRightPanel": {
       "options": {
         "limitToRange": true
