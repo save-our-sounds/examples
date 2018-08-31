@@ -783,6 +783,12 @@
           "visible": true
         },
         {
+          "@id": "https://d.lib.ncsu.edu/collections/catalog/nubian-message-2003-04-01/manifest?v3=true",
+          "@type": "sc:Manifest",
+          "label": "Presentation 3 Image",
+          "visible": true
+        },
+        {
           "@id": "https://edsilv.github.io/test-manifests/pres3-pdf.json",
           "@type": "sc:Manifest",
           "label": "Presentation 3 PDF",
@@ -822,6 +828,30 @@
           "@id": "https://iiifauth.digtest.co.uk/manifest/02_degraded",
           "@type": "sc:Manifest",
           "label": "Degraded: Gauguin",
+          "visible": true
+        },
+        {
+          "@id": "https://iiifauth.digtest.co.uk/manifest/20_av_big_buck_bunny",
+          "@type": "sc:Manifest",
+          "label": "Not a service - basic AV test with no auth",
+          "visible": true
+        },
+        {
+          "@id": "https://iiifauth.digtest.co.uk/manifest/21_av_lego",
+          "@type": "sc:Manifest",
+          "label": "Not a service - AV test with no explicit probe",
+          "visible": true
+        },
+        {
+          "@id": "https://iiifauth.digtest.co.uk/manifest/22_av_stars",
+          "@type": "sc:Manifest",
+          "label": "Not a service - AV test with separate probe",
+          "visible": true
+        },
+        {
+          "@id": "https://iiifauth.digtest.co.uk/manifest/23_32vs192kbps",
+          "@type": "sc:Manifest",
+          "label": "Degraded flow test for AV - published resource",
           "visible": true
         },
         {
