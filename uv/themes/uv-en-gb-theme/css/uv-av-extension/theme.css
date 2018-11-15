@@ -4480,62 +4480,62 @@ input[type=range]:focus::-ms-fill-upper {
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .headerPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .headerPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mainPanel .leftPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mainPanel .leftPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mainPanel .rightPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mainPanel .rightPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .footerPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .footerPanel {
-    display: block;
+    display: block !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .footerPanel .moreInfo {
-    display: none;
+    display: none !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .footerPanel .moreInfo {
-    display: none;
+    display: none !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mobileFooterPanel {
-    display: none;
+    display: none !important;
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 100000px) and (min-height: 415px) and (max-height: 100000px) {
   .uv.fullscreen .mobileFooterPanel {
-    display: none;
+    display: none !important;
   }
 }
 .uv .mobileFooterPanel {
