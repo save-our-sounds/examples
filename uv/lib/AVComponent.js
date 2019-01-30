@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -137,9 +137,15 @@ var IIIFComponents;
                 return Math.max(_this._data.waveformBarWidth, (amplitude * height / range));
             };
             _this._data = _this.options.data;
-            _this.$playerElement = $('<div class="player"></div>');
+            _this.$playerElement = $('<div class="player player--loading"></div>');
             return _this;
         }
+        CanvasInstance.prototype.loaded = function () {
+            this.$playerElement.removeClass('player--loading');
+        };
+        CanvasInstance.prototype.isPlaying = function () {
+            return this._isPlaying;
+        };
         CanvasInstance.prototype.init = function () {
             var _this = this;
             if (!this._data || !this._data.content || !this._data.canvas) {
@@ -1607,6 +1613,7 @@ var IIIFComponents;
             _this._posterCanvasWidth = 0;
             _this._posterCanvasHeight = 0;
             _this._posterImageExpanded = false;
+            console.log('av component from local');
             _this._init();
             _this._resize();
             return _this;
@@ -1843,6 +1850,11 @@ var IIIFComponents;
                 }
             }
         };
+        AVComponent.prototype.isPlaying = function () {
+            return this.canvasInstances.reduce(function (isPlaying, next) {
+                return isPlaying || next.isPlaying();
+            }, false);
+        };
         AVComponent.prototype._checkAllMediaReady = function () {
             console.log('loading media');
             if (this._readyMedia === this.canvasInstances.length) {
@@ -1884,8 +1896,15 @@ var IIIFComponents;
             this._$element.append(canvasInstance.$playerElement);
             canvasInstance.init();
             this.canvasInstances.push(canvasInstance);
+            canvasInstance.on('play', function () {
+                _this.fire(AVComponent.Events.PLAY, canvasInstance);
+            }, false);
+            canvasInstance.on('pause', function () {
+                _this.fire(AVComponent.Events.PAUSE, canvasInstance);
+            }, false);
             canvasInstance.on(AVComponent.Events.MEDIA_READY, function () {
                 _this._readyMedia++;
+                canvasInstance.loaded();
             }, false);
             canvasInstance.on(AVComponent.Events.WAVEFORM_READY, function () {
                 _this._readyWaveforms++;
@@ -2097,6 +2116,8 @@ var IIIFComponents;
         var Events = /** @class */ (function () {
             function Events() {
             }
+            Events.PLAY = 'play';
+            Events.PAUSE = 'pause';
             Events.MEDIA_READY = 'mediaready';
             Events.LOG = 'log';
             Events.RANGE_CHANGED = 'rangechanged';

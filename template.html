@@ -33,6 +33,7 @@
 	<section id="pageContent">
 		
 		<img id="poster" width="200" />
+		<button id="play-pause" disabled="disabled">loading...</button>
 		<button id="play">Play</button>
 		<button id="pause">Pause</button>
 
@@ -69,6 +70,7 @@
     <script type="text/javascript">
 
 		var uv, $uv, urlDataProvider, manifest;
+		var $playPause = $('#play-pause');
 
 		window.addEventListener('uvLoaded', function (e) {
 
@@ -101,6 +103,19 @@
 				// poster image
 				var posterimage = uv.extension.helper.getPosterImage();
 				$('#poster').prop('src', posterimage);
+
+				// Example play-toggle with loading status. (1)
+				uv.extension.centerPanel.avcomponent.on('mediaready', function() {
+					$playPause.removeAttr('disabled');
+					$playPause.text('play');
+				});
+				uv.extension.centerPanel.avcomponent.on('play', function() {
+					$playPause.text('pause');
+				});
+
+				uv.extension.centerPanel.avcomponent.on('pause', function() {
+					$playPause.text('play');
+				});
 			});
 
 			// are there uv hash parameters?
@@ -113,6 +128,16 @@
 			}
 
 		}, false);
+
+
+		// Example play-toggle with loading status. (2)
+		$playPause.on('click', function() {
+			if (uv.extension.centerPanel.avcomponent.isPlaying()) {
+				uv.extension.centerPanel.avcomponent.pause();
+			} else {
+				uv.extension.centerPanel.avcomponent.play();
+			}
+		});
 
 		$('#play').on('click', function() {
 			uv.extension.centerPanel.avcomponent.play();

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -21,6 +21,7 @@ var IIIFComponents;
             _this._data = _this.options.data;
             _this._init();
             _this._resize();
+            console.log('testing gallery component.');
             return _this;
         }
         GalleryComponent.prototype._init = function () {
