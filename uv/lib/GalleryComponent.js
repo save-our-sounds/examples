@@ -21,7 +21,6 @@ var IIIFComponents;
             _this._data = _this.options.data;
             _this._init();
             _this._resize();
-            console.log('testing gallery component.');
             return _this;
         }
         GalleryComponent.prototype._init = function () {

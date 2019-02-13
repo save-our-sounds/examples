@@ -21181,6 +21181,9 @@ define('extensions/uv-av-extension/DownloadDialogue',["require", "exports", "../
             this.$downloadButton = $('<a class="btn btn-primary" href="#" tabindex="0">' + this.content.download + '</a>');
             this.$buttons.prepend(this.$downloadButton);
             var that = this;
+            this.$downloadButton.find('.btn-primary').on('click', function () {
+                $.publish(BaseEvents_1.BaseEvents.EXIT_FULLSCREEN);
+            });
             this.$downloadButton.on('click', function (e) {
                 e.preventDefault();
                 var $selectedOption = that.getSelectedOption();
@@ -21208,7 +21211,6 @@ define('extensions/uv-av-extension/DownloadDialogue',["require", "exports", "../
         DownloadDialogue.prototype.open = function ($triggerButton) {
             _super.prototype.open.call(this, $triggerButton);
             var hasCanvasRendering = this.isDownloadOptionAvailable(DownloadOption_1.DownloadOption.dynamicCanvasRenderings) && this.extension.isThumbsViewOpen();
-            console.log({ hasCanvasRendering: hasCanvasRendering });
             if (this.isDownloadOptionAvailable(DownloadOption_1.DownloadOption.entireFileAsOriginal) && !this._isAdaptive() && !hasCanvasRendering) {
                 var $input = this.$entireFileAsOriginal.find('input');
                 var $label = this.$entireFileAsOriginal.find('label');
