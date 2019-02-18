@@ -141,7 +141,10 @@ var IIIFComponents;
             return _this;
         }
         CanvasInstance.prototype.loaded = function () {
-            this.$playerElement.removeClass('player--loading');
+            var _this = this;
+            setTimeout(function () {
+                _this.$playerElement.removeClass('player--loading');
+            }, 500);
         };
         CanvasInstance.prototype.isPlaying = function () {
             return this._isPlaying;
@@ -498,7 +501,8 @@ var IIIFComponents;
                     else {
                         var duration = this._data.range.getDuration();
                         if (duration) {
-                            if (!this._data.range.autoChanged) {
+                            // Only change the current time if the current time is outside of the current time.
+                            if (duration.start >= this._canvasClockTime || duration.end <= this._canvasClockTime) {
                                 this._setCurrentTime(duration.start);
                             }
                             if (this._data.autoPlay) {
@@ -767,6 +771,8 @@ var IIIFComponents;
                 $mediaElement.attr('data-dashjs-player', '');
                 var player = dashjs.MediaPlayer().create();
                 player.getDebug().setLogToBrowserConsole(false);
+                // player.getDebug().setLogToBrowserConsole(true);
+                // player.getDebug().setLogLevel(4);
                 if (this._data.adaptiveAuthEnabled) {
                     player.setXHRWithCredentialsForType('MPD', true); // send cookies
                 }
@@ -1064,7 +1070,6 @@ var IIIFComponents;
         // todo: can this be part of the _data state?
         // this._data.play = true?
         CanvasInstance.prototype.play = function (withoutUpdate) {
-            //console.log('playing ', this.getCanvasId());
             var _this = this;
             if (this._isPlaying)
                 return;
@@ -1079,12 +1084,21 @@ var IIIFComponents;
                 this._canvasClockTime = 0;
             }
             this._canvasClockStartDate = Date.now() - (this._canvasClockTime * 1000);
+            if (this._highPriorityInterval) {
+                clearInterval(this._highPriorityInterval);
+            }
             this._highPriorityInterval = window.setInterval(function () {
                 _this._highPriorityUpdater();
             }, this._highPriorityFrequency);
+            if (this._lowPriorityInterval) {
+                clearInterval(this._lowPriorityInterval);
+            }
             this._lowPriorityInterval = window.setInterval(function () {
                 _this._lowPriorityUpdater();
             }, this._lowPriorityFrequency);
+            if (this._canvasClockInterval) {
+                clearInterval(this._canvasClockInterval);
+            }
             this._canvasClockInterval = window.setInterval(function () {
                 _this._canvasClockUpdater();
             }, this._canvasClockFrequency);
@@ -2017,14 +2031,15 @@ var IIIFComponents;
                 currentCanvas.pause();
             }
         };
-        AVComponent.prototype.playRange = function (rangeId) {
+        AVComponent.prototype.playRange = function (rangeId, autoChanged) {
+            if (autoChanged === void 0) { autoChanged = false; }
             if (!this._data.helper) {
                 return;
             }
             var range = this._data.helper.getRangeById(rangeId);
             if (range) {
                 this.set({
-                    range: jQuery.extend(true, {}, range)
+                    range: jQuery.extend(true, { autoChanged: autoChanged }, range)
                 });
             }
         };

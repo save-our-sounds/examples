@@ -44,6 +44,12 @@
         </div>
 		
 		<main role="main">
+
+			<article>
+				<h2 id="range-title"></h2>
+				<div id="range-metadata"></div>
+			</article>
+
 			<article>
 				<h2>Sound file title</h2>
 				<p>Lorem ipsum dolor sit amet, nonumes voluptatum mel ea, cu case ceteros cum. Novum commodo malorum vix ut. Dolores consequuntur in ius, sale electram dissentiunt quo te. Cu duo omnes invidunt, eos eu mucius fabellas. Stet facilis ius te, quando voluptatibus eos in. Ad vix mundi alterum, integre urbanitas intellegam vix in.</p>
@@ -115,6 +121,25 @@
 
 				uv.extension.centerPanel.avcomponent.on('pause', function() {
 					$playPause.text('play');
+				});
+
+				uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
+					var range = uv.extension.helper.getRangeById(rangeId);
+
+					console.log(range.getLabel());
+
+					$('#range-title').text(range.getLabel().map(function (a) {
+						return a.value
+					}).join(''));
+
+					var metadata = range.getMetadata().map(function(metadataItem) {
+						return $('<article><strong>' + metadataItem.getLabel() + '</strong> - ' + metadataItem.getValue() + '</article>');
+					});
+
+
+					$('#range-metadata').html(metadata);
+
+					console.log('Range changed', {range, rangeId});
 				});
 			});
 

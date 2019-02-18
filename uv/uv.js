@@ -17528,7 +17528,7 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             var _this = this;
             this._whenMediaReady(function () {
                 if (range && _this.avcomponent) {
-                    _this.avcomponent.playRange(range.id);
+                    _this.avcomponent.playRange(range.id, true);
                 }
                 // don't resize the av component to avoid expensively redrawing waveforms
                 _this.resize(false);
@@ -18787,7 +18787,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 if (range) {
                     _this.data.rangeId = range.id;
                     _this.helper.rangeId = range.id;
-                    _this.fire(BaseEvents_1.BaseEvents.RANGE_CHANGED, _this.data.rangeId);
+                    _this.fire(BaseEvents_1.BaseEvents.RANGE_CHANGED, _this.data.rangeId, range);
                 }
                 else {
                     _this.data.rangeId = undefined;
