@@ -31,7 +31,10 @@
 		<strong>An example of where the Universal player could sit in the page.</strong>
 	</section>
 	<section id="pageContent">
-		
+
+		<article>
+			<h1 id="canvas-label"></h1>
+		</article>
 		<img id="poster" width="200" />
 		<button id="play-pause" disabled="disabled">loading...</button>
 		<button id="play">Play</button>
@@ -92,6 +95,7 @@
 				sequenceIndex: Number(urlDataProvider.get('s', 0)),
 				canvasIndex: Number(urlDataProvider.get('cv', 0)),
 				rotation: Number(urlDataProvider.get('r', 0)),
+				startTime: parseInt(urlDataProvider.get('t', 0), 10),
 				xywh: urlDataProvider.get('xywh', ''),
 				rangeId: urlDataProvider.get('rid', ''),
 				locales: [
@@ -102,6 +106,12 @@
 			};
 
 			uv = createUV('#uv', data, urlDataProvider);
+
+			uv.on('canvasIndexChanged', function(index) {
+				var canvas = uv.extension.helper.getCanvasByIndex(index);
+				console.log(canvas);
+				$('#canvas-label').text(canvas.getLabel().map(function(t){return t.value;}).join(''));
+			});
 
 			uv.on('created', function() {
 				Utils.Urls.setHashParameter('manifest', manifest);
@@ -126,20 +136,13 @@
 				uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
 					var range = uv.extension.helper.getRangeById(rangeId);
 
-					console.log(range.getLabel());
-
-					$('#range-title').text(range.getLabel().map(function (a) {
-						return a.value
-					}).join(''));
+					$('#range-title').text(range.getLabel().map(function (a) { return a.value; }).join(''));
 
 					var metadata = range.getMetadata().map(function(metadataItem) {
 						return $('<article><strong>' + metadataItem.getLabel() + '</strong> - ' + metadataItem.getValue() + '</article>');
 					});
 
-
 					$('#range-metadata').html(metadata);
-
-					console.log('Range changed', {range, rangeId});
 				});
 			});
 
