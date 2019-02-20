@@ -395,8 +395,16 @@ var IIIFComponents;
             $metadataItem.on('click', 'a.iiif-viewer-link', function (e) {
                 e.preventDefault();
                 var $a = $(e.target);
-                var href = $a.prop('href');
+                var href = $a.attr('data-uv-navigate') || $a.prop('href');
                 that.fire(MetadataComponent.Events.IIIF_VIEWER_LINK_CLICKED, href);
+            });
+            $metadataItem.on('click', '[data-uv-navigate]', function (e) {
+                e.preventDefault();
+                var $a = $(e.target);
+                var href = $a.attr('data-uv-navigate') || null;
+                if (href) {
+                    that.fire(MetadataComponent.Events.IIIF_VIEWER_LINK_CLICKED, href);
+                }
             });
             return $metadataItem;
         };

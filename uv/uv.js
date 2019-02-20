@@ -16639,6 +16639,7 @@ define('modules/uv-shared-module/BaseEvents',["require", "exports"], function (r
         BaseEvents.COLLECTION_INDEX_CHANGED = 'collectionIndexChanged';
         BaseEvents.CREATE = 'create';
         BaseEvents.CREATED = 'created';
+        BaseEvents.CURRENT_TIME_CHANGED = 'currentTimeChanged';
         BaseEvents.DOWN_ARROW = 'downArrow';
         BaseEvents.DOWNLOAD = 'download';
         BaseEvents.DROP = 'drop';
@@ -17162,10 +17163,10 @@ define('Utils',["require", "exports"], function (require, exports) {
         UVUtils.sanitize = function (html) {
             return filterXSS(html, {
                 whiteList: {
-                    a: ["href", "title", "target", "class"],
+                    a: ["href", "title", "target", "class", "data-uv-navigate"],
                     br: [],
                     img: ["src"],
-                    span: []
+                    span: ["data-uv-navigate"]
                 }
             });
         };
@@ -17367,6 +17368,13 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             });
             $.subscribe(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, function (e, canvasIndex) {
                 _this._viewCanvas(canvasIndex);
+            });
+            $.subscribe(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, function (e, currentTime) {
+                _this._whenMediaReady(function () {
+                    if (_this.avcomponent) {
+                        _this.avcomponent.setCurrentTime(currentTime);
+                    }
+                });
             });
             $.subscribe(BaseEvents_1.BaseEvents.RANGE_CHANGED, function (e, range) {
                 if (!_this._observeRangeChanges()) {
@@ -19043,6 +19051,12 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                     else {
                         console.warn('range id not found:', this.data.rangeId);
                     }
+                }
+            }
+            if (!this.isCreated) {
+                if (this.data.startTime) {
+                    // @todo check if in bounds.
+                    $.publish(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, [this.data.startTime]);
                 }
             }
         };
@@ -21805,11 +21819,27 @@ define('modules/uv-moreinforightpanel-module/MoreInfoRightPanel',["require", "ex
             this.metadataComponent.on('iiifViewerLinkClicked', function (href) {
                 // get the hash param.
                 var rangeId = Utils.Urls.getHashParameterFromString('rid', href);
+                var rawTime = Utils.Urls.getHashParameterFromString('t', href);
+                var time = rawTime ? parseInt(rawTime, 10) : null;
+                var canvasId = Utils.Urls.getHashParameterFromString('c', href);
+                // First change canvas id.
+                if (canvasId) {
+                    var canvasIndex = _this.extension.helper.getCanvasIndexById(canvasId);
+                    if (canvasIndex) {
+                        $.publish(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, [canvasIndex]);
+                    }
+                }
+                // Then change range id.
                 if (rangeId) {
                     var range = _this.extension.helper.getRangeById(rangeId);
                     if (range) {
                         $.publish(BaseEvents_1.BaseEvents.RANGE_CHANGED, [range]);
                     }
+                }
+                // Finally change timestamp.
+                if (time !== null) {
+                    // @todo validate time? Validation should probably be art of extension.helper.
+                    $.publish(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, [time]);
                 }
             }, false);
         };

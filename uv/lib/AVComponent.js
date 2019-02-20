@@ -149,6 +149,9 @@ var IIIFComponents;
         CanvasInstance.prototype.isPlaying = function () {
             return this._isPlaying;
         };
+        CanvasInstance.prototype.getClockTime = function () {
+            return this._canvasClockTime;
+        };
         CanvasInstance.prototype.init = function () {
             var _this = this;
             if (!this._data || !this._data.content || !this._data.canvas) {
@@ -508,7 +511,7 @@ var IIIFComponents;
                             if (this._data.autoPlay) {
                                 this.play();
                             }
-                            this.fire(AVComponent.Events.RANGE_CHANGED, this._data.range.id);
+                            this.fire(AVComponent.Events.RANGE_CHANGED, this._data.range.id, this._data.range);
                         }
                     }
                 }
@@ -862,9 +865,6 @@ var IIIFComponents;
             $mediaElement.on('loadedmetadata', function () {
                 _this._readyMediaCount++;
                 if (_this._readyMediaCount === _this._contentAnnotations.length) {
-                    //if (!this._data.range) {
-                    _this._setCurrentTime(0);
-                    //}                        
                     if (_this._data.autoPlay) {
                         _this.play();
                     }
@@ -1020,6 +1020,9 @@ var IIIFComponents;
             if (this.$playerElement) {
                 this._$timelineItemContainer.append($lineWrapper);
             }
+        };
+        CanvasInstance.prototype.setCurrentTime = function (seconds) {
+            return this._setCurrentTime(seconds);
         };
         CanvasInstance.prototype._setCurrentTime = function (seconds) {
             // const secondsAsFloat: number = parseFloat(seconds.toString());
@@ -1863,6 +1866,19 @@ var IIIFComponents;
                     }
                 }
             }
+        };
+        AVComponent.prototype.setCurrentTime = function (time) {
+            var canvas = this._getCurrentCanvas();
+            if (canvas) {
+                return canvas.setCurrentTime(time);
+            }
+        };
+        AVComponent.prototype.getCurrentTime = function () {
+            var canvas = this._getCurrentCanvas();
+            if (canvas) {
+                return canvas.getClockTime();
+            }
+            return 0;
         };
         AVComponent.prototype.isPlaying = function () {
             return this.canvasInstances.reduce(function (isPlaying, next) {
