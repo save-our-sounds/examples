@@ -135,6 +135,11 @@
 
 				uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
 					var range = uv.extension.helper.getRangeById(rangeId);
+					if (!range) {
+						$('#range-title').text('');
+						$('#range-metadata').text('');
+						return;
+					}
 
 					$('#range-title').text(range.getLabel().map(function (a) { return a.value; }).join(''));
 
