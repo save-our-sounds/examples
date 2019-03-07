@@ -558,6 +558,14 @@
   font-size: 11px;
   text-transform: uppercase;
 }
+.uv .rightPanel .main .groups [data-uv-navigate] {
+  color: #14a4c3;
+  cursor: pointer;
+}
+.uv .rightPanel .main .groups [data-uv-navigate]:hover {
+  text-decoration: underline;
+  color: #22c5e8;
+}
 .virtex .viewport {
   position: relative;
 }

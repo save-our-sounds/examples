@@ -473,6 +473,14 @@
   font-size: 11px;
   text-transform: uppercase;
 }
+.uv .rightPanel .main .groups [data-uv-navigate] {
+  color: #14a4c3;
+  cursor: pointer;
+}
+.uv .rightPanel .main .groups [data-uv-navigate]:hover {
+  text-decoration: underline;
+  color: #22c5e8;
+}
 .uv .centerPanel .content .scroll {
   margin: 10px 10px 10px 20px;
   overflow: auto;

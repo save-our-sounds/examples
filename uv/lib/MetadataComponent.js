@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -395,8 +395,16 @@ var IIIFComponents;
             $metadataItem.on('click', 'a.iiif-viewer-link', function (e) {
                 e.preventDefault();
                 var $a = $(e.target);
-                var href = $a.prop('href');
+                var href = $a.attr('data-uv-navigate') || $a.prop('href');
                 that.fire(MetadataComponent.Events.IIIF_VIEWER_LINK_CLICKED, href);
+            });
+            $metadataItem.on('click', '[data-uv-navigate]', function (e) {
+                e.preventDefault();
+                var $a = $(e.target);
+                var href = $a.attr('data-uv-navigate') || null;
+                if (href) {
+                    that.fire(MetadataComponent.Events.IIIF_VIEWER_LINK_CLICKED, href);
+                }
             });
             return $metadataItem;
         };

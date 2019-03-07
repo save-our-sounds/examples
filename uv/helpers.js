@@ -23,15 +23,23 @@ function createUV(selector, data, dataProvider) {
 
     window.onresize = function() {
         resize();
-    }
+    };
 
     uv = new UV({
         target: $uv[0],
         data: data
     });
 
-    uv.on('create', function(obj) {
+    uv.on('created', function(obj) {
         resize();
+        if (uv.extension.centerPanel.avcomponent) {
+            uv.extension.centerPanel.avcomponent.on('pause', function() {
+                var currentTime = uv.extension.centerPanel.avcomponent.getCurrentTime();
+                if (currentTime > 0) {
+                    dataProvider.set('t', currentTime);
+                }
+            }, false);
+        }
     }, false);
 
     uv.on('created', function(obj) {
@@ -74,6 +82,19 @@ function createUV(selector, data, dataProvider) {
         data.isReload = true;
         uv.set(data);
     }, false);
+
+    // Exit fullscreen bugfix.
+    document.addEventListener('fullscreenchange', exitFullscreenHandler);
+    document.addEventListener('webkitfullscreenchange', exitFullscreenHandler);
+    document.addEventListener('mozfullscreenchange', exitFullscreenHandler);
+    document.addEventListener('MSFullscreenChange', exitFullscreenHandler);
+
+    function exitFullscreenHandler() {
+        if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+            uv.exitFullScreen();
+            resize();
+        }
+    }
 
     uv.on('toggleFullScreen', function(data) {
         isFullScreen = data.isFullScreen;
