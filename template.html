@@ -101,6 +101,12 @@
 				// poster image
 				var posterimage = uv.extension.helper.getPosterImage();
 				$('#poster').prop('src', posterimage);
+
+				// uv.extension.centerPanel.avcomponent.on('play', function() {
+				// 	if (uv.extension.centerPanel.avcomponent.isPlaying()) {
+				// 		uv.extension.centerPanel.avcomponent.play();
+				// 	}
+				// });
 			});
 
 			// are there uv hash parameters?
@@ -113,6 +119,10 @@
 			}
 
 		}, false);
+
+		// $('#uv').one('click', function() {
+		// 	uv.extension.centerPanel.avcomponent.play();
+		// }, true);
 
 		$('#play').on('click', function() {
 			uv.extension.centerPanel.avcomponent.play();

@@ -263,7 +263,7 @@ var IIIFComponents;
                     prevTimeout = 0;
                 }
             });
-            this._$playButton.on('touchstart click', function (e) {
+            this._$playButton[0].addEventListener('click', function (e) {
                 e.preventDefault();
                 if (_this._isPlaying) {
                     _this.pause();
@@ -271,7 +271,7 @@ var IIIFComponents;
                 else {
                     _this.play();
                 }
-            });
+            }, false);
             this._$nextButton.on('touchstart click', function (e) {
                 e.preventDefault();
                 _this._next();
