@@ -19,6 +19,12 @@
       "options": {
         "defaultToTreeEnabled": true
       }
+    },
+    "avCenterPanel": {
+      "options": {
+        "subtitleMetadataField": "contributor",
+        "subtitleEnabled": true
+      }
     }
   }
 }
