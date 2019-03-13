@@ -1,0 +1,125 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.4;
+    font-size: 16px;
+    background: transparent;
+}
+body .uv {
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.uv-media-embed {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow-y: auto;
+    background: #000;
+    color: #fff;
+}
+.uv-media-embed a {
+    color: #14A4C3;
+    text-decoration: none;
+}
+.uv-media-embed a:hover {
+    text-decoration: underline;
+}
+
+.uv-media-embed__metadata {
+    width: 100%;
+    background: #201F1F;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: max-height .4s;
+    overflow-y: auto;
+    max-height: 200px;
+    position: relative;
+    z-index: 10;
+}
+
+.uv-media-embed__metadata--closed + .uv-media-embed__footer,
+.uv-media-embed__metadata--closed  {
+    max-height: 0px;
+}
+
+.uv-media-embed__content {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+
+.uv-media-embed__collapse {
+    width: 100%;
+    text-align: center;
+    background: #100f0f;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.uv-media-embed__footer {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    display: flex;
+    background: #201F1F;
+    color: #999;
+    z-index: 10;
+    position: relative;
+    transition: max-height .4s;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.uv-media-embed__homepage {
+    align-self: flex-end;
+    margin: 10px;
+}
+
+.uv-media-embed__logo {
+    height: 130px;
+    margin: 10px;
+    position: sticky;
+    top: 10px;
+}
+.uv-media-embed__logo img {
+    height: 100px;
+}
+
+.uv-media-embed__required-statement {
+    font-size: 12px;
+}
+
+.uv-media-embed__rights {}
+
+.uv-media-embed__summary {}
+
+.uv-media-embed__statement-item {
+    margin: 15px;
+}
+
+.uv-media-embed__uv {
+    flex: 1 1 0;
+    min-height: 150px;
+    background: #000;
+    transition: height .4s;
+}
+
+.uv-media-embed__uv > div {
+    transition: height .4s;
+}

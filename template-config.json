@@ -7,12 +7,19 @@
     "limitLocales": false,
     "overrideFullScreen": false,
     "pagingEnabled": true,
+    "limitToRange": true,
+    "manifestExclude": true,
     "rightPanelEnabled": true
   },
   "modules": {
     "headerPanel": {
       "options": {
         "localeToggleEnabled": false
+      }
+    },
+    "shareDialogue": {
+      "options": {
+        "embedFile": "../media.html"
       }
     },
     "contentLeftPanel": {

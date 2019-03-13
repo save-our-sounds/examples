@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Universal Viewer</title>
+    <link rel="stylesheet" type="text/css" href="uv/uv.css">
+    <link rel="stylesheet" type="text/css" href="media.css">
+    <script src="uv/lib/offline.js"></script>
+    <script src="uv/helpers.js"></script>
+    <script src="//rawgit.com/edsilv/utils/master/dist/utils.min.js"></script>
+</head>
+
+<body>
+
+
+<div class="uv-media-embed">
+    <div class="uv-media-embed__uv" id="uv"></div>
+    <div class="uv-media-embed__metadata">
+        <div class="uv-media-embed__logo"></div>
+        <div class="uv-media-embed__content">
+            <div class="uv-media-embed__summary">
+                Description of recording: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod
+                bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales
+                pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc
+                accuan eget... (truncates or links)
+            </div>
+            <div class="uv-media-embed__homepage">
+                <a href="#">Full catalogue details</a>
+            </div>
+        </div>
+    </div>
+    <div class="uv-media-embed__footer">
+        <div class="uv-media-embed__required-statement">
+            <div class="uv-media-embed__statement-item">
+                <strong>Acknowledgement:</strong> Lorem ipsum dolor sit amet
+            </div>
+            <div class="uv-media-embed__statement-item">
+                <strong>Rights notice:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </div>
+        </div>
+        <div class="uv-media-embed__rights">
+
+        </div>
+    </div>
+    <div class="uv-media-embed__collapse" id="close">
+        Close
+    </div>
+</div>
+
+<script type="text/javascript">
+
+  var uv, $uv, urlDataProvider, manifest;
+  var $playPause = $('#play-pause');
+
+  window.addEventListener('uvLoaded', function (e) {
+
+    $uv = $('#uv');
+
+    urlDataProvider = new UV.URLDataProvider();
+
+    var data = {
+      root: './uv',
+      configUri: 'template-config.json',
+      collectionIndex: Number(urlDataProvider.get('c', 0)),
+      manifestIndex: Number(urlDataProvider.get('m', 0)),
+      sequenceIndex: Number(urlDataProvider.get('s', 0)),
+      canvasIndex: Number(urlDataProvider.get('cv', 0)),
+      rotation: Number(urlDataProvider.get('r', 0)),
+      startTime: parseInt(urlDataProvider.get('t', 0), 10),
+      xywh: urlDataProvider.get('xywh', ''),
+      rangeId: urlDataProvider.get('rid', ''),
+      locales: [
+        {
+          name: 'en-GB'
+        }
+      ]
+    };
+
+    uv = createUV('#uv', data, urlDataProvider);
+    var $viewer = $('#uv > div');
+    function resize() {
+      var width = $uv.width();
+      var height = $uv.height();
+      $viewer.width(width);
+      $viewer.height(height);
+      setTimeout(() => {
+        uv.resize();
+      }, 500);
+    }
+
+    var $metadata = document.querySelector('.uv-media-embed__metadata');
+    var $close = document.getElementById('close');
+    $close.addEventListener('click', function() {
+      if ($metadata.classList.contains('uv-media-embed__metadata--closed')) {
+        $metadata.classList.remove('uv-media-embed__metadata--closed');
+        $close.innerHTML = 'Close';
+      } else {
+        $metadata.classList.add('uv-media-embed__metadata--closed');
+        $close.innerHTML = 'More information';
+      }
+      // After some time.
+      setTimeout(resize, 500);
+    });
+
+    uv.on('canvasIndexChanged', function (index) {
+      var canvas = uv.extension.helper.getCanvasByIndex(index);
+      console.log({canvas: canvas});
+      // $('#canvas-label').text(canvas.getLabel().map(function(t){return t.value;}).join(''));
+    });
+
+    uv.on('created', function () {
+      Utils.Urls.setHashParameter('manifest', manifest);
+
+      // Logo
+      const logoSrc = uv.extension.helper.getLogo();
+      if (logoSrc) {
+        const $logo = document.createElement('img');
+        $logo.src = uv.extension.helper.getLogo();
+        document.querySelector('.uv-media-embed__logo').appendChild($logo);
+      }
+
+      const summary = uv.extension.helper.getDescription();
+      if (summary) {
+        document.querySelector('.uv-media-embed__summary').innerHTML = summary;
+      }
+
+
+      // poster image
+      var posterimage = uv.extension.helper.getPosterImage();
+      $('#poster').prop('src', posterimage);
+
+      // Example play-toggle with loading status. (1)
+      // uv.extension.centerPanel.avcomponent.on('mediaready', function() {
+      //   $playPause.removeAttr('disabled');
+      //   $playPause.text('play');
+      // });
+      // uv.extension.centerPanel.avcomponent.on('play', function() {
+      //   $playPause.text('pause');
+      // });
+      //
+      // uv.extension.centerPanel.avcomponent.on('pause', function() {
+      //   $playPause.text('play');
+      // });
+
+      // uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
+      //   var range = uv.extension.helper.getRangeById(rangeId);
+      //   if (!range) {
+      //     $('#range-title').text('');
+      //     $('#range-metadata').text('');
+      //     return;
+      //   }
+      //
+      //   $('#range-title').text(range.getLabel().map(function (a) { return a.value; }).join(''));
+      //
+      //   var metadata = range.getMetadata().map(function(metadataItem) {
+      //     return $('<article><strong>' + metadataItem.getLabel() + '</strong> - ' + metadataItem.getValue() + '</article>');
+      //   });
+      //
+      //   $('#range-metadata').html(metadata);
+      // });
+    });
+
+    // are there uv hash parameters?
+    manifest = Utils.Urls.getHashParameter('manifest');
+
+    if (manifest) {
+      uv.set(Object.assign(data, {
+        iiifResourceUri: manifest
+      }));
+    }
+
+  }, false);
+
+
+  // Example play-toggle with loading status. (2)
+  // $playPause.on('click', function() {
+  //   if (uv.extension.centerPanel.avcomponent.isPlaying()) {
+  //     uv.extension.centerPanel.avcomponent.pause();
+  //   } else {
+  //     uv.extension.centerPanel.avcomponent.play();
+  //   }
+  // });
+  //
+  // $('#play').on('click', function() {
+  //   uv.extension.centerPanel.avcomponent.play();
+  // });
+  //
+  // $('#pause').on('click', function() {
+  //   uv.extension.centerPanel.avcomponent.pause();
+  // });
+
+  /*
+  $(function() {
+
+      var isLocalhost = document.location.href.indexOf('localhost') !== -1;
+      var $uv = $('#uv');
+      var $viewer = $('#viewer');
+
+      var uvurl = (isLocalhost) ? '/examples/uv/uv.html#?' : '/uv/uv.html#?';
+      // are there uv hash parameters?
+      var manifest = Utils.Urls.getHashParameter('manifest');
+      var rangeId = Utils.Urls.getHashParameter('rid');
+
+      if (manifest) {
+          uvurl += 'manifest=' + manifest;
+
+          if (rangeId) {
+              uvurl += '&rid=' + rangeId;
+          }
+
+          uvurl += '&config=' + ((isLocalhost) ? '/examples/template-config.json' : '/template-config.json');
+
+          // $uv.on('load', function() {
+          // 	$uv.contents().find('head')
+          // 	.append($('<style>  .uv{ background-color: transparent !important; } .canvas-container{ background-color: transparent !important; }  </style>'));
+          // });
+
+          $uv.prop('src', uvurl);
+      }
+
+      $('#expando').on('click', function() {
+
+          if ($('#expando').hasClass('expand')) {
+              $('.expandable').each(function() {
+                  $(this).animate({height: '640px'}, 600, function() {
+                      $('#expando').removeClass('expand').addClass('collapse');
+                      $('#expando').text('collapse');
+                  });
+              });
+          } else {
+              $('.expandable').each(function() {
+                  $(this).animate({height: '220px'}, 600, function() {
+                      $('#expando').removeClass('collapse').addClass('expand');
+                      $('#expando').text('expand');
+                  });
+              });
+          }
+      });
+
+      function resize() {
+          var width = $viewer.width();
+          var height = $viewer.height();
+          $uv.width(width);
+          $uv.height(height);
+      }
+
+      $(window).on('resize' ,function() {
+          resize();
+      });
+
+      resize();
+  });
+  */
+  $(window).on('resize' ,function() {
+    setTimeout(function() {
+      resize();
+    }, 120);
+  });
+
+  resize();
+
+</script>
+
+<script src="uv/uv.js"></script>
+
+</body>
+
+</html>

@@ -134,6 +134,7 @@ var IIIFComponents;
             _this.isOnlyCanvasInstance = false;
             _this.waveformDeltaX = 0;
             _this.waveformPageX = 0;
+            _this.waveFormInit = false;
             _this._scaleY = function (amplitude, height) {
                 var range = 256;
                 return Math.max(_this._data.waveformBarWidth, (amplitude * height / range));
@@ -175,6 +176,8 @@ var IIIFComponents;
             this._$prevButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.previous + "\">\n                                    <i class=\"av-icon av-icon-previous\" aria-hidden=\"true\"></i>" + this._data.content.previous + "\n                                </button>");
             this._$playButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.play + "\">\n                                    <i class=\"av-icon av-icon-play play\" aria-hidden=\"true\"></i>" + this._data.content.play + "\n                                </button>");
             this._$nextButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-next\" aria-hidden=\"true\"></i>" + this._data.content.next + "\n                                </button>");
+            this._$fastForward = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-forward\" aria-hidden=\"true\"></i>" + this._data.content.fastForward + "\n                                </button>");
+            this._$fastRewind = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-rewind\" aria-hidden=\"true\"></i>" + this._data.content.fastRewind + "\n                                </button>");
             this._$timeDisplay = $('<div class="time-display"><span class="canvas-time"></span> / <span class="canvas-duration"></span></div>');
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
@@ -189,7 +192,8 @@ var IIIFComponents;
             this._volume.on(VolumeEvents.VOLUME_CHANGED, function (value) {
                 _this.fire(VolumeEvents.VOLUME_CHANGED, value);
             }, false);
-            this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume);
+            // @todo make the buttons for FF and FR configurable.
+            this._$controlsContainer.append(this._$prevButton, this._$fastRewind, this._$playButton, this._$fastForward, this._$nextButton, this._$timeDisplay, $volume);
             this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight);
             this._$rangeTimelineContainer.append(this._$rangeHoverPreview, this._$rangeHoverHighlight);
             this._$optionsContainer.append(this._$canvasTimelineContainer, this._$rangeTimelineContainer, this._$timelineItemContainer, this._$controlsContainer);
@@ -247,7 +251,6 @@ var IIIFComponents;
                 prevClicks++;
                 if (prevClicks === 1) {
                     // single click
-                    //console.log('single');
                     _this._previous(false);
                     prevTimeout = setTimeout(function () {
                         prevClicks = 0;
@@ -256,7 +259,6 @@ var IIIFComponents;
                 }
                 else {
                     // double click
-                    //console.log('double');
                     _this._previous(true);
                     clearTimeout(prevTimeout);
                     prevClicks = 0;
@@ -275,6 +277,20 @@ var IIIFComponents;
             this._$nextButton.on('touchstart click', function (e) {
                 e.preventDefault();
                 _this._next();
+            });
+            this._$fastForward.on('touchstart click', function (e) {
+                var end = _this.getRangeTiming().end;
+                var goToTime = _this.getClockTime() + 20;
+                if (goToTime < end) {
+                    return _this.setCurrentTime(goToTime);
+                }
+            });
+            this._$fastRewind.on('touchstart click', function (e) {
+                var start = _this.getRangeTiming().start;
+                var goToTime = _this.getClockTime() - 20;
+                if (goToTime >= start) {
+                    return _this.setCurrentTime(goToTime);
+                }
             });
             this._$canvasTimelineContainer.slider({
                 value: 0,
@@ -411,7 +427,6 @@ var IIIFComponents;
                     this.waveforms.push(dat);
                 }
             }
-            this._renderWaveform();
         };
         CanvasInstance.prototype._getBody = function (bodies) {
             // if there's an HLS format and HLS is supported in this browser
@@ -488,12 +503,10 @@ var IIIFComponents;
                     if (this._data.visible) {
                         this._rewind();
                         this.$playerElement.show();
-                        //console.log('show ' + this._data.canvas.id);
                     }
                     else {
                         this.$playerElement.hide();
                         this.pause();
-                        //console.log('hide ' + this._data.canvas.id);
                     }
                     this.resize();
                 }
@@ -528,7 +541,9 @@ var IIIFComponents;
                 });
             }
             else {
-                this._render();
+                if (this.isVisible()) {
+                    this._render();
+                }
             }
             if (diff.includes('limitToRange')) {
                 this._render();
@@ -587,6 +602,26 @@ var IIIFComponents;
             return true;
         };
         CanvasInstance.prototype._render = function () {
+            // Hide/show UI elements regardless of visibility.
+            if (this._data.limitToRange && this._data.range) {
+                this._$canvasTimelineContainer.hide();
+                this._$rangeTimelineContainer.show();
+            }
+            else {
+                this._$canvasTimelineContainer.show();
+                this._$rangeTimelineContainer.hide();
+            }
+            if (!this._data.range) {
+                this._$durationHighlight.hide();
+            }
+            // Return early if the current CanvasInstance isn't visible
+            if (!this.isVisible()) {
+                return;
+            }
+            if (!this.isOnlyCanvasInstance && !this.isVirtual()) {
+                return;
+            }
+            // Render otherwise.
             if (this._data.range) {
                 var duration = this._data.range.getDuration();
                 if (duration) {
@@ -603,7 +638,6 @@ var IIIFComponents;
                         end = totalLength;
                     }
                     var width = end - start;
-                    //console.log(width);
                     if (this.isVirtual() || this.isOnlyCanvasInstance) {
                         this._$durationHighlight.show();
                         // set the start position and width
@@ -639,17 +673,6 @@ var IIIFComponents;
                         }
                     });
                 }
-            }
-            else {
-                this._$durationHighlight.hide();
-            }
-            if (this._data.limitToRange && this._data.range) {
-                this._$canvasTimelineContainer.hide();
-                this._$rangeTimelineContainer.show();
-            }
-            else {
-                this._$canvasTimelineContainer.show();
-                this._$rangeTimelineContainer.hide();
             }
             this._updateCurrentTimeDisplay();
             this._updateDurationDisplay();
@@ -852,23 +875,14 @@ var IIIFComponents;
             if (this.$playerElement) {
                 this._$canvasContainer.append($mediaElement);
             }
-            $mediaElement.on('loadstart', function () {
-                //console.log('loadstart');
-                //data.checkForStall();
-            });
-            $mediaElement.on('waiting', function () {
-                //console.log('waiting');
-                //data.checkForStall();
-            });
-            $mediaElement.on('seeking', function () {
-                //console.log('seeking');
-                //data.checkForStall();
-            });
             $mediaElement.on('loadedmetadata', function () {
                 _this._readyMediaCount++;
                 if (_this._readyMediaCount === _this._contentAnnotations.length) {
                     if (_this._data.autoPlay) {
                         _this.play();
+                    }
+                    else {
+                        _this.pause();
                     }
                     _this._updateDurationDisplay();
                     _this.fire(AVComponent.Events.MEDIA_READY);
@@ -910,8 +924,13 @@ var IIIFComponents;
                 });
             });
         };
-        CanvasInstance.prototype._renderWaveform = function () {
+        CanvasInstance.prototype._renderWaveform = function (forceRender) {
             var _this = this;
+            if (forceRender === void 0) { forceRender = false; }
+            if (this.waveFormInit && !forceRender) {
+                return;
+            }
+            this.waveFormInit = true;
             if (!this.waveforms.length)
                 return;
             var promises = this.waveforms.map(function (url) {
@@ -948,7 +967,8 @@ var IIIFComponents;
                 _this._waveformCanvas.addEventListener('click', function () {
                     var width = _this._waveformCanvas.getBoundingClientRect().width || 0;
                     if (width) {
-                        _this.setCurrentTime(_this._getDuration() * (_this.waveformDeltaX / width));
+                        var _a = _this.getRangeTiming(), start = _a.start, duration = _a.duration;
+                        _this.setCurrentTime(start + (duration * (_this.waveformDeltaX / width)));
                     }
                 });
                 _this._waveformCtx = _this._waveformCanvas.getContext('2d');
@@ -959,21 +979,33 @@ var IIIFComponents;
                 }
             });
         };
-        CanvasInstance.prototype._drawWaveform = function () {
-            //if (!this._waveformCtx || !this._waveformNeedsRedraw) return;
-            if (!this._waveformCtx)
-                return;
-            var duration;
+        CanvasInstance.prototype.getRangeTiming = function () {
+            var durationObj;
             var start = 0;
             var end = this._compositeWaveform.duration;
+            var duration = end;
+            // This is very similar to
             if (this._data.range) {
-                duration = this._data.range.getDuration();
+                durationObj = this._data.range.getDuration();
             }
-            if (this._data.limitToRange && duration) {
-                start = duration.start;
-                end = duration.end;
+            if (this._data.limitToRange && durationObj) {
+                start = durationObj.start;
+                end = durationObj.end;
+                duration = end - start;
             }
-            var currentTimeAsPercentage = Math.min(this.getClockTime() / this._getDuration(), 1);
+            return {
+                start: start,
+                end: end,
+                duration: end - start,
+                percent: Math.min((this.getClockTime() - start) / duration, 1)
+            };
+        };
+        CanvasInstance.prototype._drawWaveform = function () {
+            this._renderWaveform();
+            //if (!this._waveformCtx || !this._waveformNeedsRedraw) return;
+            if (!this._waveformCtx || !this.isVisible())
+                return;
+            var _a = this.getRangeTiming(), start = _a.start, end = _a.end, percent = _a.percent;
             var startpx = start * this._compositeWaveform.pixelsPerSecond;
             var endpx = end * this._compositeWaveform.pixelsPerSecond;
             var canvasWidth = this._waveformCtx.canvas.width;
@@ -989,7 +1021,7 @@ var IIIFComponents;
                 var height = this._scaleY(maxMin.max - maxMin.min, canvasHeight);
                 var ypos = (canvasHeight - height) / 2;
                 var xpos = canvasWidth * AVComponentUtils.normalise(x, startpx, endpx);
-                var pastCurrentTime = xpos / canvasWidth < currentTimeAsPercentage;
+                var pastCurrentTime = xpos / canvasWidth < percent;
                 var hoverWidth = this.waveformDeltaX / canvasWidth;
                 var colour = this._data.waveformColor;
                 // For colours.
@@ -1064,14 +1096,6 @@ var IIIFComponents;
                 this._$canvasDuration.text(AVComponentUtils.formatTime(this._getDuration()));
             }
         };
-        // public setVolume(value: number): void {
-        //     //console.log('set volume', (<any>this._data.canvas).id);
-        //     this._data.volume = value;
-        //     for (let i = 0; i < this._contentAnnotations.length; i++) {
-        //         const $mediaElement = this._contentAnnotations[i];
-        //         $($mediaElement.element).prop("volume", value);
-        //     }
-        // }
         CanvasInstance.prototype._renderSyncIndicator = function (mediaElementData) {
             var leftPercent = this._convertToPercentage(mediaElementData.start, this._getDuration());
             var widthPercent = this._convertToPercentage(mediaElementData.end - mediaElementData.start, this._getDuration());
@@ -1355,17 +1379,6 @@ var IIIFComponents;
                 }
             }
         };
-        // private _showWorkingIndicator($targetElement: JQuery): void {
-        //     const workingIndicator: JQuery = $('<div class="working-indicator">Waiting...</div>');
-        //     if ($targetElement.find('.working-indicator').length == 0) {
-        //         $targetElement.append(workingIndicator);
-        //     }
-        //     //console.log('show working');
-        // }
-        // private _hideWorkingIndicator() {
-        //     $('.workingIndicator').remove();
-        //     //console.log('hide working');
-        // }
         CanvasInstance.prototype.resize = function () {
             if (this.$playerElement) {
                 var containerWidth = this._$canvasContainer.width();
@@ -1391,6 +1404,7 @@ var IIIFComponents;
                     this.waveformPageX = this._waveformCanvas.getBoundingClientRect().left;
                 }
                 this._render();
+                this._drawWaveform();
             }
         };
         return CanvasInstance;
@@ -1575,9 +1589,7 @@ var IIIFComponents;
         };
         AVComponentUtils.isSafari = function () {
             // https://stackoverflow.com/questions/7944460/detect-safari-browser?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-            console.log('isSafari', isSafari);
-            return isSafari;
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         };
         AVComponentUtils.debounce = function (fn, debounceDuration) {
             // summary:
@@ -1713,7 +1725,6 @@ var IIIFComponents;
             _this._posterCanvasWidth = 0;
             _this._posterCanvasHeight = 0;
             _this._posterImageExpanded = false;
-            console.log('av component from local');
             _this._init();
             _this._resize();
             return _this;
@@ -1977,19 +1988,14 @@ var IIIFComponents;
             }, false);
         };
         AVComponent.prototype._checkAllMediaReady = function () {
-            console.log('loading media');
             if (this._readyMedia === this.canvasInstances.length) {
-                console.log('all media ready');
                 clearInterval(this._checkAllMediaReadyInterval);
-                //that._logMessage('CREATED CANVAS: ' + canvasInstance.canvasClockDuration + ' seconds, ' + canvasInstance.canvasWidth + ' x ' + canvasInstance.canvasHeight + ' px.');
                 this.fire(AVComponent.Events.MEDIA_READY);
                 this.resize();
             }
         };
         AVComponent.prototype._checkAllWaveformsReady = function () {
-            console.log('loading waveforms');
             if (this._readyWaveforms === this._getCanvasInstancesWithWaveforms().length) {
-                console.log('waveforms ready');
                 clearInterval(this._checkAllWaveformsReadyInterval);
                 this.fire(AVComponent.Events.WAVEFORMS_READY);
                 this.resize();

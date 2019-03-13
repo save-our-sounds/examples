@@ -536,6 +536,19 @@
 .uv i {
   display: inline-block;
 }
+.uv .av-icon,
+.uv .uv-icon {
+  opacity: .8;
+  transition: opacity .4s;
+}
+.uv .av-icon:hover,
+.uv .uv-icon:hover {
+  opacity: 1;
+}
+.btn:focus .uv .av-icon,
+.btn:focus .uv .uv-icon {
+  opacity: 1;
+}
 .uv-icon-more-info {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUuNSAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjVDMzEyRkM4MTk3MTFFNkFDM0RGN0NFQjE2QTcxQzAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjVDMzEyRkQ4MTk3MTFFNkFDM0RGN0NFQjE2QTcxQzAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NUMzMTJGQTgxOTcxMUU2QUMzREY3Q0VCMTZBNzFDMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NUMzMTJGQjgxOTcxMUU2QUMzREY3Q0VCMTZBNzFDMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pq7N41AAAAAqUExURX19fY2NjfT09CYmJmtra7i4uMXFxZycnOnp6d3d3dHR0UJCQv///wAAANIwC9QAAAAOdFJOU/////////////////8ARcDcyAAAAI5JREFUeNrU0tESBREIANBUtGz+/3fvWtYIe9+3F8aZ0gTkvwHfYAioGIW2zIe2kA1DAZdzWcLCrAOrn7lWjt7X+mwZ1EayHO7DsmtOhnFmNlzPDujsNtm9c1UwnGY+DUvPadfYzgmf1rIfru5jAcNpmbkMQ4m0vpjDRwPt3pskXoaB33/LSZ/8yJv4CTAAD1srB1oaSWAAAAAASUVORK5CYII=");
   background-repeat: no-repeat;
@@ -756,9 +769,11 @@
   user-select: none;
 }
 .uv .btn:focus {
-  outline: auto 2px Highlight;
-  outline: auto 5px -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline: none;
+}
+.uv .btn:focus i {
+  outline: 1px solid #26b5cc;
+  opacity: 1;
 }
 .uv .btn:hover,
 .uv .btn:focus {
@@ -1901,9 +1916,10 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .uv .centerPanel .content .iiif-av-component .hover-preview .label {
   background: rgba(66, 66, 66, 0.85);
-  height: 18px;
+  height: 25px;
   padding: 5px;
   color: #fff;
+  pointer-events: none;
 }
 .uv .centerPanel .content .iiif-av-component .hover-preview .pointer {
   height: 6px;
@@ -2064,6 +2080,10 @@ input[type=range]:focus::-ms-fill-upper {
   vertical-align: middle;
   width: 30px;
   cursor: pointer;
+}
+.uv .centerPanel .content .iiif-av-component .btn:focus .av-icon,
+.uv .centerPanel .content .iiif-av-component .btn:focus .uv-icon {
+  opacity: 1;
 }
 .uv .centerPanel .content .iiif-av-component .av-icon-mute.on {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcKCTgPwjS2uAAAAT1JREFUSMftlb8vQ3EUxc9rJU0XCUOVhIEuBhuJkAgrCUMTiwUJo80fYLZY/AXFYjGYRboYRCKaRowmUyOabjQfgyOaon68vhi8s5x77v1+v+d9k3u/T4oRI8ZfA+gy7wBnwMhP9id+aZqXtG15L2lc0hWwEeVNZ3nBUUNuGig7vxWF6RzwaIODplo3cOvaQlijMWASGAZWgBpvKHjNJrDseMK1Yljjig+q8x6vxgXrjPWx9WiY5kp8Y13NvGQ+Mfe1vaubUDf3mivmdNTGKfO5edD80GpTxxeHXkjKSKpK6pc08MGatKRSEASH1nlJT5JuwjRXEkg6zgKXDc215/wMkHO87tp+u+c4CxQ/meN556vAUBSPSCdwDZxa9zSM1B0wFeWzmQPWHO/atBTJTVt8xCKwCqTif3aMGP8Lz2iwPkoi7mU2AAAAAElFTkSuQmCC");
@@ -2691,6 +2711,12 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .uv .centerPanel .content .iiif-av-component .av-icon-next {
   background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%0A%20%20%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%0A%20%20%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20id%3D%22svg4105%22%0A%20%20%20version%3D%221.1%22%0A%20%20%20viewBox%3D%220%200%2030%2030%22%0A%20%20%20height%3D%2230%22%0A%20%20%20width%3D%2230%22%3E%0A%20%20%3Cmetadata%0A%20%20%20%20%20id%3D%22metadata4122%22%3E%0A%20%20%20%20%3Crdf%3ARDF%3E%0A%20%20%20%20%20%20%3Ccc%3AWork%0A%20%20%20%20%20%20%20%20%20rdf%3Aabout%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Aformat%3Eimage%2Fsvg%2Bxml%3C%2Fdc%3Aformat%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atype%0A%20%20%20%20%20%20%20%20%20%20%20rdf%3Aresource%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2FStillImage%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atitle%3Ebutton__nextTrack%3C%2Fdc%3Atitle%3E%0A%20%20%20%20%20%20%3C%2Fcc%3AWork%3E%0A%20%20%20%20%3C%2Frdf%3ARDF%3E%0A%20%20%3C%2Fmetadata%3E%0A%20%20%3C!--%20Generator%3A%20Sketch%2050.2%20(55047)%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%3Ctitle%0A%20%20%20%20%20id%3D%22title4107%22%3Ebutton__nextTrack%3C%2Ftitle%3E%0A%20%20%3Cdesc%0A%20%20%20%20%20id%3D%22desc4109%22%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs4111%22%20%2F%3E%0A%20%20%3Cg%0A%20%20%20%20%20transform%3D%22translate(6.9999999%2C3.9999999)%22%0A%20%20%20%20%20style%3D%22fill%3A%23ffffff%3Bfill-rule%3Aevenodd%3Bstroke%3Anone%3Bstroke-width%3A1%22%0A%20%20%20%20%20id%3D%22Fina-Designs-17th-June-2018%22%3E%0A%20%20%20%20%3Cg%0A%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20transform%3D%22translate(-436%2C-560)%22%0A%20%20%20%20%20%20%20id%3D%22mainPlayer-desktop-wide-view%22%3E%0A%20%20%20%20%20%20%3Cg%0A%20%20%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20%20%20transform%3D%22translate(250%2C556)%22%0A%20%20%20%20%20%20%20%20%20id%3D%22TrackControls%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%0A%20%20%20%20%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20%20%20%20%20transform%3D%22translate(175%2C3)%22%0A%20%20%20%20%20%20%20%20%20%20%20id%3D%22button%2FnextTrack%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cg%0A%20%20%20%20%20%20%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20id%3D%22Group-3%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpolygon%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20points%3D%223.5147186%2C19.071068%2019.071068%2C3.5147186%2020.485281%2C20.485281%20%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform%3D%22matrix(0.70710678%2C-0.70710678%2C0.70710678%2C0.70710678%2C-4.9705627%2C12)%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20id%3D%22Rectangle-27%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20style%3D%22fill%3A%23ffffff%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height%3D%2222%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width%3D%223%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20y%3D%221%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x%3D%2224%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20id%3D%22Rectangle-Copy%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uv .centerPanel .content .iiif-av-component .av-icon-fast-forward {
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2225%22%20height%3D%2227%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M11.5%200l5%204-5%204z%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12.5%204C6.701%204%202%208.701%202%2014.5S6.701%2025%2012.5%2025%2023%2020.299%2023%2014.5%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ctext%20transform%3D%22translate(2%20-1)%22%20font-family%3D%22HelveticaNeue-Bold%2C%20Helvetica%20Neue%22%20font-size%3D%2212%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20font-weight%3D%22bold%22%20fill%3D%22%23fff%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ctspan%20x%3D%224%22%20y%3D%2219.5%22%3E20%3C%2Ftspan%3E%0A%20%20%20%20%20%20%20%20%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uv .centerPanel .content .iiif-av-component .av-icon-fast-rewind {
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2225%22%20height%3D%2227%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M13.5%200l-5%204%205%204z%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M12.5%204C18.299%204%2023%208.701%2023%2014.5S18.299%2025%2012.5%2025%202%2020.299%202%2014.5%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Ctext%20font-family%3D%22HelveticaNeue-Bold%2C%20Helvetica%20Neue%22%20font-size%3D%2212%22%20font-weight%3D%22bold%22%20fill%3D%22%23fff%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20transform%3D%22translate(1%20-1)%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ctspan%20x%3D%225%22%20y%3D%2219.5%22%3E20%3C%2Ftspan%3E%0A%20%20%20%20%20%20%20%20%3C%2Ftext%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uv .centerPanel .content .iiif-av-component .av-icon-expand.expand {
   background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%2222px%22%20height%3D%2222px%22%20viewBox%3D%220%200%2022%2022%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3C!--%20Generator%3A%20Sketch%2051.1%20(57501)%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3EDecreasePlayer%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22BritishLibraryIcons%22%20transform%3D%22translate(-275.000000%2C%20-20.000000)%22%20fill%3D%22%23FFFFFF%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22DecreasePlayer%22%20transform%3D%22translate(275.000000%2C%2020.000000)%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpolygon%20id%3D%22Path%22%20transform%3D%22translate(13.908889%2C%208.091111)%20rotate(-180.000000)%20translate(-13.908889%2C%20-8.091111)%20%22%20points%3D%2213.9088889%202.36658272e-30%2013.9088889%202%2018%202%205.81777778%2014.4588889%207.54111111%2016.1822222%2020%204%2020%208.55555556%2022%208.55555556%2022%202.36658272e-30%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M20%2C20%20L2%2C20%20L2%2C2%20L14%2C2%20L14%2C1.42108547e-14%20C4.66666667%2C4.73695157e-15%200%2C0%200%2C0%20C0%2C15%200%2C22.3333333%200%2C22%20C14.6666667%2C22%2022%2C22%2022%2C22%20L22%2C8%20L20%2C8.00543478%20L20%2C20%20Z%22%20id%3D%22Path%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");

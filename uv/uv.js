@@ -17432,7 +17432,6 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 target: this.$avcomponent[0]
             });
             this.avcomponent.on('mediaready', function () {
-                console.log('mediaready');
                 _this._mediaReady = true;
             }, false);
             this.avcomponent.on('rangechanged', function (rangeId) {
@@ -19213,6 +19212,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
         };
         BaseExtension.prototype.getAppUri = function () {
             var parts = Utils.Urls.getUrlParts(document.location.href);
+            var embedFile = this.data.config.modules.shareDialogue.options.embedFile || 'uv.html';
             var origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
             var pathname = parts.pathname;
             if (!pathname.startsWith('/')) {
@@ -19232,9 +19232,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             }
             // if root is a URL, use that instead of appUri.
             if (Utils_1.UVUtils.isValidUrl(root)) {
-                return root + 'uv.html';
+                return root + embedFile;
             }
-            return appUri + root + 'uv.html';
+            return appUri + root + embedFile;
         };
         BaseExtension.prototype.getSettings = function () {
             if (Utils.Bools.getBool(this.data.config.options.saveUserSettings, false)) {
@@ -22447,6 +22447,7 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
             var appUri = this.getAppUri();
+            console.log('appUri', { appUri: appUri });
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex + "&rid=" + this.helper.rangeId;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
             return script;
