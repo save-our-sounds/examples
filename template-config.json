@@ -17,6 +17,12 @@
         "localeToggleEnabled": false
       }
     },
+    "avCenterPanel": {
+      "options": {
+        "enableFastRewind": true,
+        "enableFastForward": true
+      }
+    },
     "shareDialogue": {
       "options": {
         "embedFile": "../media.html"

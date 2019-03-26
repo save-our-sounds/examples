@@ -16698,6 +16698,7 @@ define('modules/uv-shared-module/BaseEvents',["require", "exports"], function (r
         BaseEvents.PLUS = 'plus';
         BaseEvents.PREV = 'prev';
         BaseEvents.RANGE_CHANGED = 'rangeChanged';
+        BaseEvents.RANGE_NOT_FOUND = 'rangeNotFound';
         BaseEvents.REDIRECT = 'redirect';
         BaseEvents.REFRESH = 'refresh';
         BaseEvents.RELOAD = 'reload';
@@ -17429,7 +17430,21 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             this.$avcomponent = $('<div class="iiif-av-component"></div>');
             this.$content.prepend(this.$avcomponent);
             this.avcomponent = new IIIFComponents.AVComponent({
-                target: this.$avcomponent[0]
+                target: this.$avcomponent[0],
+            });
+            // Trying to set this early, see what happens.
+            this.avcomponent.set({
+                helper: this.extension.helper,
+                autoPlay: this.config.options.autoPlay,
+                enableFastForward: this.config.options.enableFastForward,
+                enableFastRewind: this.config.options.enableFastRewind,
+                autoSelectRange: true,
+                constrainNavigationToRange: this._limitToRange(),
+                content: this.content,
+                defaultAspectRatio: 0.56,
+                doubleClickMS: 350,
+                limitToRange: this._limitToRange(),
+                posterImageRatio: this.config.options.posterImageRatio,
             });
             this.avcomponent.on('mediaready', function () {
                 _this._mediaReady = true;
@@ -17510,6 +17525,8 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                         helper: _this.extension.helper,
                         adaptiveAuthEnabled: _this._isCurrentResourceAccessControlled(),
                         autoPlay: _this.config.options.autoPlay,
+                        enableFastForward: _this.config.options.enableFastForward,
+                        enableFastRewind: _this.config.options.enableFastRewind,
                         autoSelectRange: true,
                         constrainNavigationToRange: _this._limitToRange(),
                         content: _this.content,
@@ -18790,6 +18807,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             $.subscribe(BaseEvents_1.BaseEvents.PAGE_UP, function () {
                 _this.fire(BaseEvents_1.BaseEvents.PAGE_UP);
             });
+            $.subscribe(BaseEvents_1.BaseEvents.RANGE_NOT_FOUND, function (e, rangeId) {
+                _this.fire(BaseEvents_1.BaseEvents.RANGE_NOT_FOUND, rangeId);
+            });
             $.subscribe(BaseEvents_1.BaseEvents.RANGE_CHANGED, function (e, range) {
                 if (range) {
                     _this.data.rangeId = range.id;
@@ -19048,7 +19068,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                         $.publish(BaseEvents_1.BaseEvents.RANGE_CHANGED, [range]);
                     }
                     else {
-                        console.warn('range id not found:', this.data.rangeId);
+                        $.publish(BaseEvents_1.BaseEvents.RANGE_NOT_FOUND, [this.data.rangeId]);
                     }
                 }
             }
@@ -22447,7 +22467,6 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
             var appUri = this.getAppUri();
-            console.log('appUri', { appUri: appUri });
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex + "&rid=" + this.helper.rangeId;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
             return script;

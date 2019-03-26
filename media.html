@@ -20,34 +20,16 @@
     <div class="uv-media-embed__metadata">
         <div class="uv-media-embed__logo"></div>
         <div class="uv-media-embed__content">
-            <div class="uv-media-embed__summary">
-                Description of recording: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod
-                bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales
-                pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc
-                accuan eget... (truncates or links)
-            </div>
+            <div class="uv-media-embed__summary" id="summary"></div>
             <div class="uv-media-embed__homepage">
-                <a href="#">Full catalogue details</a>
+                <a id="homepage" href="#">Full catalogue details</a>
+            </div>
+            <div class="uv-media-embed__required-statement">
+                <div class="uv-media-embed__statement-item" id="required-statement"></div>
             </div>
         </div>
     </div>
-    <div class="uv-media-embed__footer">
-        <div class="uv-media-embed__required-statement">
-            <div class="uv-media-embed__statement-item">
-                <strong>Acknowledgement:</strong> Lorem ipsum dolor sit amet
-            </div>
-            <div class="uv-media-embed__statement-item">
-                <strong>Rights notice:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-        </div>
-        <div class="uv-media-embed__rights">
 
-        </div>
-    </div>
-    <div class="uv-media-embed__collapse" id="close">
-        Close
-    </div>
 </div>
 
 <script type="text/javascript">
@@ -56,6 +38,33 @@
   var $playPause = $('#play-pause');
 
   window.addEventListener('uvLoaded', function (e) {
+
+
+
+    var UI_STATE = {
+      summary: '',
+      requiredStatement: '',
+      catalogueLink: '',
+    };
+
+    var $homepage = $('#homepage');
+    var $summary = $('#summary');
+    var $requiredStatement = $('#required-statement');
+
+    function render() {
+      // Summary
+      $summary.html(UI_STATE.summary);
+
+      // Homepage.
+      if (UI_STATE.catalogueLink) {
+        $homepage.html(UI_STATE.catalogueLink).show();
+      } else {
+        $homepage.hide();
+      }
+
+      // RS.
+      $requiredStatement.html(UI_STATE.requiredStatement);
+    }
 
     $uv = $('#uv');
 
@@ -80,87 +89,113 @@
     };
 
     uv = createUV('#uv', data, urlDataProvider);
-    var $viewer = $('#uv > div');
-    function resize() {
-      var width = $uv.width();
-      var height = $uv.height();
-      $viewer.width(width);
-      $viewer.height(height);
-      setTimeout(() => {
-        uv.resize();
-      }, 500);
-    }
-
-    var $metadata = document.querySelector('.uv-media-embed__metadata');
-    var $close = document.getElementById('close');
-    $close.addEventListener('click', function() {
-      if ($metadata.classList.contains('uv-media-embed__metadata--closed')) {
-        $metadata.classList.remove('uv-media-embed__metadata--closed');
-        $close.innerHTML = 'Close';
-      } else {
-        $metadata.classList.add('uv-media-embed__metadata--closed');
-        $close.innerHTML = 'More information';
-      }
-      // After some time.
-      setTimeout(resize, 500);
-    });
 
     uv.on('canvasIndexChanged', function (index) {
+      var manifest = uv.extension.helper.manifest;
       var canvas = uv.extension.helper.getCanvasByIndex(index);
-      console.log({canvas: canvas});
-      // $('#canvas-label').text(canvas.getLabel().map(function(t){return t.value;}).join(''));
+
+      var summary = canvas.__jsonld.summary && canvas.__jsonld.summary.en ? canvas.__jsonld.summary.en.join('') : '';
+      if (summary) {
+        UI_STATE.summary = summary;
+      }
+
+      var requiredStatement = canvas.__jsonld.requiredStatement ? canvas.__jsonld.requiredStatement : '';
+      if (requiredStatement) {
+        UI_STATE.requiredStatement = '<strong>'+(requiredStatement.label.en || []).join('')+'</strong>: '+(requiredStatement.value.en || []).join('');
+      }
+
+      var manifestHomepage = manifest.__jsonld.homepage;
+      if (manifestHomepage && manifestHomepage.id) {
+        UI_STATE.catalogueLink = '<a href="'+manifestHomepage.id+'">Full catalogue details</a>';
+      }
+
+      var homepage = canvas.__jsonld.homepage;
+      if (homepage && homepage.id) {
+        UI_STATE.catalogueLink = '<a href="'+homepage.id+'">Full catalogue details</a>';
+      }
+
+      render();
     });
+
+
+    function getMetadataValue(name) {
+      return uv.extension.helper.getMetadata().reduce(function(found, next) {
+        if (found) return found;
+        if (next.items) {
+          return getFromLabelValueListPairs(next.items, name);
+        }
+        return null;
+      }, null);
+    }
+
+    function getFromLabelValueListPairs(list, name) {
+      return list.reduce(function (innerFound, innerNext) {
+        if (innerFound) return innerFound;
+        if ((innerNext.label.map(function(t) {return t.value;}).join('') || '').toLowerCase() === name) {
+          return innerNext.value.map(function(t){return t.value}).join('');
+        }
+      }, null);
+    }
 
     uv.on('created', function () {
       Utils.Urls.setHashParameter('manifest', manifest);
 
       // Logo
-      const logoSrc = uv.extension.helper.getLogo();
+      var logoSrc = uv.extension.helper.getLogo();
       if (logoSrc) {
-        const $logo = document.createElement('img');
+        var $logo = document.createElement('img');
         $logo.src = uv.extension.helper.getLogo();
         document.querySelector('.uv-media-embed__logo').appendChild($logo);
       }
 
-      const summary = uv.extension.helper.getDescription();
+      var summary = uv.extension.helper.getDescription();
       if (summary) {
-        document.querySelector('.uv-media-embed__summary').innerHTML = summary;
+        UI_STATE.summary = summary;
       }
 
+      var usage = getMetadataValue('usage');
+      if (usage) {
+        UI_STATE.requiredStatement = '<strong>Rights</strong>: ' + usage;
+      }
 
-      // poster image
-      var posterimage = uv.extension.helper.getPosterImage();
-      $('#poster').prop('src', posterimage);
+      uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
+        var range = uv.extension.helper.getRangeById(rangeId);
+        if (!range) {
+          UI_STATE.label = '';
+          UI_STATE.summary = '';
+          render();
+          return;
+        }
 
-      // Example play-toggle with loading status. (1)
-      // uv.extension.centerPanel.avcomponent.on('mediaready', function() {
-      //   $playPause.removeAttr('disabled');
-      //   $playPause.text('play');
-      // });
-      // uv.extension.centerPanel.avcomponent.on('play', function() {
-      //   $playPause.text('pause');
-      // });
-      //
-      // uv.extension.centerPanel.avcomponent.on('pause', function() {
-      //   $playPause.text('play');
-      // });
+        var rangeMetadata = range.getMetadata();
 
-      // uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
-      //   var range = uv.extension.helper.getRangeById(rangeId);
-      //   if (!range) {
-      //     $('#range-title').text('');
-      //     $('#range-metadata').text('');
-      //     return;
-      //   }
-      //
-      //   $('#range-title').text(range.getLabel().map(function (a) { return a.value; }).join(''));
-      //
-      //   var metadata = range.getMetadata().map(function(metadataItem) {
-      //     return $('<article><strong>' + metadataItem.getLabel() + '</strong> - ' + metadataItem.getValue() + '</article>');
-      //   });
-      //
-      //   $('#range-metadata').html(metadata);
-      // });
+        var summary = range.__jsonld.summary && range.__jsonld.summary.en ? range.__jsonld.summary.en.join() : '';
+        if (summary) {
+          UI_STATE.summary = summary;
+        } else {
+          var metadataSummary = getFromLabelValueListPairs(rangeMetadata, 'description');
+          if (metadataSummary) {
+            UI_STATE.summary = metadataSummary;
+          }
+        }
+
+        var catalogueLinkMetadata = getFromLabelValueListPairs(rangeMetadata, 'link to catalogue');
+        if (catalogueLinkMetadata) {
+          UI_STATE.catalogueLink = catalogueLinkMetadata;
+        } else {
+          var homepage = range.__jsonld.homepage;
+          if (homepage && homepage.id) {
+            UI_STATE.catalogueLink = '<a href="'+homepage.id+'">Full catalogue details</a>';
+          }
+        }
+
+        var usage = getFromLabelValueListPairs(rangeMetadata, 'usage');
+        if (usage) {
+          UI_STATE.requiredStatement = '<strong>Rights</strong>: ' + usage;
+        }
+
+        render();
+      });
     });
 
     // are there uv hash parameters?
@@ -240,13 +275,6 @@
           }
       });
 
-      function resize() {
-          var width = $viewer.width();
-          var height = $viewer.height();
-          $uv.width(width);
-          $uv.height(height);
-      }
-
       $(window).on('resize' ,function() {
           resize();
       });
@@ -254,6 +282,15 @@
       resize();
   });
   */
+
+  var $viewer = $('#uv > div');
+  function resize() {
+    var width = $viewer.width();
+    var height = $viewer.height();
+    $uv.width(width);
+    $uv.height(height);
+  }
+
   $(window).on('resize' ,function() {
     setTimeout(function() {
       resize();

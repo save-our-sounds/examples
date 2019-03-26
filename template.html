@@ -31,6 +31,7 @@
 		<strong>An example of where the Universal player could sit in the page.</strong>
 	</section>
 	<section id="pageContent">
+		<div id="error" style="padding: 20px; background: palevioletred; border: 2px solid mediumvioletred; margin-bottom: 20px; overflow: hidden; color: #fff ;display: none;"></div>
 
 		<article>
 			<h1 id="canvas-label"></h1>
@@ -111,6 +112,12 @@
 				var canvas = uv.extension.helper.getCanvasByIndex(index);
 				console.log(canvas);
 				$('#canvas-label').text(canvas.getLabel().map(function(t){return t.value;}).join(''));
+			});
+
+			uv.on('rangeNotFound', function(id) {
+				console.log('range not found!');
+				document.getElementById('error').innerText = 'Warning: range with ID: '+ id + ' was not found, defaulting to full audio';
+				document.getElementById('error').style.display = 'block';
 			});
 
 			uv.on('created', function() {

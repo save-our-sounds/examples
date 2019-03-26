@@ -193,7 +193,7 @@ var IIIFComponents;
                 _this.fire(VolumeEvents.VOLUME_CHANGED, value);
             }, false);
             // @todo make the buttons for FF and FR configurable.
-            this._$controlsContainer.append(this._$prevButton, this._$fastRewind, this._$playButton, this._$fastForward, this._$nextButton, this._$timeDisplay, $volume);
+            this._$controlsContainer.append(this._$prevButton, this._data.enableFastRewind ? this._$fastRewind : null, this._$playButton, this._data.enableFastForward ? this._$fastForward : null, this._$nextButton, this._$timeDisplay, $volume);
             this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight);
             this._$rangeTimelineContainer.append(this._$rangeHoverPreview, this._$rangeHoverHighlight);
             this._$optionsContainer.append(this._$canvasTimelineContainer, this._$rangeTimelineContainer, this._$timelineItemContainer, this._$controlsContainer);
@@ -284,6 +284,7 @@ var IIIFComponents;
                 if (goToTime < end) {
                     return _this.setCurrentTime(goToTime);
                 }
+                return _this.setCurrentTime(end);
             });
             this._$fastRewind.on('touchstart click', function (e) {
                 var start = _this.getRangeTiming().start;
@@ -291,6 +292,7 @@ var IIIFComponents;
                 if (goToTime >= start) {
                     return _this.setCurrentTime(goToTime);
                 }
+                return _this.setCurrentTime(start);
             });
             this._$canvasTimelineContainer.slider({
                 value: 0,
@@ -778,11 +780,11 @@ var IIIFComponents;
             var type = data.type.toString().toLowerCase();
             switch (type) {
                 case 'video':
-                    $mediaElement = $('<video class="anno" />');
+                    $mediaElement = $('<video crossorigin="anonymous" class="anno" />');
                     break;
                 case 'sound':
                 case 'audio':
-                    $mediaElement = $('<audio class="anno" />');
+                    $mediaElement = $('<audio crossorigin="anonymous" class="anno" />');
                     break;
                 // case 'textualbody':
                 //     $mediaElement = $('<div class="anno">' + data.source + '</div>');
@@ -794,6 +796,22 @@ var IIIFComponents;
                     return;
             }
             var media = $mediaElement[0];
+            //
+            // var audioCtx = new AudioContext();
+            // var source = audioCtx.createMediaElementSource(media);
+            // var panNode = audioCtx.createStereoPanner();
+            // var val = -1;
+            // setInterval(() => {
+            //     val = val === -1 ? 1 : -1;
+            //     panNode.pan.setValueAtTime(val, audioCtx.currentTime);
+            //     if (val === 1) {
+            //         media.playbackRate = 2;
+            //     } else {
+            //         // media.playbackRate = 1;
+            //     }
+            // }, 1000);
+            // source.connect(panNode);
+            // panNode.connect(audioCtx.destination);
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
                 $mediaElement.attr('data-dashjs-player', '');
@@ -1765,7 +1783,9 @@ var IIIFComponents;
                     play: "Play",
                     previous: "Previous",
                     unmute: "Unmute"
-                }
+                },
+                enableFastForward: true,
+                enableFastRewind: true
             };
         };
         AVComponent.prototype.set = function (data) {
