@@ -48,7 +48,39 @@
         </div>
 		
 		<main role="main">
+			<div id="message" style="display: none">
+				<span class="msg">
+					Login to British Library listen to full track
+				</span>
+				<button class="close-button">&times;</button>
+				<button class="primary-button">Login</button>
+			</div>
 
+			<style type="text/css">
+				#message {
+					background: #FDB735;
+					height: 40px;
+					line-height: 40px;
+					color: #333;
+					padding-left: 10px;
+				}
+				.primary-button {
+					background: #0d3349;
+					color: #fff;
+					float: right;
+					border: none;
+					padding: 10px 20px;
+					margin-top: 3px;
+				}
+				.close-button {
+					float: right;
+					background: none;
+					border: none;
+					font-size: 20px;
+					line-height: 38px;
+					padding: 0 20px;
+				}
+			</style>
 			<article>
 				<h2 id="range-title"></h2>
 				<div id="range-metadata"></div>
@@ -118,6 +150,29 @@
 				console.log('range not found!');
 				document.getElementById('error').innerText = 'Warning: range with ID: '+ id + ' was not found, defaulting to full audio';
 				document.getElementById('error').style.display = 'block';
+			});
+
+			uv.on('messageDisplayed', function(message) {
+				var msg = $('#message');
+				msg.innerText = '';
+
+				msg.find('.msg').text(message.message);
+
+				var action = message.actions[0];
+				var btn = msg.find('.primary-button');
+				btn.text(action.label);
+				btn.on('click', function() {
+					action.action();
+					msg.hide();
+				});
+
+				var close = msg.find('.close-button');
+
+				close.on('click', function() {
+					msg.hide();
+				});
+
+				msg.show();
 			});
 
 			uv.on('created', function() {
