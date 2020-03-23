@@ -131,6 +131,8 @@ var IIIFComponents;
             //private _waveformNeedsRedraw: boolean = true;
             _this.ranges = [];
             _this.waveforms = [];
+            _this._buffering = false;
+            _this._bufferShown = false;
             _this.isOnlyCanvasInstance = false;
             _this.waveformDeltaX = 0;
             _this.waveformPageX = 0;
@@ -176,8 +178,8 @@ var IIIFComponents;
             this._$prevButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.previous + "\">\n                                    <i class=\"av-icon av-icon-previous\" aria-hidden=\"true\"></i>" + this._data.content.previous + "\n                                </button>");
             this._$playButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.play + "\">\n                                    <i class=\"av-icon av-icon-play play\" aria-hidden=\"true\"></i>" + this._data.content.play + "\n                                </button>");
             this._$nextButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-next\" aria-hidden=\"true\"></i>" + this._data.content.next + "\n                                </button>");
-            this._$fastForward = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-forward\" aria-hidden=\"true\"></i>" + this._data.content.fastForward + "\n                                </button>");
-            this._$fastRewind = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-rewind\" aria-hidden=\"true\"></i>" + this._data.content.fastRewind + "\n                                </button>");
+            this._$fastForward = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-forward\" aria-hidden=\"true\"></i>" + (this._data.content.fastForward || '') + "\n                                </button>");
+            this._$fastRewind = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-fast-rewind\" aria-hidden=\"true\"></i>" + (this._data.content.fastRewind || '') + "\n                                </button>");
             this._$timeDisplay = $('<div class="time-display"><span class="canvas-time"></span> / <span class="canvas-duration"></span></div>');
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
@@ -279,6 +281,7 @@ var IIIFComponents;
                 _this._next();
             });
             this._$fastForward.on('touchstart click', function (e) {
+                console.log('Fast forward');
                 var end = _this.getRangeTiming().end;
                 var goToTime = _this.getClockTime() + 20;
                 if (goToTime < end) {
@@ -361,7 +364,7 @@ var IIIFComponents;
                 //     const tmpItem = item;
                 //     item.body = tmpItem.body[0].items[0];
                 //     mediaSource = item.body.id.split('#')[0];
-                // } else 
+                // } else
                 if (type && type.toString() === 'textualbody') {
                     //mediaSource = (<any>body).value;
                 }
@@ -466,7 +469,7 @@ var IIIFComponents;
         };
         CanvasInstance.prototype._getDuration = function () {
             if (this._data && this._data.canvas) {
-                return this._data.canvas.getDuration();
+                return Math.floor(this._data.canvas.getDuration());
             }
             return 0;
         };
@@ -733,7 +736,7 @@ var IIIFComponents;
                 }
             }
             else {
-                // not limited to range. 
+                // not limited to range.
                 // if there is a currentDuration, single click goes to previous range, double click clears current duration and rewinds.
                 // if there is no currentDuration, single and double click rewinds.
                 if (this._data.range) {
@@ -995,12 +998,14 @@ var IIIFComponents;
                     _this._compositeWaveform = new CompositeWaveform(waveforms);
                     _this.fire(AVComponent.Events.WAVEFORM_READY);
                 }
+            })["catch"](function () {
+                console.warn('Could not load wave forms.');
             });
         };
         CanvasInstance.prototype.getRangeTiming = function () {
             var durationObj;
             var start = 0;
-            var end = this._compositeWaveform.duration;
+            var end = this._compositeWaveform ? this._compositeWaveform.duration : -1;
             var duration = end;
             // This is very similar to
             if (this._data.range) {
@@ -1010,6 +1015,14 @@ var IIIFComponents;
                 start = durationObj.start;
                 end = durationObj.end;
                 duration = end - start;
+            }
+            if (end === -1 && durationObj) {
+                start = durationObj.start;
+                end = durationObj.end;
+                duration = end - start;
+            }
+            if (end === -1) {
+                console.log('Duration not found...');
             }
             return {
                 start: start,
@@ -1034,6 +1047,29 @@ var IIIFComponents;
             var sampleSpacing = (canvasWidth / barSpacing);
             this._waveformCtx.clearRect(0, 0, canvasWidth, canvasHeight);
             this._waveformCtx.fillStyle = this._data.waveformColor;
+            var inc = canvasWidth / (end - start);
+            var listOfBuffers = [];
+            if (this._contentAnnotations) {
+                for (var i = 0; i < this._contentAnnotations.length; i++) {
+                    var contentAnnotation = this._contentAnnotations[i];
+                    if (contentAnnotation && contentAnnotation.element) {
+                        var element = contentAnnotation.element[0];
+                        var annoStart = contentAnnotation.start;
+                        var active = contentAnnotation.active;
+                        if (active) {
+                            for (var i_2 = 0; i_2 < element.buffered.length; i_2++) {
+                                var reverse = element.buffered.length - i_2 - 1;
+                                var startX = element.buffered.start(reverse);
+                                var endX = element.buffered.end(reverse);
+                                listOfBuffers.push([
+                                    (((annoStart + startX) - start) * inc),
+                                    (((annoStart + endX) - start) * inc),
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
             for (var x = startpx; x < endpx; x += increment) {
                 var maxMin = this._getWaveformMaxAndMin(this._compositeWaveform, x, sampleSpacing);
                 var height = this._scaleY(maxMin.max - maxMin.min, canvasHeight);
@@ -1070,8 +1106,18 @@ var IIIFComponents;
                     //           ^ this colour
                     colour = '#86b3c3'; // lighter
                 }
+                else {
+                    colour = '#8a9aa1';
+                    for (var _i = 0, listOfBuffers_1 = listOfBuffers; _i < listOfBuffers_1.length; _i++) {
+                        var _b = listOfBuffers_1[_i], a = _b[0], b = _b[1];
+                        if (xpos > a && xpos < b) {
+                            colour = '#fff';
+                            break;
+                        }
+                    }
+                }
                 this._waveformCtx.fillStyle = colour;
-                this._waveformCtx.fillRect(xpos, ypos, barWidth, height);
+                this._waveformCtx.fillRect(xpos, ypos, barWidth, height | 0);
             }
         };
         CanvasInstance.prototype._getWaveformMaxAndMin = function (waveform, index, sampleSpacing) {
@@ -1137,6 +1183,10 @@ var IIIFComponents;
             // if (isNaN(secondsAsFloat)) {
             //     return;
             // }
+            var _a = this.getRangeTiming(), start = _a.start, end = _a.end;
+            if (seconds < start || start > end) {
+                return;
+            }
             this._canvasClockTime = seconds; //secondsAsFloat;
             this._canvasClockStartDate = Date.now() - (this._canvasClockTime * 1000);
             this.logMessage('SET CURRENT TIME to: ' + this._canvasClockTime + ' seconds.');
@@ -1245,6 +1295,9 @@ var IIIFComponents;
             return this._data.constrainNavigationToRange;
         };
         CanvasInstance.prototype._canvasClockUpdater = function () {
+            if (this._buffering) {
+                return;
+            }
             this._canvasClockTime = (Date.now() - this._canvasClockStartDate) / 1000;
             var duration;
             if (this._data.range) {
@@ -1259,6 +1312,15 @@ var IIIFComponents;
             }
         };
         CanvasInstance.prototype._highPriorityUpdater = function () {
+            if (this._bufferShown && !this._buffering) {
+                this.$playerElement.removeClass('player--loading');
+                this._bufferShown = false;
+            }
+            if (this._buffering && !this._bufferShown) {
+                console.log('buffering');
+                this.$playerElement.addClass('player--loading');
+                this._bufferShown = true;
+            }
             this._$rangeTimelineContainer.slider({
                 value: this._canvasClockTime
             });
@@ -1351,6 +1413,14 @@ var IIIFComponents;
             for (var i = 0, l = this._contentAnnotations.length; i < l; i++) {
                 contentAnnotation = this._contentAnnotations[i];
                 if ((contentAnnotation.start <= this._canvasClockTime && contentAnnotation.end >= this._canvasClockTime)) {
+                    if (this._isPlaying) {
+                        if (contentAnnotation.element[0].readyState < 3) {
+                            this._buffering = true;
+                        }
+                        else if (this._buffering) {
+                            this._buffering = false;
+                        }
+                    }
                     var correctTime = (this._canvasClockTime - contentAnnotation.start + contentAnnotation.startOffset);
                     var factualTime = contentAnnotation.element[0].currentTime;
                     // off by 0.2 seconds
@@ -1709,7 +1779,7 @@ var IIIFComponents;
                     duration += d;
                 }
             });
-            return duration;
+            return Math.floor(duration);
         };
         VirtualCanvas.prototype.getWidth = function () {
             if (this.canvases.length) {
@@ -1827,7 +1897,7 @@ var IIIFComponents;
                 var nextCanvasInstance_1 = this._getCanvasInstanceById(this._data.canvasId);
                 if (nextCanvasInstance_1) {
                     this.canvasInstances.forEach(function (canvasInstance) {
-                        // hide canvases that don't have the same id        
+                        // hide canvases that don't have the same id
                         if (canvasInstance.getCanvasId() !== nextCanvasInstance_1.getCanvasId()) {
                             canvasInstance.set({
                                 visible: false
@@ -1890,7 +1960,7 @@ var IIIFComponents;
                                     }
                                 }
                             }
-                            // if not using the correct canvasinstance, switch to it                    
+                            // if not using the correct canvasinstance, switch to it
                             if (this._data.canvasId &&
                                 ((this._data.canvasId.includes('://')) ? Manifesto.Utils.normaliseUrl(this._data.canvasId) : this._data.canvasId) !== canvasId) {
                                 this.set({

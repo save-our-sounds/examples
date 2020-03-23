@@ -16682,6 +16682,7 @@ define('modules/uv-shared-module/BaseEvents',["require", "exports"], function (r
         BaseEvents.LOGOUT = 'logout';
         BaseEvents.MANIFEST_INDEX_CHANGED = 'manifestIndexChanged';
         BaseEvents.METRIC_CHANGED = 'metricChanged';
+        BaseEvents.MESSAGE_DISPLAYED = 'messageDisplayed';
         BaseEvents.MINUS = 'minus';
         BaseEvents.MULTISELECT_CHANGE = 'multiSelectChange';
         BaseEvents.MULTISELECTION_MADE = 'multiSelectionMade';
@@ -17124,9 +17125,12 @@ define('modules/uv-shared-module/Shell',["require", "exports", "./BaseEvents", "
             new GenericDialogue_1.GenericDialogue(Shell.$genericDialogue);
         };
         Shell.prototype.resize = function () {
+            var _this = this;
             _super.prototype.resize.call(this);
-            Shell.$overlays.width(this.extension.width());
-            Shell.$overlays.height(this.extension.height());
+            setTimeout(function () {
+                Shell.$overlays.width(_this.extension.width());
+                Shell.$overlays.height(_this.extension.height());
+            }, 1);
             var mainHeight = this.$element.height() - parseInt(Shell.$mainPanel.css('paddingTop'))
                 - (Shell.$headerPanel.is(':visible') ? Shell.$headerPanel.height() : 0)
                 - (Shell.$footerPanel.is(':visible') ? Shell.$footerPanel.height() : 0)
@@ -17164,17 +17168,23 @@ define('Utils',["require", "exports"], function (require, exports) {
         UVUtils.sanitize = function (html) {
             return filterXSS(html, {
                 whiteList: {
-                    a: ["href", "title", "target", "class", "data-uv-navigate"],
+                    b: [],
+                    a: ['href', 'title', 'target', 'class', 'data-uv-navigate'],
                     br: [],
-                    img: ["src"],
-                    span: ["data-uv-navigate"]
+                    i: [],
+                    img: ['src'],
+                    p: [],
+                    small: [],
+                    sub: [],
+                    sup: [],
+                    span: ['data-uv-navigate']
                 }
             });
         };
         UVUtils.isValidUrl = function (value) {
             var a = document.createElement('a');
             a.href = value;
-            return (!!a.host && a.host !== window.location.host);
+            return !!a.host && a.host !== window.location.host;
         };
         UVUtils.propertiesChanged = function (newData, currentData, properties) {
             var propChanged = false;
@@ -17211,6 +17221,7 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
         __extends(CenterPanel, _super);
         function CenterPanel($element) {
             var _this = _super.call(this, $element, false, true) || this;
+            _this.subtitleExpanded = false;
             _this.isAttributionOpen = false;
             _this.attributionPosition = Position_1.Position.BOTTOM_LEFT;
             return _this;
@@ -17220,6 +17231,11 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
             _super.prototype.create.call(this);
             this.$title = $('<div class="title"></div>');
             this.$element.append(this.$title);
+            this.$subtitle = $("<div class=\"subtitle\">\n                                <div class=\"wrapper\">\n                                    <button type=\"button\" class=\"expand-btn\" aria-label=\"Expand\">\n                                        <span aria-hidden=\"true\">+</span>\n                                    </button>\n                                    <span class=\"text\"></span>\n                                </div>\n                            </div>");
+            this.$element.append(this.$subtitle);
+            this.$subtitleWrapper = this.$subtitle.find('.wrapper');
+            this.$subtitleExpand = this.$subtitle.find('.expand-btn');
+            this.$subtitleText = this.$subtitle.find('.text');
             this.$content = $('<div id="content" class="content"></div>');
             this.$element.append(this.$content);
             this.$attribution = $("\n                                <div class=\"attribution\">\n                                  <div class=\"header\">\n                                    <div class=\"title\"></div>\n                                    <button type=\"button\" class=\"close\" aria-label=\"Close\">\n                                      <span aria-hidden=\"true\">&times;</span>\n                                    </button>\n                                  </div>\n                                  <div class=\"main\">\n                                    <div class=\"attribution-text\"></div>\n                                    <div class=\"license\"></div>\n                                    <div class=\"logo\"></div>\n                                  </div>\n                                </div>\n        ");
@@ -17231,8 +17247,30 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                 e.preventDefault();
                 _this.closeAttribution();
             });
-            if (!Utils.Bools.getBool(this.options.titleEnabled, true)) {
-                this.$title.hide();
+            this.$subtitleExpand.on('click', function (e) {
+                e.preventDefault();
+                _this.subtitleExpanded = !_this.subtitleExpanded;
+                if (_this.subtitleExpanded) {
+                    _this.$subtitleWrapper.addClass('expanded');
+                    _this.$subtitleExpand.text('-');
+                }
+                else {
+                    _this.$subtitleWrapper.removeClass('expanded');
+                    _this.$subtitleExpand.text('+');
+                }
+                _this.resize();
+            });
+            if (Utils.Bools.getBool(this.options.titleEnabled, true)) {
+                this.$title.removeClass('hidden');
+            }
+            else {
+                this.$title.addClass('hidden');
+            }
+            if (Utils.Bools.getBool(this.options.subtitleEnabled, false)) {
+                this.$subtitle.removeClass('hidden');
+            }
+            else {
+                this.$subtitle.addClass('hidden');
             }
             this.whenResized(function () {
                 _this.updateRequiredStatement();
@@ -17304,13 +17342,20 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                 'width': width
             });
             var titleHeight;
+            var subtitleHeight;
             if (this.options && this.options.titleEnabled === false || !this.$title.is(':visible')) {
                 titleHeight = 0;
             }
             else {
                 titleHeight = this.$title.height();
             }
-            this.$content.height(this.$element.height() - titleHeight);
+            if (this.options && this.options.subtitleEnabled === false || !this.$subtitle.is(':visible')) {
+                subtitleHeight = 0;
+            }
+            else {
+                subtitleHeight = this.$subtitle.height();
+            }
+            this.$content.height(this.$element.height() - titleHeight - subtitleHeight);
             this.$content.width(this.$element.width());
             if (this.$attribution && this.isAttributionOpen) {
                 switch (this.attributionPosition) {
@@ -17331,6 +17376,34 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                     this.$attribution.show();
                 }
             }
+            if (this.subtitle && this.options.subtitleEnabled) {
+                this.$subtitleText.html(Utils_1.UVUtils.sanitize(this.subtitle.replace(/<br\s*[\/]?>/gi, '; ')));
+                this.$subtitleText.removeClass('elided');
+                this.$subtitle.removeClass('hidden');
+                this.$subtitleWrapper.css('max-height', this.$content.height() + this.$subtitle.outerHeight());
+                this.$subtitleWrapper.width(this.$content.width());
+                if (!this.subtitleExpanded) {
+                    this.$subtitleText.width('auto');
+                    this.$subtitleWrapper.width('auto');
+                    this.$subtitleExpand.hide();
+                    // if the subtitle span is wider than the container, set it to display:block 
+                    // and set its width to that of the container
+                    // this will make it appear elided.
+                    // show the expand button
+                    if (this.$subtitleText.width() > this.$content.width()) {
+                        this.$subtitleExpand.show();
+                        this.$subtitleText.addClass('elided');
+                        this.$subtitleText.width(this.$content.width() - (this.$subtitleExpand.outerWidth() + this.$subtitleText.horizontalMargins()));
+                    }
+                }
+                else {
+                    // subtitle expanded
+                    this.$subtitleText.width(this.$content.width() - this.$subtitleText.horizontalMargins() - 2);
+                }
+            }
+            else {
+                this.$subtitle.addClass('hidden');
+            }
         };
         return CenterPanel;
     }(BaseView_1.BaseView));
@@ -17347,7 +17420,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../uv-shared-module/Position"], function (require, exports, BaseEvents_1, CenterPanel_1, Position_1) {
+define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../uv-shared-module/Position", "../../Utils"], function (require, exports, BaseEvents_1, CenterPanel_1, Position_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var AVCenterPanel = /** @class */ (function (_super) {
@@ -17475,6 +17548,7 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             return false;
         };
         AVCenterPanel.prototype._setTitle = function () {
+            var _this = this;
             var title = '';
             var value;
             var label;
@@ -17506,6 +17580,27 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 }
             }
             this.title = title;
+            // set subtitle
+            var groups = this.extension.helper.getMetadata({
+                range: currentRange
+            });
+            for (var i = 0; i < groups.length; i++) {
+                var group = groups[i];
+                var item = group.items.find(function (el) {
+                    if (el.label) {
+                        var label_1 = Manifesto.LanguageMap.getValue(el.label);
+                        if (label_1 && label_1.toLowerCase() === _this.config.options.subtitleMetadataField) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+                if (item) {
+                    this.subtitle = Manifesto.LanguageMap.getValue(item.value);
+                    break;
+                }
+            }
+            this.$title.text(Utils_1.UVUtils.sanitize(this.title));
             this.resize(false);
         };
         AVCenterPanel.prototype._isCurrentResourceAccessControlled = function () {
@@ -17570,9 +17665,6 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
         AVCenterPanel.prototype.resize = function (resizeAVComponent) {
             if (resizeAVComponent === void 0) { resizeAVComponent = true; }
             _super.prototype.resize.call(this);
-            if (this.title) {
-                this.$title.ellipsisFill(this.title);
-            }
             if (resizeAVComponent && this.avcomponent) {
                 this.$avcomponent.height(this.$content.height());
                 this.avcomponent.resize();
@@ -18541,9 +18633,13 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             this.$element.addClass('browser-' + window.browserDetect.browser);
             this.$element.addClass('browser-version-' + window.browserDetect.version);
             this.$element.prop('tabindex', 0);
+            if (this.data.embedded) {
+                this.$element.addClass('embedded');
+            }
             if (this.isMobile()) {
                 this.$element.addClass('mobile');
             }
+            // todo: deprecate?
             if (this.data.isLightbox) {
                 this.$element.addClass('lightbox');
             }
@@ -18554,6 +18650,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 _this.mouseX = e.pageX;
                 _this.mouseY = e.pageY;
             });
+            if (this.isFullScreen()) {
+                this.$element.addClass('fullscreen');
+            }
             // events
             if (!this.data.isReload) {
                 var visibilityProp = Utils.Documents.getHiddenProp();
@@ -18886,6 +18985,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             });
             $.subscribe(BaseEvents_1.BaseEvents.SHOW_SETTINGS_DIALOGUE, function () {
                 _this.fire(BaseEvents_1.BaseEvents.SHOW_SETTINGS_DIALOGUE);
+            });
+            $.subscribe(BaseEvents_1.BaseEvents.MESSAGE_DISPLAYED, function (e, message) {
+                _this.fire(BaseEvents_1.BaseEvents.MESSAGE_DISPLAYED, message);
             });
             $.subscribe(BaseEvents_1.BaseEvents.SHOW_TERMS_OF_USE, function () {
                 _this.fire(BaseEvents_1.BaseEvents.SHOW_TERMS_OF_USE);
@@ -21678,6 +21780,7 @@ define('modules/uv-shared-module/HeaderPanel',["require", "exports", "./BaseEven
         HeaderPanel.prototype.showInformation = function (args) {
             var informationFactory = new InformationFactory_1.InformationFactory(this.extension);
             this.information = informationFactory.Get(args);
+            $.publish(BaseEvents_1.BaseEvents.MESSAGE_DISPLAYED, [this.information]);
             var $message = this.$informationBox.find('.message');
             $message.html(this.information.message).find('a').attr('target', '_top');
             var $actions = this.$informationBox.find('.actions');
@@ -21719,7 +21822,7 @@ define('modules/uv-shared-module/HeaderPanel',["require", "exports", "./BaseEven
                 var $actions = this.$informationBox.find('.actions');
                 var $message = this.$informationBox.find('.message');
                 $message.width(Math.floor(this.$element.width()) - Math.ceil($message.horizontalMargins()) - Math.ceil($actions.outerWidth(true)) - Math.ceil(this.$informationBox.find('.close').outerWidth(true)) - 2);
-                $message.ellipsisFill(this.information.message);
+                $message.text(this.information.message);
             }
             // hide toggle buttons below minimum width
             if (this.extension.width() < this.extension.data.config.options.minWidthBreakPoint) {
@@ -22387,7 +22490,9 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
                 _this.treeNodeSelected(node);
             });
             $.subscribe(BaseEvents_1.BaseEvents.THUMB_SELECTED, function (e, thumb) {
-                $.publish(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, [thumb.index]);
+                if (_this.data.canvasIndex !== thumb.index) {
+                    $.publish(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, [thumb.index]);
+                }
             });
         };
         Extension.prototype.dependencyLoaded = function (index, dep) {
@@ -22588,7 +22693,7 @@ define('modules/uv-filelinkcenterpanel-module/FileLinkCenterPanel',["require", "
         FileLinkCenterPanel.prototype.resize = function () {
             _super.prototype.resize.call(this);
             if (this.title) {
-                this.$title.ellipsisFill(this.title);
+                this.$title.text(Utils_1.UVUtils.sanitize(this.title));
             }
             this.$scroll.height(this.$content.height() - this.$scroll.verticalMargins());
         };
@@ -23021,7 +23126,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../../extensions/uv-mediaelement-extension/Events", "../uv-shared-module/CenterPanel"], function (require, exports, BaseEvents_1, Events_1, CenterPanel_1) {
+define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../../extensions/uv-mediaelement-extension/Events", "../uv-shared-module/CenterPanel", "../../Utils"], function (require, exports, BaseEvents_1, Events_1, CenterPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var MediaElementCenterPanel = /** @class */ (function (_super) {
@@ -23173,7 +23278,7 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
                 'top': top
             });
             if (this.title) {
-                this.$title.ellipsisFill(this.title);
+                this.$title.text(Utils_1.UVUtils.sanitize(this.title));
             }
             if (this.player) {
                 if (!this.isVideo() || (this.isVideo() && !this.component.isFullScreen)) {
@@ -26385,7 +26490,7 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             if (!this.isCreated)
                 return;
             if (this.title) {
-                this.$title.ellipsisFill(Utils_1.UVUtils.sanitize(this.title));
+                this.$title.text(Utils_1.UVUtils.sanitize(this.title));
             }
             this.$spinner.css('top', (this.$content.height() / 2) - (this.$spinner.height() / 2));
             this.$spinner.css('left', (this.$content.width() / 2) - (this.$spinner.width() / 2));
@@ -27395,7 +27500,7 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             var searchUri = this.getSearchServiceUri();
             if (!searchUri)
                 return;
-            searchUri = Utils.Strings.format(searchUri, terms);
+            searchUri = Utils.Strings.format(searchUri, encodeURIComponent(terms));
             this.getSearchResults(searchUri, terms, this.annotations, function (annotations) {
                 that.isAnnotating = false;
                 if (annotations.length) {
@@ -28280,7 +28385,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define('modules/uv-virtexcenterpanel-module/VirtexCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel"], function (require, exports, BaseEvents_1, CenterPanel_1) {
+define('modules/uv-virtexcenterpanel-module/VirtexCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../../Utils"], function (require, exports, BaseEvents_1, CenterPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var VirtexCenterPanel = /** @class */ (function (_super) {
@@ -28377,7 +28482,7 @@ define('modules/uv-virtexcenterpanel-module/VirtexCenterPanel',["require", "expo
         VirtexCenterPanel.prototype.resize = function () {
             _super.prototype.resize.call(this);
             if (this.title) {
-                this.$title.ellipsisFill(this.title);
+                this.$title.text(Utils_1.UVUtils.sanitize(this.title));
             }
             this.$viewport.width(this.$content.width());
             this.$viewport.height(this.$content.height());
