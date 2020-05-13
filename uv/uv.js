@@ -3096,3539 +3096,8 @@ define("lib/jquery-plugins.js", function(){});
 }(jQuery));
 define("lib/ba-tiny-pubsub.js", function(){});
 
-// manifesto v3.0.9 https://github.com/iiif-commons/manifesto
+// manifesto v3.0.9-pr-42 https://github.com/iiif-commons/manifesto
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define('lib/manifesto.js',[],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.manifesto = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-(function (global){
-
-var Manifesto;
-(function (Manifesto) {
-    var StringValue = /** @class */ (function () {
-        function StringValue(value) {
-            this.value = "";
-            if (value) {
-                this.value = value.toLowerCase();
-            }
-        }
-        StringValue.prototype.toString = function () {
-            return this.value;
-        };
-        return StringValue;
-    }());
-    Manifesto.StringValue = StringValue;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var Duration = /** @class */ (function () {
-        function Duration(start, end) {
-            this.start = start;
-            this.end = end;
-        }
-        Duration.prototype.getLength = function () {
-            return this.end - this.start;
-        };
-        return Duration;
-    }());
-    Manifesto.Duration = Duration;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var AnnotationMotivation = /** @class */ (function (_super) {
-        __extends(AnnotationMotivation, _super);
-        function AnnotationMotivation() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        AnnotationMotivation.prototype.bookmarking = function () {
-            return new AnnotationMotivation(AnnotationMotivation.BOOKMARKING.toString());
-        };
-        AnnotationMotivation.prototype.classifying = function () {
-            return new AnnotationMotivation(AnnotationMotivation.CLASSIFYING.toString());
-        };
-        AnnotationMotivation.prototype.commenting = function () {
-            return new AnnotationMotivation(AnnotationMotivation.COMMENTING.toString());
-        };
-        AnnotationMotivation.prototype.describing = function () {
-            return new AnnotationMotivation(AnnotationMotivation.DESCRIBING.toString());
-        };
-        AnnotationMotivation.prototype.editing = function () {
-            return new AnnotationMotivation(AnnotationMotivation.EDITING.toString());
-        };
-        AnnotationMotivation.prototype.highlighting = function () {
-            return new AnnotationMotivation(AnnotationMotivation.HIGHLIGHTING.toString());
-        };
-        AnnotationMotivation.prototype.identifying = function () {
-            return new AnnotationMotivation(AnnotationMotivation.IDENTIFYING.toString());
-        };
-        AnnotationMotivation.prototype.linking = function () {
-            return new AnnotationMotivation(AnnotationMotivation.LINKING.toString());
-        };
-        AnnotationMotivation.prototype.moderating = function () {
-            return new AnnotationMotivation(AnnotationMotivation.MODERATING.toString());
-        };
-        AnnotationMotivation.prototype.painting = function () {
-            return new AnnotationMotivation(AnnotationMotivation.PAINTING.toString());
-        };
-        AnnotationMotivation.prototype.questioning = function () {
-            return new AnnotationMotivation(AnnotationMotivation.QUESTIONING.toString());
-        };
-        AnnotationMotivation.prototype.replying = function () {
-            return new AnnotationMotivation(AnnotationMotivation.REPLYING.toString());
-        };
-        AnnotationMotivation.prototype.tagging = function () {
-            return new AnnotationMotivation(AnnotationMotivation.TAGGING.toString());
-        };
-        AnnotationMotivation.prototype.transcribing = function () {
-            return new AnnotationMotivation(AnnotationMotivation.TRANSCRIBING.toString());
-        };
-        AnnotationMotivation.BOOKMARKING = new AnnotationMotivation("oa:bookmarking");
-        AnnotationMotivation.CLASSIFYING = new AnnotationMotivation("oa:classifying");
-        AnnotationMotivation.COMMENTING = new AnnotationMotivation("oa:commenting");
-        AnnotationMotivation.DESCRIBING = new AnnotationMotivation("oa:describing");
-        AnnotationMotivation.EDITING = new AnnotationMotivation("oa:editing");
-        AnnotationMotivation.HIGHLIGHTING = new AnnotationMotivation("oa:highlighting");
-        AnnotationMotivation.IDENTIFYING = new AnnotationMotivation("oa:identifying");
-        AnnotationMotivation.LINKING = new AnnotationMotivation("oa:linking");
-        AnnotationMotivation.MODERATING = new AnnotationMotivation("oa:moderating");
-        AnnotationMotivation.PAINTING = new AnnotationMotivation("sc:painting");
-        AnnotationMotivation.QUESTIONING = new AnnotationMotivation("oa:questioning");
-        AnnotationMotivation.REPLYING = new AnnotationMotivation("oa:replying");
-        AnnotationMotivation.TAGGING = new AnnotationMotivation("oa:tagging");
-        AnnotationMotivation.TRANSCRIBING = new AnnotationMotivation("oad:transcribing");
-        return AnnotationMotivation;
-    }(Manifesto.StringValue));
-    Manifesto.AnnotationMotivation = AnnotationMotivation;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Behavior = /** @class */ (function (_super) {
-        __extends(Behavior, _super);
-        function Behavior() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        Behavior.prototype.autoadvance = function () {
-            return new Behavior(Behavior.AUTOADVANCE.toString());
-        };
-        Behavior.prototype.nonav = function () {
-            return new Behavior(Behavior.NONAV.toString());
-        };
-        Behavior.prototype.paged = function () {
-            return new Behavior(Behavior.PAGED.toString());
-        };
-        Behavior.AUTOADVANCE = new Behavior("auto-advance");
-        Behavior.NONAV = new Behavior("no-nav");
-        Behavior.PAGED = new Behavior("paged");
-        return Behavior;
-    }(Manifesto.StringValue));
-    Manifesto.Behavior = Behavior;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var IIIFResourceType = /** @class */ (function (_super) {
-        __extends(IIIFResourceType, _super);
-        function IIIFResourceType() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        IIIFResourceType.prototype.annotation = function () {
-            return new IIIFResourceType(IIIFResourceType.ANNOTATION.toString());
-        };
-        IIIFResourceType.prototype.canvas = function () {
-            return new IIIFResourceType(IIIFResourceType.CANVAS.toString());
-        };
-        IIIFResourceType.prototype.collection = function () {
-            return new IIIFResourceType(IIIFResourceType.COLLECTION.toString());
-        };
-        IIIFResourceType.prototype.manifest = function () {
-            return new IIIFResourceType(IIIFResourceType.MANIFEST.toString());
-        };
-        IIIFResourceType.prototype.range = function () {
-            return new IIIFResourceType(IIIFResourceType.RANGE.toString());
-        };
-        IIIFResourceType.prototype.sequence = function () {
-            return new IIIFResourceType(IIIFResourceType.SEQUENCE.toString());
-        };
-        IIIFResourceType.ANNOTATION = new IIIFResourceType("annotation");
-        IIIFResourceType.CANVAS = new IIIFResourceType("canvas");
-        IIIFResourceType.COLLECTION = new IIIFResourceType("collection");
-        IIIFResourceType.MANIFEST = new IIIFResourceType("manifest");
-        IIIFResourceType.RANGE = new IIIFResourceType("range");
-        IIIFResourceType.SEQUENCE = new IIIFResourceType("sequence");
-        return IIIFResourceType;
-    }(Manifesto.StringValue));
-    Manifesto.IIIFResourceType = IIIFResourceType;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ManifestType = /** @class */ (function (_super) {
-        __extends(ManifestType, _super);
-        function ManifestType() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        ManifestType.prototype.empty = function () {
-            return new ManifestType(ManifestType.EMPTY.toString());
-        };
-        ManifestType.prototype.manuscript = function () {
-            return new ManifestType(ManifestType.MANUSCRIPT.toString());
-        };
-        ManifestType.prototype.monograph = function () {
-            return new ManifestType(ManifestType.MONOGRAPH.toString());
-        };
-        ManifestType.EMPTY = new ManifestType("");
-        ManifestType.MANUSCRIPT = new ManifestType("manuscript");
-        ManifestType.MONOGRAPH = new ManifestType("monograph");
-        return ManifestType;
-    }(Manifesto.StringValue));
-    Manifesto.ManifestType = ManifestType;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var RenderingFormat = /** @class */ (function (_super) {
-        __extends(RenderingFormat, _super);
-        function RenderingFormat() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        RenderingFormat.prototype.pdf = function () {
-            return new RenderingFormat(RenderingFormat.PDF.toString());
-        };
-        RenderingFormat.prototype.doc = function () {
-            return new RenderingFormat(RenderingFormat.DOC.toString());
-        };
-        RenderingFormat.prototype.docx = function () {
-            return new RenderingFormat(RenderingFormat.DOCX.toString());
-        };
-        RenderingFormat.PDF = new RenderingFormat("application/pdf");
-        RenderingFormat.DOC = new RenderingFormat("application/msword");
-        RenderingFormat.DOCX = new RenderingFormat("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        return RenderingFormat;
-    }(Manifesto.StringValue));
-    Manifesto.RenderingFormat = RenderingFormat;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var MediaType = /** @class */ (function (_super) {
-        __extends(MediaType, _super);
-        function MediaType() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        MediaType.prototype.jpg = function () {
-            return new MediaType(MediaType.JPG.toString());
-        };
-        MediaType.prototype.mp4 = function () {
-            return new MediaType(MediaType.MP4.toString());
-        };
-        MediaType.prototype.pdf = function () {
-            return new MediaType(MediaType.PDF.toString());
-        };
-        MediaType.prototype.threejs = function () {
-            return new MediaType(MediaType.THREEJS.toString());
-        };
-        MediaType.prototype.webm = function () {
-            return new MediaType(MediaType.WEBM.toString());
-        };
-        MediaType.JPG = new MediaType("image/jpeg");
-        MediaType.MP4 = new MediaType("video/mp4");
-        MediaType.PDF = new MediaType("application/pdf");
-        MediaType.THREEJS = new MediaType("application/vnd.threejs+json");
-        MediaType.WEBM = new MediaType("video/webm");
-        return MediaType;
-    }(Manifesto.StringValue));
-    Manifesto.MediaType = MediaType;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ResourceType = /** @class */ (function (_super) {
-        __extends(ResourceType, _super);
-        function ResourceType() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        ResourceType.prototype.canvas = function () {
-            return new ResourceType(ResourceType.CANVAS.toString());
-        };
-        ResourceType.prototype.choice = function () {
-            return new ResourceType(ResourceType.CHOICE.toString());
-        };
-        ResourceType.prototype.document = function () {
-            return new ResourceType(ResourceType.DOCUMENT.toString());
-        };
-        ResourceType.prototype.image = function () {
-            return new ResourceType(ResourceType.IMAGE.toString());
-        };
-        ResourceType.prototype.movingimage = function () {
-            return new ResourceType(ResourceType.MOVINGIMAGE.toString());
-        };
-        ResourceType.prototype.physicalobject = function () {
-            return new ResourceType(ResourceType.PHYSICALOBJECT.toString());
-        };
-        ResourceType.prototype.sound = function () {
-            return new ResourceType(ResourceType.SOUND.toString());
-        };
-        ResourceType.prototype.text = function () {
-            return new ResourceType(ResourceType.TEXT.toString());
-        };
-        ResourceType.CANVAS = new ResourceType("canvas");
-        ResourceType.CHOICE = new ResourceType("choice");
-        ResourceType.DOCUMENT = new ResourceType("document");
-        ResourceType.IMAGE = new ResourceType("image");
-        ResourceType.MOVINGIMAGE = new ResourceType("movingimage");
-        ResourceType.PHYSICALOBJECT = new ResourceType("physicalobject");
-        ResourceType.SOUND = new ResourceType("sound");
-        ResourceType.TEXT = new ResourceType("textualbody");
-        return ResourceType;
-    }(Manifesto.StringValue));
-    Manifesto.ResourceType = ResourceType;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ServiceProfile = /** @class */ (function (_super) {
-        __extends(ServiceProfile, _super);
-        function ServiceProfile() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        ServiceProfile.prototype.auth1Clickthrough = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1CLICKTHROUGH.toString());
-        };
-        ServiceProfile.prototype.auth1External = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1EXTERNAL.toString());
-        };
-        ServiceProfile.prototype.auth1Kiosk = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1KIOSK.toString());
-        };
-        ServiceProfile.prototype.auth1Login = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1LOGIN.toString());
-        };
-        ServiceProfile.prototype.auth1Logout = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1LOGOUT.toString());
-        };
-        ServiceProfile.prototype.auth1Probe = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1PROBE.toString());
-        };
-        ServiceProfile.prototype.auth1Token = function () {
-            return new ServiceProfile(ServiceProfile.AUTH1TOKEN.toString());
-        };
-        ServiceProfile.prototype.autoComplete = function () {
-            return new ServiceProfile(ServiceProfile.AUTOCOMPLETE.toString());
-        };
-        ServiceProfile.prototype.iiif1ImageLevel1 = function () {
-            return new ServiceProfile(ServiceProfile.IIIF1IMAGELEVEL1.toString());
-        };
-        ServiceProfile.prototype.iiif1ImageLevel2 = function () {
-            return new ServiceProfile(ServiceProfile.IIIF1IMAGELEVEL2.toString());
-        };
-        ServiceProfile.prototype.iiif2ImageLevel1 = function () {
-            return new ServiceProfile(ServiceProfile.IIIF2IMAGELEVEL1.toString());
-        };
-        ServiceProfile.prototype.iiif2ImageLevel2 = function () {
-            return new ServiceProfile(ServiceProfile.IIIF2IMAGELEVEL2.toString());
-        };
-        ServiceProfile.prototype.ixif = function () {
-            return new ServiceProfile(ServiceProfile.IXIF.toString());
-        };
-        ServiceProfile.prototype.login = function () {
-            return new ServiceProfile(ServiceProfile.AUTHLOGIN.toString());
-        };
-        ServiceProfile.prototype.clickThrough = function () {
-            return new ServiceProfile(ServiceProfile.AUTHCLICKTHROUGH.toString());
-        };
-        ServiceProfile.prototype.restricted = function () {
-            return new ServiceProfile(ServiceProfile.AUTHRESTRICTED.toString());
-        };
-        ServiceProfile.prototype.logout = function () {
-            return new ServiceProfile(ServiceProfile.AUTHLOGOUT.toString());
-        };
-        ServiceProfile.prototype.otherManifestations = function () {
-            return new ServiceProfile(ServiceProfile.OTHERMANIFESTATIONS.toString());
-        };
-        ServiceProfile.prototype.search = function () {
-            return new ServiceProfile(ServiceProfile.SEARCH.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIFImageCompliance1 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIFImageCompliance2 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIFImageConformance1 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIFImageConformance2 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIF1ImageCompliance1 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIF1ImageCompliance2 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIF1ImageConformance1 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString());
-        };
-        ServiceProfile.prototype.stanfordIIIF1ImageConformance2 = function () {
-            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString());
-        };
-        ServiceProfile.prototype.token = function () {
-            return new ServiceProfile(ServiceProfile.AUTHTOKEN.toString());
-        };
-        ServiceProfile.prototype.trackingExtensions = function () {
-            return new ServiceProfile(ServiceProfile.TRACKINGEXTENSIONS.toString());
-        };
-        ServiceProfile.prototype.uiExtensions = function () {
-            return new ServiceProfile(ServiceProfile.UIEXTENSIONS.toString());
-        };
-        ServiceProfile.prototype.printExtensions = function () {
-            return new ServiceProfile(ServiceProfile.PRINTEXTENSIONS.toString());
-        };
-        ServiceProfile.prototype.shareExtensions = function () {
-            return new ServiceProfile(ServiceProfile.SHAREEXTENSIONS.toString());
-        };
-        // image api
-        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level0");
-        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level1");
-        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level2");
-        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level0");
-        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level1");
-        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level2");
-        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level0");
-        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level1");
-        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level2");
-        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level0");
-        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1");
-        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level2");
-        ServiceProfile.IIIF1IMAGELEVEL0 = new ServiceProfile("http://iiif.io/api/image/1/level0.json");
-        ServiceProfile.IIIF1IMAGELEVEL0PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level0.json");
-        ServiceProfile.IIIF1IMAGELEVEL1 = new ServiceProfile("http://iiif.io/api/image/1/level1.json");
-        ServiceProfile.IIIF1IMAGELEVEL1PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level1.json");
-        ServiceProfile.IIIF1IMAGELEVEL2 = new ServiceProfile("http://iiif.io/api/image/1/level2.json");
-        ServiceProfile.IIIF1IMAGELEVEL2PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level2.json");
-        ServiceProfile.IIIF2IMAGELEVEL0 = new ServiceProfile("http://iiif.io/api/image/2/level0.json");
-        ServiceProfile.IIIF2IMAGELEVEL0PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level0.json");
-        ServiceProfile.IIIF2IMAGELEVEL1 = new ServiceProfile("http://iiif.io/api/image/2/level1.json");
-        ServiceProfile.IIIF2IMAGELEVEL1PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level1.json");
-        ServiceProfile.IIIF2IMAGELEVEL2 = new ServiceProfile("http://iiif.io/api/image/2/level2.json");
-        ServiceProfile.IIIF2IMAGELEVEL2PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level2.json");
-        // auth api
-        ServiceProfile.AUTHCLICKTHROUGH = new ServiceProfile("http://iiif.io/api/auth/0/login/clickthrough");
-        ServiceProfile.AUTHLOGIN = new ServiceProfile("http://iiif.io/api/auth/0/login");
-        ServiceProfile.AUTHLOGOUT = new ServiceProfile("http://iiif.io/api/auth/0/logout");
-        ServiceProfile.AUTHRESTRICTED = new ServiceProfile("http://iiif.io/api/auth/0/login/restricted");
-        ServiceProfile.AUTHTOKEN = new ServiceProfile("http://iiif.io/api/auth/0/token");
-        ServiceProfile.AUTH1CLICKTHROUGH = new ServiceProfile("http://iiif.io/api/auth/1/clickthrough");
-        ServiceProfile.AUTH1EXTERNAL = new ServiceProfile("http://iiif.io/api/auth/1/external");
-        ServiceProfile.AUTH1KIOSK = new ServiceProfile("http://iiif.io/api/auth/1/kiosk");
-        ServiceProfile.AUTH1LOGIN = new ServiceProfile("http://iiif.io/api/auth/1/login");
-        ServiceProfile.AUTH1LOGOUT = new ServiceProfile("http://iiif.io/api/auth/1/logout");
-        ServiceProfile.AUTH1PROBE = new ServiceProfile("http://iiif.io/api/auth/1/probe");
-        ServiceProfile.AUTH1TOKEN = new ServiceProfile("http://iiif.io/api/auth/1/token");
-        // search api
-        ServiceProfile.AUTOCOMPLETE = new ServiceProfile("http://iiif.io/api/search/0/autocomplete");
-        ServiceProfile.SEARCH = new ServiceProfile("http://iiif.io/api/search/0/search");
-        // extensions
-        ServiceProfile.TRACKINGEXTENSIONS = new ServiceProfile("http://universalviewer.io/tracking-extensions-profile");
-        ServiceProfile.UIEXTENSIONS = new ServiceProfile("http://universalviewer.io/ui-extensions-profile");
-        ServiceProfile.PRINTEXTENSIONS = new ServiceProfile("http://universalviewer.io/print-extensions-profile");
-        ServiceProfile.SHAREEXTENSIONS = new ServiceProfile("http://universalviewer.io/share-extensions-profile");
-        // other
-        ServiceProfile.OTHERMANIFESTATIONS = new ServiceProfile("http://iiif.io/api/otherManifestations.json");
-        ServiceProfile.IXIF = new ServiceProfile("http://wellcomelibrary.org/ld/ixif/0/alpha.json");
-        return ServiceProfile;
-    }(Manifesto.StringValue));
-    Manifesto.ServiceProfile = ServiceProfile;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ViewingDirection = /** @class */ (function (_super) {
-        __extends(ViewingDirection, _super);
-        function ViewingDirection() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        ViewingDirection.prototype.leftToRight = function () {
-            return new ViewingDirection(ViewingDirection.LEFTTORIGHT.toString());
-        };
-        ViewingDirection.prototype.rightToLeft = function () {
-            return new ViewingDirection(ViewingDirection.RIGHTTOLEFT.toString());
-        };
-        ViewingDirection.prototype.topToBottom = function () {
-            return new ViewingDirection(ViewingDirection.TOPTOBOTTOM.toString());
-        };
-        ViewingDirection.prototype.bottomToTop = function () {
-            return new ViewingDirection(ViewingDirection.BOTTOMTOTOP.toString());
-        };
-        ViewingDirection.LEFTTORIGHT = new ViewingDirection("left-to-right");
-        ViewingDirection.RIGHTTOLEFT = new ViewingDirection("right-to-left");
-        ViewingDirection.TOPTOBOTTOM = new ViewingDirection("top-to-bottom");
-        ViewingDirection.BOTTOMTOTOP = new ViewingDirection("bottom-to-top");
-        return ViewingDirection;
-    }(Manifesto.StringValue));
-    Manifesto.ViewingDirection = ViewingDirection;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ViewingHint = /** @class */ (function (_super) {
-        __extends(ViewingHint, _super);
-        function ViewingHint() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        ViewingHint.prototype.continuous = function () {
-            return new ViewingHint(ViewingHint.CONTINUOUS.toString());
-        };
-        ViewingHint.prototype.empty = function () {
-            return new ViewingHint(ViewingHint.EMPTY.toString());
-        };
-        ViewingHint.prototype.individuals = function () {
-            return new ViewingHint(ViewingHint.INDIVIDUALS.toString());
-        };
-        ViewingHint.prototype.nonPaged = function () {
-            return new ViewingHint(ViewingHint.NONPAGED.toString());
-        };
-        ViewingHint.prototype.paged = function () {
-            return new ViewingHint(ViewingHint.PAGED.toString());
-        };
-        ViewingHint.prototype.top = function () {
-            return new ViewingHint(ViewingHint.TOP.toString());
-        };
-        ViewingHint.CONTINUOUS = new ViewingHint("continuous");
-        ViewingHint.EMPTY = new ViewingHint("");
-        ViewingHint.INDIVIDUALS = new ViewingHint("individuals");
-        ViewingHint.NONPAGED = new ViewingHint("non-paged");
-        ViewingHint.PAGED = new ViewingHint("paged");
-        ViewingHint.TOP = new ViewingHint("top");
-        return ViewingHint;
-    }(Manifesto.StringValue));
-    Manifesto.ViewingHint = ViewingHint;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var JSONLDResource = /** @class */ (function () {
-        function JSONLDResource(jsonld) {
-            this.__jsonld = jsonld;
-            this.context = this.getProperty('context');
-            this.id = this.getProperty('id');
-        }
-        JSONLDResource.prototype.getProperty = function (name) {
-            var prop = null;
-            if (this.__jsonld) {
-                prop = this.__jsonld[name];
-                if (!prop) {
-                    // property may have a prepended '@'
-                    prop = this.__jsonld['@' + name];
-                }
-            }
-            return prop;
-        };
-        return JSONLDResource;
-    }());
-    Manifesto.JSONLDResource = JSONLDResource;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var ManifestResource = /** @class */ (function (_super) {
-        __extends(ManifestResource, _super);
-        function ManifestResource(jsonld, options) {
-            var _this = _super.call(this, jsonld) || this;
-            _this.options = options;
-            return _this;
-        }
-        ManifestResource.prototype.getIIIFResourceType = function () {
-            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
-        };
-        ManifestResource.prototype.getLabel = function () {
-            var label = this.getProperty('label');
-            if (label) {
-                return Manifesto.LanguageMap.parse(label, this.options.locale);
-            }
-            return [];
-        };
-        ManifestResource.prototype.getDefaultLabel = function () {
-            return Manifesto.LanguageMap.getValue(this.getLabel());
-        };
-        ManifestResource.prototype.getMetadata = function () {
-            var _metadata = this.getProperty('metadata');
-            var metadata = [];
-            if (!_metadata)
-                return metadata;
-            for (var i = 0; i < _metadata.length; i++) {
-                var item = _metadata[i];
-                var metadataItem = new Manifesto.LabelValuePair(this.options.locale);
-                metadataItem.parse(item);
-                metadata.push(metadataItem);
-            }
-            return metadata;
-        };
-        ManifestResource.prototype.getRendering = function (format) {
-            var renderings = this.getRenderings();
-            // normalise format to string
-            if (typeof (format) !== 'string') {
-                format = format.toString();
-            }
-            for (var i = 0; i < renderings.length; i++) {
-                var rendering = renderings[i];
-                if (rendering.getFormat().toString() === format) {
-                    return rendering;
-                }
-            }
-            return null;
-        };
-        ManifestResource.prototype.getRenderings = function () {
-            var rendering;
-            // if passing a manifesto-parsed object, use the __jsonld.rendering property,
-            // otherwise look for a rendering property
-            if (this.__jsonld) {
-                rendering = this.__jsonld.rendering;
-            }
-            else {
-                rendering = this.rendering;
-            }
-            var renderings = [];
-            if (!rendering)
-                return renderings;
-            // coerce to array
-            if (!Array.isArray(rendering)) {
-                rendering = [rendering];
-            }
-            for (var i = 0; i < rendering.length; i++) {
-                var r = rendering[i];
-                renderings.push(new Manifesto.Rendering(r, this.options));
-            }
-            return renderings;
-        };
-        ManifestResource.prototype.getService = function (profile) {
-            return Manifesto.Utils.getService(this, profile);
-        };
-        ManifestResource.prototype.getServices = function () {
-            return Manifesto.Utils.getServices(this);
-        };
-        ManifestResource.prototype.getThumbnail = function () {
-            var thumbnail = this.getProperty('thumbnail');
-            if (Array.isArray(thumbnail)) {
-                thumbnail = thumbnail[0];
-            }
-            if (thumbnail) {
-                return new Manifesto.Thumbnail(thumbnail, this.options);
-            }
-            return null;
-        };
-        ManifestResource.prototype.isAnnotation = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.ANNOTATION.toString();
-        };
-        ManifestResource.prototype.isCanvas = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.CANVAS.toString();
-        };
-        ManifestResource.prototype.isCollection = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.COLLECTION.toString();
-        };
-        ManifestResource.prototype.isManifest = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.MANIFEST.toString();
-        };
-        ManifestResource.prototype.isRange = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.RANGE.toString();
-        };
-        ManifestResource.prototype.isSequence = function () {
-            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.SEQUENCE.toString();
-        };
-        return ManifestResource;
-    }(Manifesto.JSONLDResource));
-    Manifesto.ManifestResource = ManifestResource;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Resource = /** @class */ (function (_super) {
-        __extends(Resource, _super);
-        function Resource(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        Resource.prototype.getFormat = function () {
-            var format = this.getProperty('format');
-            if (format) {
-                return new Manifesto.MediaType(format.toLowerCase());
-            }
-            return null;
-        };
-        Resource.prototype.getResources = function () {
-            var resources = [];
-            if (!this.__jsonld.resources)
-                return resources;
-            for (var i = 0; i < this.__jsonld.resources.length; i++) {
-                var a = this.__jsonld.resources[i];
-                var annotation = new Manifesto.Annotation(a, this.options);
-                resources.push(annotation);
-            }
-            return resources;
-        };
-        Resource.prototype.getType = function () {
-            var type = this.getProperty('type');
-            if (type) {
-                return new Manifesto.ResourceType(Manifesto.Utils.normaliseType(type));
-            }
-            return null;
-        };
-        Resource.prototype.getWidth = function () {
-            return this.getProperty('width');
-        };
-        Resource.prototype.getHeight = function () {
-            return this.getProperty('height');
-        };
-        Resource.prototype.getMaxWidth = function () {
-            return this.getProperty('maxWidth');
-        };
-        Resource.prototype.getMaxHeight = function () {
-            var maxHeight = this.getProperty('maxHeight');
-            // if a maxHeight hasn't been specified, default to maxWidth.
-            // maxWidth in essence becomes maxEdge
-            if (!maxHeight) {
-                return this.getMaxWidth();
-            }
-            return null;
-        };
-        return Resource;
-    }(Manifesto.ManifestResource));
-    Manifesto.Resource = Resource;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Canvas = /** @class */ (function (_super) {
-        __extends(Canvas, _super);
-        function Canvas(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        // http://iiif.io/api/image/2.1/#canonical-uri-syntax
-        Canvas.prototype.getCanonicalImageUri = function (w) {
-            var id = null;
-            var region = 'full';
-            var rotation = 0;
-            var quality = 'default';
-            var width = w;
-            var size;
-            // if an info.json has been loaded
-            if (this.externalResource && this.externalResource.data && this.externalResource.data['@id']) {
-                id = this.externalResource.data['@id'];
-                if (!width) {
-                    width = this.externalResource.data.width;
-                }
-                if (this.externalResource.data['@context']) {
-                    if (this.externalResource.data['@context'].indexOf('/1.0/context.json') > -1 ||
-                        this.externalResource.data['@context'].indexOf('/1.1/context.json') > -1 ||
-                        this.externalResource.data['@context'].indexOf('/1/context.json') > -1) {
-                        quality = 'native';
-                    }
-                }
-            }
-            else {
-                // info.json hasn't been loaded yet
-                var images = this.getImages();
-                if (images && images.length) {
-                    var firstImage = images[0];
-                    var resource = firstImage.getResource();
-                    var services = resource.getServices();
-                    if (!width) {
-                        width = resource.getWidth();
-                    }
-                    if (services.length) {
-                        var service = services[0];
-                        id = service.id;
-                        quality = Manifesto.Utils.getImageQuality(service.getProfile());
-                    }
-                    else if (width === resource.getWidth()) {
-                        // if the passed width is the same as the resource width
-                        // i.e. not looking for a thumbnail
-                        // return the full size image.
-                        // used for download options when loading static images.
-                        return resource.id;
-                    }
-                }
-                // todo: should this be moved to getThumbUri?
-                if (!id) {
-                    var thumbnail = this.getProperty('thumbnail');
-                    if (thumbnail) {
-                        if (typeof (thumbnail) === 'string') {
-                            return thumbnail;
-                        }
-                        else {
-                            if (thumbnail['@id']) {
-                                return thumbnail['@id'];
-                            }
-                            else if (thumbnail.length) {
-                                return thumbnail[0].id;
-                            }
-                        }
-                    }
-                }
-            }
-            size = width + ',';
-            // trim off trailing '/'
-            if (id && id.endsWith('/')) {
-                id = id.substr(0, id.length - 1);
-            }
-            var uri = [id, region, size, rotation, quality + '.jpg'].join('/');
-            return uri;
-        };
-        Canvas.prototype.getMaxDimensions = function () {
-            var maxDimensions = null;
-            var profile;
-            if (this.externalResource.data && this.externalResource.data.profile) {
-                profile = this.externalResource.data.profile;
-                if (Array.isArray(profile)) {
-                    profile = profile.en().where(function (p) { return p["maxWidth" || "maxwidth"]; }).first();
-                    if (profile) {
-                        maxDimensions = new Manifesto.Size(profile.maxWidth, profile.maxHeight ? profile.maxHeight : profile.maxWidth);
-                    }
-                }
-            }
-            return maxDimensions;
-        };
-        // Presentation API 3.0
-        Canvas.prototype.getContent = function () {
-            var content = [];
-            var items = this.__jsonld.items || this.__jsonld.content;
-            if (!items)
-                return content;
-            // should be contained in an AnnotationPage
-            var annotationPage = null;
-            if (items.length) {
-                annotationPage = new Manifesto.AnnotationPage(items[0], this.options);
-            }
-            if (!annotationPage) {
-                return content;
-            }
-            var annotations = annotationPage.getItems();
-            for (var i = 0; i < annotations.length; i++) {
-                var a = annotations[i];
-                var annotation = new Manifesto.Annotation(a, this.options);
-                content.push(annotation);
-            }
-            return content;
-        };
-        Canvas.prototype.getDuration = function () {
-            return this.getProperty('duration');
-        };
-        Canvas.prototype.getImages = function () {
-            var images = [];
-            if (!this.__jsonld.images)
-                return images;
-            for (var i = 0; i < this.__jsonld.images.length; i++) {
-                var a = this.__jsonld.images[i];
-                var annotation = new Manifesto.Annotation(a, this.options);
-                images.push(annotation);
-            }
-            return images;
-        };
-        Canvas.prototype.getIndex = function () {
-            return this.getProperty('index');
-        };
-        Canvas.prototype.getOtherContent = function () {
-            var _this = this;
-            var otherContent = Array.isArray(this.getProperty('otherContent')) ?
-                this.getProperty('otherContent') :
-                [this.getProperty('otherContent')];
-            var canonicalComparison = function (typeA, typeB) {
-                if (typeof typeA !== 'string' || typeof typeB !== 'string') {
-                    return false;
-                }
-                return typeA.toLowerCase() === typeA.toLowerCase();
-            };
-            var otherPromises = otherContent
-                .filter(function (otherContent) { return otherContent && canonicalComparison(otherContent['@type'], 'sc:AnnotationList'); })
-                .map(function (annotationList, i) { return ((new Manifesto.AnnotationList(annotationList['label'] || "Annotation list " + i, annotationList, _this.options))); })
-                .map(function (annotationList) { return annotationList.load(); });
-            return Promise.all(otherPromises);
-        };
-        // Prefer thumbnail service to image service if supplied and if
-        // the thumbnail service can provide a satisfactory size +/- x pixels.
-        // this is used to get thumb URIs *before* the info.json has been requested
-        // and populate thumbnails in a viewer.
-        // the publisher may also provide pre-computed fixed-size thumbs for better performance.
-        //getThumbUri(width: number): string {
-        //
-        //    var uri;
-        //    var images: IAnnotation[] = this.getImages();
-        //
-        //    if (images && images.length) {
-        //        var firstImage = images[0];
-        //        var resource: IResource = firstImage.getResource();
-        //        var services: IService[] = resource.getServices();
-        //
-        //        for (let i = 0; i < services.length; i++) {
-        //            var service: IService = services[i];
-        //            var id = service.id;
-        //
-        //            if (!_endsWith(id, '/')) {
-        //                id += '/';
-        //            }
-        //
-        //            uri = id + 'full/' + width + ',/0/' + Utils.getImageQuality(service.getProfile()) + '.jpg';
-        //        }
-        //    }
-        //
-        //    return uri;
-        //}
-        //getType(): CanvasType {
-        //    return new CanvasType(this.getProperty('@type').toLowerCase());
-        //}
-        Canvas.prototype.getWidth = function () {
-            return this.getProperty('width');
-        };
-        Canvas.prototype.getHeight = function () {
-            return this.getProperty('height');
-        };
-        return Canvas;
-    }(Manifesto.Resource));
-    Manifesto.Canvas = Canvas;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var IIIFResource = /** @class */ (function (_super) {
-        __extends(IIIFResource, _super);
-        function IIIFResource(jsonld, options) {
-            var _this = _super.call(this, jsonld, options) || this;
-            _this.index = -1;
-            _this.isLoaded = false;
-            var defaultOptions = {
-                defaultLabel: '-',
-                locale: 'en-GB',
-                resource: _this,
-                pessimisticAccessControl: false
-            };
-            _this.options = Object.assign(defaultOptions, options);
-            return _this;
-        }
-        IIIFResource.prototype.getAttribution = function () {
-            console.warn('getAttribution will be deprecated, use getRequiredStatement instead.');
-            var attribution = this.getProperty('attribution');
-            if (attribution) {
-                return Manifesto.LanguageMap.parse(attribution, this.options.locale);
-            }
-            return [];
-        };
-        IIIFResource.prototype.getDescription = function () {
-            var description = this.getProperty('description');
-            if (description) {
-                return Manifesto.LanguageMap.parse(description, this.options.locale);
-            }
-            return [];
-        };
-        IIIFResource.prototype.getIIIFResourceType = function () {
-            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
-        };
-        IIIFResource.prototype.getLogo = function () {
-            var logo = this.getProperty('logo');
-            if (!logo)
-                return null;
-            if (typeof (logo) === 'string')
-                return logo;
-            if (Array.isArray(logo) && logo.length) {
-                logo = logo[0];
-            }
-            return logo['@id'] || logo.id;
-        };
-        IIIFResource.prototype.getLicense = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('license'), this.options.locale);
-        };
-        IIIFResource.prototype.getNavDate = function () {
-            return new Date(this.getProperty('navDate'));
-        };
-        IIIFResource.prototype.getRelated = function () {
-            return this.getProperty('related');
-        };
-        IIIFResource.prototype.getSeeAlso = function () {
-            return this.getProperty('seeAlso');
-        };
-        IIIFResource.prototype.getDefaultTree = function () {
-            this.defaultTree = new Manifesto.TreeNode('root');
-            this.defaultTree.data = this;
-            return this.defaultTree;
-        };
-        IIIFResource.prototype.getRequiredStatement = function () {
-            var requiredStatement = null;
-            var _requiredStatement = this.getProperty('requiredStatement');
-            if (_requiredStatement) {
-                requiredStatement = new Manifesto.LabelValuePair(this.options.locale);
-                requiredStatement.parse(_requiredStatement);
-            }
-            else {
-                // fall back to attribution (if it exists)
-                var attribution = this.getAttribution();
-                if (attribution) {
-                    requiredStatement = new Manifesto.LabelValuePair(this.options.locale);
-                    requiredStatement.value = attribution;
-                }
-            }
-            return requiredStatement;
-        };
-        IIIFResource.prototype.isCollection = function () {
-            if (this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.COLLECTION.toString()) {
-                return true;
-            }
-            return false;
-        };
-        IIIFResource.prototype.isManifest = function () {
-            if (this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.MANIFEST.toString()) {
-                return true;
-            }
-            return false;
-        };
-        IIIFResource.prototype.load = function () {
-            var that = this;
-            return new Promise(function (resolve, reject) {
-                if (that.isLoaded) {
-                    resolve(that);
-                }
-                else {
-                    var options_1 = that.options;
-                    options_1.navDate = that.getNavDate();
-                    var id = that.__jsonld.id;
-                    if (!id) {
-                        id = that.__jsonld['@id'];
-                    }
-                    Manifesto.Utils.loadResource(id).then(function (data) {
-                        that.parentLabel = Manifesto.LanguageMap.getValue(that.getLabel(), options_1.locale);
-                        var parsed = Manifesto.Deserialiser.parse(data, options_1);
-                        that = Object.assign(that, parsed);
-                        that.index = options_1.index;
-                        resolve(that);
-                    });
-                }
-            });
-        };
-        return IIIFResource;
-    }(Manifesto.ManifestResource));
-    Manifesto.IIIFResource = IIIFResource;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Manifest = /** @class */ (function (_super) {
-        __extends(Manifest, _super);
-        function Manifest(jsonld, options) {
-            var _this = _super.call(this, jsonld, options) || this;
-            _this.index = 0;
-            _this._allRanges = null;
-            _this.items = [];
-            _this._topRanges = [];
-            if (_this.__jsonld.structures && _this.__jsonld.structures.length) {
-                var topRanges = _this._getTopRanges();
-                for (var i = 0; i < topRanges.length; i++) {
-                    var range = topRanges[i];
-                    _this._parseRanges(range, String(i));
-                }
-            }
-            return _this;
-        }
-        Manifest.prototype.getPosterCanvas = function () {
-            var posterCanvas = this.getProperty('posterCanvas');
-            if (posterCanvas) {
-                posterCanvas = new Manifesto.Canvas(posterCanvas, this.options);
-            }
-            return posterCanvas;
-        };
-        Manifest.prototype.getBehavior = function () {
-            var behavior = this.getProperty('behavior');
-            if (Array.isArray(behavior)) {
-                behavior = behavior[0];
-            }
-            if (behavior) {
-                return new Manifesto.Behavior(behavior);
-            }
-            return null;
-        };
-        Manifest.prototype.getDefaultTree = function () {
-            _super.prototype.getDefaultTree.call(this);
-            this.defaultTree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
-            if (!this.isLoaded) {
-                return this.defaultTree;
-            }
-            var topRanges = this.getTopRanges();
-            // if there are any ranges in the manifest, default to the first 'top' range or generated placeholder
-            if (topRanges.length) {
-                topRanges[0].getTree(this.defaultTree);
-            }
-            Manifesto.Utils.generateTreeNodeIds(this.defaultTree);
-            return this.defaultTree;
-        };
-        Manifest.prototype._getTopRanges = function () {
-            var topRanges = [];
-            if (this.__jsonld.structures && this.__jsonld.structures.length) {
-                for (var i = 0; i < this.__jsonld.structures.length; i++) {
-                    var json = this.__jsonld.structures[i];
-                    if (json.viewingHint === Manifesto.ViewingHint.TOP.toString()) {
-                        topRanges.push(json);
-                    }
-                }
-                // if no viewingHint="top" range was found, create a default one
-                if (!topRanges.length) {
-                    var range = {};
-                    range.ranges = this.__jsonld.structures;
-                    topRanges.push(range);
-                }
-            }
-            return topRanges;
-        };
-        Manifest.prototype.getTopRanges = function () {
-            return this._topRanges;
-        };
-        Manifest.prototype._getRangeById = function (id) {
-            if (this.__jsonld.structures && this.__jsonld.structures.length) {
-                for (var i = 0; i < this.__jsonld.structures.length; i++) {
-                    var r = this.__jsonld.structures[i];
-                    if (r['@id'] === id || r.id === id) {
-                        return r;
-                    }
-                }
-            }
-            return null;
-        };
-        //private _parseRangeCanvas(json: any, range: IRange): void {
-        // todo: currently this isn't needed
-        //var canvas: IJSONLDResource = new JSONLDResource(json);
-        //range.items.push(<IManifestResource>canvas);
-        //}
-        Manifest.prototype._parseRanges = function (r, path, parentRange) {
-            var range;
-            var id = null;
-            if (typeof (r) === 'string') {
-                id = r;
-                r = this._getRangeById(id);
-            }
-            if (!r) {
-                console.warn("Range:", id, "does not exist");
-                return;
-            }
-            range = new Manifesto.Range(r, this.options);
-            range.parentRange = parentRange;
-            range.path = path;
-            if (!parentRange) {
-                this._topRanges.push(range);
-            }
-            else {
-                parentRange.items.push(range);
-            }
-            var items = r.items || r.members;
-            if (items) {
-                for (var i = 0; i < items.length; i++) {
-                    var item = items[i];
-                    // todo: use an ItemType constant?
-                    if (item['@type'] && item['@type'].toLowerCase() === 'sc:range' || item['type'] && item['type'].toLowerCase() === 'range') {
-                        this._parseRanges(item, path + '/' + i, range);
-                    }
-                    else if (item['@type'] && item['@type'].toLowerCase() === 'sc:canvas' || item['type'] && item['type'].toLowerCase() === 'canvas') {
-                        // store the ids on the __jsonld object to be used by Range.getCanvasIds()
-                        if (!range.canvases) {
-                            range.canvases = [];
-                        }
-                        var id_1 = item.id || item['@id'];
-                        range.canvases.push(id_1);
-                    }
-                }
-            }
-            else if (r.ranges) {
-                for (var i = 0; i < r.ranges.length; i++) {
-                    this._parseRanges(r.ranges[i], path + '/' + i, range);
-                }
-            }
-        };
-        Manifest.prototype.getAllRanges = function () {
-            if (this._allRanges != null)
-                return this._allRanges;
-            this._allRanges = [];
-            var topRanges = this.getTopRanges();
-            for (var i = 0; i < topRanges.length; i++) {
-                var topRange = topRanges[i];
-                if (topRange.id) {
-                    this._allRanges.push(topRange); // it might be a placeholder root range
-                }
-                var subRanges = topRange.getRanges();
-                this._allRanges = this._allRanges.concat(subRanges.en().traverseUnique(function (range) { return range.getRanges(); }).toArray());
-            }
-            return this._allRanges;
-        };
-        Manifest.prototype.getRangeById = function (id) {
-            var ranges = this.getAllRanges();
-            for (var i = 0; i < ranges.length; i++) {
-                var range = ranges[i];
-                if (range.id === id) {
-                    return range;
-                }
-            }
-            return null;
-        };
-        Manifest.prototype.getRangeByPath = function (path) {
-            var ranges = this.getAllRanges();
-            for (var i = 0; i < ranges.length; i++) {
-                var range = ranges[i];
-                if (range.path === path) {
-                    return range;
-                }
-            }
-            return null;
-        };
-        Manifest.prototype.getSequences = function () {
-            if (this.items.length) {
-                return this.items;
-            }
-            // IxIF mediaSequences overrode sequences, so need to be checked first.
-            // deprecate this when presentation 3 ships
-            var items = this.__jsonld.mediaSequences || this.__jsonld.sequences;
-            if (items) {
-                for (var i = 0; i < items.length; i++) {
-                    var s = items[i];
-                    var sequence = new Manifesto.Sequence(s, this.options);
-                    this.items.push(sequence);
-                }
-            }
-            else if (this.__jsonld.items) {
-                var sequence = new Manifesto.Sequence(this.__jsonld.items, this.options);
-                this.items.push(sequence);
-            }
-            return this.items;
-        };
-        Manifest.prototype.getSequenceByIndex = function (sequenceIndex) {
-            return this.getSequences()[sequenceIndex];
-        };
-        Manifest.prototype.getTotalSequences = function () {
-            return this.getSequences().length;
-        };
-        Manifest.prototype.getManifestType = function () {
-            var service = this.getService(Manifesto.ServiceProfile.UIEXTENSIONS);
-            if (service) {
-                return new Manifesto.ManifestType(service.getProperty('manifestType'));
-            }
-            return new Manifesto.ManifestType('');
-        };
-        Manifest.prototype.getTrackingLabel = function () {
-            var service = this.getService(Manifesto.ServiceProfile.TRACKINGEXTENSIONS);
-            if (service) {
-                return service.getProperty('trackingLabel');
-            }
-            return '';
-        };
-        Manifest.prototype.isMultiSequence = function () {
-            return this.getTotalSequences() > 1;
-        };
-        Manifest.prototype.isPagingEnabled = function () {
-            var viewingHint = this.getViewingHint();
-            if (viewingHint) {
-                return viewingHint.toString() === Manifesto.ViewingHint.PAGED.toString();
-            }
-            var behavior = this.getBehavior();
-            if (behavior) {
-                return behavior.toString() === Manifesto.Behavior.PAGED.toString();
-            }
-            return false;
-        };
-        Manifest.prototype.getViewingDirection = function () {
-            if (this.getProperty('viewingDirection')) {
-                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
-            }
-            return null;
-        };
-        Manifest.prototype.getViewingHint = function () {
-            if (this.getProperty('viewingHint')) {
-                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
-            }
-            return null;
-        };
-        return Manifest;
-    }(Manifesto.IIIFResource));
-    Manifesto.Manifest = Manifest;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Collection = /** @class */ (function (_super) {
-        __extends(Collection, _super);
-        function Collection(jsonld, options) {
-            var _this = _super.call(this, jsonld, options) || this;
-            _this.items = [];
-            _this._collections = null;
-            _this._manifests = null;
-            jsonld.__collection = _this;
-            return _this;
-        }
-        Collection.prototype.getCollections = function () {
-            if (this._collections) {
-                return this._collections;
-            }
-            return this._collections = this.items.en().where(function (m) { return m.isCollection(); }).toArray();
-        };
-        Collection.prototype.getManifests = function () {
-            if (this._manifests) {
-                return this._manifests;
-            }
-            return this._manifests = this.items.en().where(function (m) { return m.isManifest(); }).toArray();
-        };
-        Collection.prototype.getCollectionByIndex = function (collectionIndex) {
-            var collections = this.getCollections();
-            if (!collections[collectionIndex]) {
-                throw new Error("Collection index is outside range of array");
-            }
-            var collection = collections[collectionIndex];
-            collection.options.index = collectionIndex;
-            // id for collection MUST be dereferenceable
-            return collection.load();
-        };
-        Collection.prototype.getManifestByIndex = function (manifestIndex) {
-            var manifests = this.getManifests();
-            if (!manifests[manifestIndex]) {
-                throw new Error("Manifest index is outside range of array");
-            }
-            var manifest = manifests[manifestIndex];
-            manifest.options.index = manifestIndex;
-            return manifest.load();
-        };
-        Collection.prototype.getTotalCollections = function () {
-            return this.getCollections().length;
-        };
-        Collection.prototype.getTotalManifests = function () {
-            return this.getManifests().length;
-        };
-        Collection.prototype.getTotalItems = function () {
-            return this.items.length;
-        };
-        Collection.prototype.getViewingDirection = function () {
-            if (this.getProperty('viewingDirection')) {
-                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
-            }
-            return Manifesto.ViewingDirection.LEFTTORIGHT;
-        };
-        /**
-         * Get a tree of sub collections and manifests, using each child manifest's first 'top' range.
-         */
-        Collection.prototype.getDefaultTree = function () {
-            _super.prototype.getDefaultTree.call(this);
-            this.defaultTree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
-            this._parseManifests(this);
-            this._parseCollections(this);
-            Manifesto.Utils.generateTreeNodeIds(this.defaultTree);
-            return this.defaultTree;
-        };
-        Collection.prototype._parseManifests = function (parentCollection) {
-            if (parentCollection.getManifests() && parentCollection.getManifests().length) {
-                for (var i = 0; i < parentCollection.getManifests().length; i++) {
-                    var manifest = parentCollection.getManifests()[i];
-                    var tree = manifest.getDefaultTree();
-                    tree.label = manifest.parentLabel || Manifesto.LanguageMap.getValue(manifest.getLabel(), this.options.locale) || 'manifest ' + (i + 1);
-                    tree.navDate = manifest.getNavDate();
-                    tree.data.id = manifest.id;
-                    tree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
-                    parentCollection.defaultTree.addNode(tree);
-                }
-            }
-        };
-        Collection.prototype._parseCollections = function (parentCollection) {
-            if (parentCollection.getCollections() && parentCollection.getCollections().length) {
-                for (var i = 0; i < parentCollection.getCollections().length; i++) {
-                    var collection = parentCollection.getCollections()[i];
-                    var tree = collection.getDefaultTree();
-                    tree.label = collection.parentLabel || Manifesto.LanguageMap.getValue(collection.getLabel(), this.options.locale) || 'collection ' + (i + 1);
-                    tree.navDate = collection.getNavDate();
-                    tree.data.id = collection.id;
-                    tree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
-                    parentCollection.defaultTree.addNode(tree);
-                    this._parseCollections(collection);
-                }
-            }
-        };
-        return Collection;
-    }(Manifesto.IIIFResource));
-    Manifesto.Collection = Collection;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Range = /** @class */ (function (_super) {
-        __extends(Range, _super);
-        function Range(jsonld, options) {
-            var _this = _super.call(this, jsonld, options) || this;
-            _this._ranges = null;
-            _this.canvases = null;
-            _this.items = [];
-            return _this;
-        }
-        Range.prototype.getCanvasIds = function () {
-            if (this.__jsonld.canvases) {
-                return this.__jsonld.canvases;
-            }
-            else if (this.canvases) {
-                return this.canvases;
-            }
-            return [];
-        };
-        Range.prototype.getDuration = function () {
-            var start;
-            var end;
-            if (this.canvases && this.canvases.length) {
-                for (var i = 0; i < this.canvases.length; i++) {
-                    var canvas = this.canvases[i];
-                    var temporal = Manifesto.Utils.getTemporalComponent(canvas);
-                    if (temporal && temporal.length > 1) {
-                        if (i === 0) {
-                            start = Number(temporal[0]);
-                        }
-                        if (i === this.canvases.length - 1) {
-                            end = Number(temporal[1]);
-                        }
-                    }
-                }
-            }
-            else {
-                // get child ranges and calculate the start and end based on them
-                var childRanges = this.getRanges();
-                for (var i = 0; i < childRanges.length; i++) {
-                    var childRange = childRanges[i];
-                    var duration = childRange.getDuration();
-                    if (duration) {
-                        if (i === 0) {
-                            start = duration.start;
-                        }
-                        if (i === childRanges.length - 1) {
-                            end = duration.end;
-                        }
-                    }
-                }
-            }
-            if (start !== undefined && end !== undefined) {
-                return new Manifesto.Duration(start, end);
-            }
-            return undefined;
-        };
-        // getCanvases(): ICanvas[] {
-        //     if (this._canvases) {
-        //         return this._canvases;
-        //     }
-        //     return this._canvases = <ICanvas[]>this.items.en().where(m => m.isCanvas()).toArray();
-        // }
-        Range.prototype.getRanges = function () {
-            if (this._ranges) {
-                return this._ranges;
-            }
-            return this._ranges = this.items.en().where(function (m) { return m.isRange(); }).toArray();
-        };
-        Range.prototype.getBehavior = function () {
-            var behavior = this.getProperty('behavior');
-            if (Array.isArray(behavior)) {
-                behavior = behavior[0];
-            }
-            if (behavior) {
-                return new Manifesto.Behavior(behavior);
-            }
-            return null;
-        };
-        Range.prototype.getViewingDirection = function () {
-            if (this.getProperty('viewingDirection')) {
-                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
-            }
-            return null;
-        };
-        Range.prototype.getViewingHint = function () {
-            if (this.getProperty('viewingHint')) {
-                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
-            }
-            return null;
-        };
-        Range.prototype.getTree = function (treeRoot) {
-            treeRoot.data = this;
-            this.treeNode = treeRoot;
-            var ranges = this.getRanges();
-            if (ranges && ranges.length) {
-                for (var i = 0; i < ranges.length; i++) {
-                    var range = ranges[i];
-                    var node = new Manifesto.TreeNode();
-                    treeRoot.addNode(node);
-                    this._parseTreeNode(node, range);
-                }
-            }
-            Manifesto.Utils.generateTreeNodeIds(treeRoot);
-            return treeRoot;
-        };
-        Range.prototype.spansTime = function (time) {
-            var duration = this.getDuration();
-            if (duration) {
-                if (time >= duration.start && time <= duration.end) {
-                    return true;
-                }
-            }
-            return false;
-        };
-        Range.prototype._parseTreeNode = function (node, range) {
-            node.label = Manifesto.LanguageMap.getValue(range.getLabel(), this.options.locale);
-            node.data = range;
-            node.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.RANGE.toString());
-            range.treeNode = node;
-            var ranges = range.getRanges();
-            if (ranges && ranges.length) {
-                for (var i = 0; i < ranges.length; i++) {
-                    var childRange = ranges[i];
-                    var behavior = childRange.getBehavior();
-                    if (behavior && behavior.toString() === Manifesto.Behavior.NONAV.toString()) {
-                        continue;
-                    }
-                    else {
-                        var childNode = new Manifesto.TreeNode();
-                        node.addNode(childNode);
-                        this._parseTreeNode(childNode, childRange);
-                    }
-                }
-            }
-        };
-        return Range;
-    }(Manifesto.ManifestResource));
-    Manifesto.Range = Range;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Rendering = /** @class */ (function (_super) {
-        __extends(Rendering, _super);
-        function Rendering(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        Rendering.prototype.getFormat = function () {
-            return new Manifesto.RenderingFormat(this.getProperty('format'));
-        };
-        return Rendering;
-    }(Manifesto.ManifestResource));
-    Manifesto.Rendering = Rendering;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Sequence = /** @class */ (function (_super) {
-        __extends(Sequence, _super);
-        function Sequence(jsonld, options) {
-            var _this = _super.call(this, jsonld, options) || this;
-            _this.items = [];
-            _this._thumbnails = null;
-            return _this;
-        }
-        Sequence.prototype.getCanvases = function () {
-            if (this.items.length) {
-                return this.items;
-            }
-            var items = this.__jsonld.canvases || this.__jsonld.elements;
-            if (items) {
-                for (var i = 0; i < items.length; i++) {
-                    var c = items[i];
-                    var canvas = new Manifesto.Canvas(c, this.options);
-                    canvas.index = i;
-                    this.items.push(canvas);
-                }
-            }
-            else if (this.__jsonld) {
-                for (var i = 0; i < this.__jsonld.length; i++) {
-                    var c = this.__jsonld[i];
-                    var canvas = new Manifesto.Canvas(c, this.options);
-                    canvas.index = i;
-                    this.items.push(canvas);
-                }
-            }
-            return this.items;
-        };
-        Sequence.prototype.getCanvasById = function (id) {
-            for (var i = 0; i < this.getTotalCanvases(); i++) {
-                var canvas = this.getCanvasByIndex(i);
-                // normalise canvas id
-                var canvasId = Manifesto.Utils.normaliseUrl(canvas.id);
-                if (Manifesto.Utils.normaliseUrl(id) === canvasId) {
-                    return canvas;
-                }
-            }
-            return null;
-        };
-        Sequence.prototype.getCanvasByIndex = function (canvasIndex) {
-            return this.getCanvases()[canvasIndex];
-        };
-        Sequence.prototype.getCanvasIndexById = function (id) {
-            for (var i = 0; i < this.getTotalCanvases(); i++) {
-                var canvas = this.getCanvasByIndex(i);
-                if (canvas.id === id) {
-                    return i;
-                }
-            }
-            return null;
-        };
-        Sequence.prototype.getCanvasIndexByLabel = function (label, foliated) {
-            label = label.trim();
-            if (!isNaN(label)) { // if the label is numeric
-                label = parseInt(label, 10).toString(); // trim any preceding zeros.
-                if (foliated)
-                    label += 'r'; // default to recto
-            }
-            var doublePageRegExp = /(\d*)\D+(\d*)/;
-            var match, regExp, regStr, labelPart1, labelPart2;
-            for (var i = 0; i < this.getTotalCanvases(); i++) {
-                var canvas = this.getCanvasByIndex(i);
-                // check if there's a literal match
-                if (Manifesto.LanguageMap.getValue(canvas.getLabel(), this.options.locale) === label) {
-                    return i;
-                }
-                // check if there's a match for double-page spreads e.g. 100-101, 100_101, 100 101
-                match = doublePageRegExp.exec(label);
-                if (!match)
-                    continue;
-                labelPart1 = match[1];
-                labelPart2 = match[2];
-                if (!labelPart2)
-                    continue;
-                regStr = "^" + labelPart1 + "\\D+" + labelPart2 + "$";
-                regExp = new RegExp(regStr);
-                if (regExp.test(canvas.getLabel().toString())) {
-                    return i;
-                }
-            }
-            return -1;
-        };
-        Sequence.prototype.getLastCanvasLabel = function (alphanumeric) {
-            for (var i = this.getTotalCanvases() - 1; i >= 0; i--) {
-                var canvas = this.getCanvasByIndex(i);
-                var label = Manifesto.LanguageMap.getValue(canvas.getLabel(), this.options.locale);
-                if (alphanumeric) {
-                    var regExp = /^[a-zA-Z0-9]*$/;
-                    if (regExp.test(label)) {
-                        return label;
-                    }
-                }
-                else if (label) {
-                    return label;
-                }
-            }
-            return this.options.defaultLabel;
-        };
-        Sequence.prototype.getLastPageIndex = function () {
-            return this.getTotalCanvases() - 1;
-        };
-        Sequence.prototype.getNextPageIndex = function (canvasIndex, pagingEnabled) {
-            var index;
-            if (pagingEnabled) {
-                var indices = this.getPagedIndices(canvasIndex);
-                var viewingDirection = this.getViewingDirection();
-                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
-                    index = indices[0] + 1;
-                }
-                else {
-                    index = indices[indices.length - 1] + 1;
-                }
-            }
-            else {
-                index = canvasIndex + 1;
-            }
-            if (index > this.getLastPageIndex()) {
-                return -1;
-            }
-            return index;
-        };
-        Sequence.prototype.getPagedIndices = function (canvasIndex, pagingEnabled) {
-            var indices = [];
-            if (!pagingEnabled) {
-                indices.push(canvasIndex);
-            }
-            else {
-                if (this.isFirstCanvas(canvasIndex) || this.isLastCanvas(canvasIndex)) {
-                    indices = [canvasIndex];
-                }
-                else if (canvasIndex % 2) {
-                    indices = [canvasIndex, canvasIndex + 1];
-                }
-                else {
-                    indices = [canvasIndex - 1, canvasIndex];
-                }
-                var viewingDirection = this.getViewingDirection();
-                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
-                    indices = indices.reverse();
-                }
-            }
-            return indices;
-        };
-        Sequence.prototype.getPrevPageIndex = function (canvasIndex, pagingEnabled) {
-            var index;
-            if (pagingEnabled) {
-                var indices = this.getPagedIndices(canvasIndex);
-                var viewingDirection = this.getViewingDirection();
-                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
-                    index = indices[indices.length - 1] - 1;
-                }
-                else {
-                    index = indices[0] - 1;
-                }
-            }
-            else {
-                index = canvasIndex - 1;
-            }
-            return index;
-        };
-        Sequence.prototype.getStartCanvasIndex = function () {
-            var startCanvas = this.getStartCanvas();
-            if (startCanvas) {
-                // if there's a startCanvas attribute, loop through the canvases and return the matching index.
-                for (var i = 0; i < this.getTotalCanvases(); i++) {
-                    var canvas = this.getCanvasByIndex(i);
-                    if (canvas.id === startCanvas)
-                        return i;
-                }
-            }
-            // default to first canvas.
-            return 0;
-        };
-        // todo: deprecate
-        Sequence.prototype.getThumbs = function (width, height) {
-            console.warn('getThumbs will be deprecated, use getThumbnails instead');
-            var thumbs = [];
-            var totalCanvases = this.getTotalCanvases();
-            for (var i = 0; i < totalCanvases; i++) {
-                var canvas = this.getCanvasByIndex(i);
-                var thumb = new Manifesto.Thumb(width, canvas);
-                thumbs.push(thumb);
-            }
-            return thumbs;
-        };
-        Sequence.prototype.getThumbnails = function () {
-            if (this._thumbnails != null)
-                return this._thumbnails;
-            this._thumbnails = [];
-            var canvases = this.getCanvases();
-            for (var i = 0; i < canvases.length; i++) {
-                var thumbnail = canvases[i].getThumbnail();
-                if (thumbnail) {
-                    this._thumbnails.push(thumbnail);
-                }
-            }
-            return this._thumbnails;
-        };
-        Sequence.prototype.getStartCanvas = function () {
-            return this.getProperty('startCanvas');
-        };
-        Sequence.prototype.getTotalCanvases = function () {
-            return this.getCanvases().length;
-        };
-        Sequence.prototype.getViewingDirection = function () {
-            if (this.getProperty('viewingDirection')) {
-                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
-            }
-            else if (this.options.resource.getViewingDirection) {
-                return this.options.resource.getViewingDirection();
-            }
-            return null;
-        };
-        Sequence.prototype.getViewingHint = function () {
-            if (this.getProperty('viewingHint')) {
-                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
-            }
-            return null;
-        };
-        Sequence.prototype.isCanvasIndexOutOfRange = function (canvasIndex) {
-            return canvasIndex > this.getTotalCanvases() - 1;
-        };
-        Sequence.prototype.isFirstCanvas = function (canvasIndex) {
-            return canvasIndex === 0;
-        };
-        Sequence.prototype.isLastCanvas = function (canvasIndex) {
-            return canvasIndex === this.getTotalCanvases() - 1;
-        };
-        Sequence.prototype.isMultiCanvas = function () {
-            return this.getTotalCanvases() > 1;
-        };
-        Sequence.prototype.isPagingEnabled = function () {
-            var viewingHint = this.getViewingHint();
-            if (viewingHint) {
-                return viewingHint.toString() === Manifesto.ViewingHint.PAGED.toString();
-            }
-            return false;
-        };
-        // checks if the number of canvases is even - therefore has a front and back cover
-        Sequence.prototype.isTotalCanvasesEven = function () {
-            return this.getTotalCanvases() % 2 === 0;
-        };
-        return Sequence;
-    }(Manifesto.ManifestResource));
-    Manifesto.Sequence = Sequence;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var Deserialiser = /** @class */ (function () {
-        function Deserialiser() {
-        }
-        Deserialiser.parse = function (manifest, options) {
-            if (typeof manifest === 'string') {
-                manifest = JSON.parse(manifest);
-            }
-            return this.parseJson(manifest, options);
-        };
-        Deserialiser.parseJson = function (json, options) {
-            var resource;
-            // have options been passed for the manifest to inherit?
-            if (options) {
-                if (options.navDate && !isNaN(options.navDate.getTime())) {
-                    json.navDate = options.navDate.toString();
-                }
-            }
-            if (json['@type']) {
-                switch (json['@type']) {
-                    case 'sc:Collection':
-                        resource = this.parseCollection(json, options);
-                        break;
-                    case 'sc:Manifest':
-                        resource = this.parseManifest(json, options);
-                        break;
-                    default:
-                        return null;
-                }
-            }
-            else {
-                // presentation 3
-                switch (json['type']) {
-                    case 'Collection':
-                        resource = this.parseCollection(json, options);
-                        break;
-                    case 'Manifest':
-                        resource = this.parseManifest(json, options);
-                        break;
-                    default:
-                        return null;
-                }
-            }
-            // Top-level resource was loaded from a URI, so flag it to prevent
-            // unnecessary reload:
-            resource.isLoaded = true;
-            return resource;
-        };
-        Deserialiser.parseCollection = function (json, options) {
-            var collection = new Manifesto.Collection(json, options);
-            if (options) {
-                collection.index = options.index || 0;
-            }
-            else {
-                collection.index = 0;
-            }
-            this.parseCollections(collection, options);
-            this.parseManifests(collection, options);
-            this.parseItems(collection, options);
-            return collection;
-        };
-        Deserialiser.parseCollections = function (collection, options) {
-            var items;
-            if (collection.__jsonld.collections) {
-                items = collection.__jsonld.collections;
-            }
-            else if (collection.__jsonld.items) {
-                items = collection.__jsonld.items.en().where(function (m) { return m.type.toLowerCase() === 'collection'; }).toArray();
-            }
-            if (items) {
-                for (var i = 0; i < items.length; i++) {
-                    if (options) {
-                        options.index = i;
-                    }
-                    var item = this.parseCollection(items[i], options);
-                    item.index = i;
-                    item.parentCollection = collection;
-                    collection.items.push(item);
-                }
-            }
-        };
-        Deserialiser.parseManifest = function (json, options) {
-            var manifest = new Manifesto.Manifest(json, options);
-            return manifest;
-        };
-        Deserialiser.parseManifests = function (collection, options) {
-            var items;
-            if (collection.__jsonld.manifests) {
-                items = collection.__jsonld.manifests;
-            }
-            else if (collection.__jsonld.items) {
-                items = collection.__jsonld.items.en().where(function (m) { return m.type.toLowerCase() === 'manifest'; }).toArray();
-            }
-            if (items) {
-                for (var i = 0; i < items.length; i++) {
-                    var item = this.parseManifest(items[i], options);
-                    item.index = i;
-                    item.parentCollection = collection;
-                    collection.items.push(item);
-                }
-            }
-        };
-        Deserialiser.parseItem = function (json, options) {
-            if (json['@type']) {
-                if (json['@type'].toLowerCase() === 'sc:manifest') {
-                    return this.parseManifest(json, options);
-                }
-                else if (json['@type'].toLowerCase() === 'sc:collection') {
-                    return this.parseCollection(json, options);
-                }
-            }
-            else if (json.type) {
-                if (json.type.toLowerCase() === 'manifest') {
-                    return this.parseManifest(json, options);
-                }
-                else if (json.type.toLowerCase() === 'collection') {
-                    return this.parseCollection(json, options);
-                }
-            }
-            return null;
-        };
-        Deserialiser.parseItems = function (collection, options) {
-            var items = collection.__jsonld.members || collection.__jsonld.items;
-            if (items) {
-                var _loop_1 = function (i) {
-                    if (options) {
-                        options.index = i;
-                    }
-                    var item = this_1.parseItem(items[i], options);
-                    if (!item)
-                        return { value: void 0 };
-                    // only add to items if not already parsed from backwards-compatible collections/manifests arrays
-                    if (collection.items.en().where(function (m) { return m.id === item.id; }).first()) {
-                        return "continue";
-                    }
-                    item.index = i;
-                    item.parentCollection = collection;
-                    collection.items.push(item);
-                };
-                var this_1 = this;
-                for (var i = 0; i < items.length; i++) {
-                    var state_1 = _loop_1(i);
-                    if (typeof state_1 === "object")
-                        return state_1.value;
-                }
-            }
-        };
-        return Deserialiser;
-    }());
-    Manifesto.Deserialiser = Deserialiser;
-    var Serialiser = /** @class */ (function () {
-        function Serialiser() {
-        }
-        Serialiser.serialise = function (manifest) {
-            // todo
-            return "";
-        };
-        return Serialiser;
-    }());
-    Manifesto.Serialiser = Serialiser;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Service = /** @class */ (function (_super) {
-        __extends(Service, _super);
-        function Service(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        Service.prototype.getProfile = function () {
-            var profile = this.getProperty('profile');
-            if (!profile) {
-                profile = this.getProperty('dcterms:conformsTo');
-            }
-            if (Array.isArray(profile)) {
-                return new Manifesto.ServiceProfile(profile[0]);
-            }
-            return new Manifesto.ServiceProfile(profile);
-        };
-        Service.prototype.getConfirmLabel = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('confirmLabel'), this.options.locale);
-        };
-        Service.prototype.getDescription = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('description'), this.options.locale);
-        };
-        Service.prototype.getFailureDescription = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('failureDescription'), this.options.locale);
-        };
-        Service.prototype.getFailureHeader = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('failureHeader'), this.options.locale);
-        };
-        Service.prototype.getHeader = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('header'), this.options.locale);
-        };
-        Service.prototype.getServiceLabel = function () {
-            return Manifesto.Utils.getLocalisedValue(this.getProperty('label'), this.options.locale);
-        };
-        Service.prototype.getInfoUri = function () {
-            var infoUri = this.id;
-            if (!infoUri.endsWith('/')) {
-                infoUri += '/';
-            }
-            infoUri += 'info.json';
-            return infoUri;
-        };
-        return Service;
-    }(Manifesto.ManifestResource));
-    Manifesto.Service = Service;
-})(Manifesto || (Manifesto = {}));
-
-
-var Manifesto;
-(function (Manifesto) {
-    // todo: deprecate
-    // this is used by Sequence.getThumbs
-    var Thumb = /** @class */ (function () {
-        function Thumb(width, canvas) {
-            this.data = canvas;
-            this.index = canvas.index;
-            this.width = width;
-            var heightRatio = canvas.getHeight() / canvas.getWidth();
-            if (heightRatio) {
-                this.height = Math.floor(this.width * heightRatio);
-            }
-            else {
-                this.height = width;
-            }
-            this.uri = canvas.getCanonicalImageUri(width);
-            this.label = Manifesto.LanguageMap.getValue(canvas.getLabel()); // todo: pass locale?
-        }
-        return Thumb;
-    }());
-    Manifesto.Thumb = Thumb;
-})(Manifesto || (Manifesto = {}));
-
-
-var Manifesto;
-(function (Manifesto) {
-    var TreeNode = /** @class */ (function () {
-        function TreeNode(label, data) {
-            this.label = label;
-            this.data = data || {};
-            this.nodes = [];
-        }
-        TreeNode.prototype.addNode = function (node) {
-            this.nodes.push(node);
-            node.parentNode = this;
-        };
-        TreeNode.prototype.isCollection = function () {
-            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
-        };
-        TreeNode.prototype.isManifest = function () {
-            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
-        };
-        TreeNode.prototype.isRange = function () {
-            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.RANGE.toString());
-        };
-        return TreeNode;
-    }());
-    Manifesto.TreeNode = TreeNode;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var TreeNodeType = /** @class */ (function (_super) {
-        __extends(TreeNodeType, _super);
-        function TreeNodeType() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // todo: use getters when ES3 target is no longer required.
-        TreeNodeType.prototype.collection = function () {
-            return new TreeNodeType(TreeNodeType.COLLECTION.toString());
-        };
-        TreeNodeType.prototype.manifest = function () {
-            return new TreeNodeType(TreeNodeType.MANIFEST.toString());
-        };
-        TreeNodeType.prototype.range = function () {
-            return new TreeNodeType(TreeNodeType.RANGE.toString());
-        };
-        TreeNodeType.COLLECTION = new TreeNodeType("collection");
-        TreeNodeType.MANIFEST = new TreeNodeType("manifest");
-        TreeNodeType.RANGE = new TreeNodeType("range");
-        return TreeNodeType;
-    }(Manifesto.StringValue));
-    Manifesto.TreeNodeType = TreeNodeType;
-})(Manifesto || (Manifesto = {}));
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var http = require('http');
-var https = require('https');
-var url = require('url');
-var Manifesto;
-(function (Manifesto) {
-    var Utils = /** @class */ (function () {
-        function Utils() {
-        }
-        Utils.getMediaType = function (type) {
-            type = type.toLowerCase();
-            type = type.split(';')[0];
-            return type.trim();
-        };
-        Utils.getImageQuality = function (profile) {
-            var p = profile.toString();
-            if (p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString() ||
-                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString() ||
-                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString() ||
-                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString() ||
-                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString() ||
-                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) {
-                return 'native';
-            }
-            return 'default';
-        };
-        Utils.getInexactLocale = function (locale) {
-            if (locale.indexOf('-') !== -1) {
-                return locale.substr(0, locale.indexOf('-'));
-            }
-            return locale;
-        };
-        Utils.getLocalisedValue = function (resource, locale) {
-            // if the resource is not an array of translations, return the string.
-            if (!Array.isArray(resource)) {
-                return resource;
-            }
-            // test for exact match
-            for (var i = 0; i < resource.length; i++) {
-                var value_1 = resource[i];
-                var language_1 = value_1['@language'];
-                if (locale === language_1) {
-                    return value_1['@value'];
-                }
-            }
-            // test for inexact match
-            var match = locale.substr(0, locale.indexOf('-'));
-            for (var i = 0; i < resource.length; i++) {
-                var value = resource[i];
-                var language = value['@language'];
-                if (language === match) {
-                    return value['@value'];
-                }
-            }
-            return null;
-        };
-        Utils.generateTreeNodeIds = function (treeNode, index) {
-            if (index === void 0) { index = 0; }
-            var id;
-            if (!treeNode.parentNode) {
-                id = '0';
-            }
-            else {
-                id = treeNode.parentNode.id + "-" + index;
-            }
-            treeNode.id = id;
-            for (var i = 0; i < treeNode.nodes.length; i++) {
-                var n = treeNode.nodes[i];
-                Utils.generateTreeNodeIds(n, i);
-            }
-        };
-        Utils.normaliseType = function (type) {
-            type = type.toLowerCase();
-            if (type.indexOf(':') !== -1) {
-                var split = type.split(':');
-                return split[1];
-            }
-            return type;
-        };
-        Utils.normaliseUrl = function (url) {
-            url = url.substr(url.indexOf('://'));
-            if (url.indexOf('#') !== -1) {
-                url = url.split('#')[0];
-            }
-            return url;
-        };
-        Utils.normalisedUrlsMatch = function (url1, url2) {
-            return Utils.normaliseUrl(url1) === Utils.normaliseUrl(url2);
-        };
-        Utils.isImageProfile = function (profile) {
-            if (typeof (profile) === 'string') {
-                profile = new Manifesto.ServiceProfile(profile);
-            }
-            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2PROFILE.toString())) {
-                return true;
-            }
-            return false;
-        };
-        Utils.isLevel0ImageProfile = function (profile) {
-            if (typeof (profile) === 'string') {
-                profile = new Manifesto.ServiceProfile(profile);
-            }
-            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0PROFILE.toString())) {
-                return true;
-            }
-            return false;
-        };
-        Utils.isLevel1ImageProfile = function (profile) {
-            if (typeof (profile) === 'string') {
-                profile = new Manifesto.ServiceProfile(profile);
-            }
-            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1PROFILE.toString())) {
-                return true;
-            }
-            return false;
-        };
-        Utils.isLevel2ImageProfile = function (profile) {
-            if (typeof (profile) === 'string') {
-                profile = new Manifesto.ServiceProfile(profile);
-            }
-            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2.toString()) ||
-                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2PROFILE.toString())) {
-                return true;
-            }
-            return false;
-        };
-        Utils.loadResource = function (uri) {
-            return new Promise(function (resolve, reject) {
-                var u = url.parse(uri);
-                var req;
-                var opts = {
-                    host: u.hostname,
-                    port: u.port,
-                    path: u.path,
-                    method: "GET",
-                    withCredentials: false
-                };
-                switch (u.protocol) {
-                    case 'https:':
-                        req = https.request(opts, function (response) {
-                            var result = "";
-                            response.on('data', function (chunk) {
-                                result += chunk;
-                            });
-                            response.on('end', function () {
-                                resolve(result);
-                            });
-                        });
-                        req.on('error', function (error) {
-                            reject(error);
-                        });
-                        req.end();
-                        break;
-                    case 'dat:':
-                        var xhr_1 = new XMLHttpRequest();
-                        xhr_1.onreadystatechange = function () {
-                            if (xhr_1.readyState === 4) {
-                                resolve(xhr_1.response);
-                            }
-                        };
-                        xhr_1.open("GET", uri, true);
-                        xhr_1.send();
-                        break;
-                    default:
-                        req = http.request(opts, function (response) {
-                            var result = "";
-                            response.on('data', function (chunk) {
-                                result += chunk;
-                            });
-                            response.on('end', function () {
-                                resolve(result);
-                            });
-                        });
-                        req.on('error', function (error) {
-                            reject(error);
-                        });
-                        req.end();
-                        break;
-                }
-            });
-        };
-        Utils.loadExternalResourcesAuth1 = function (resources, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
-            return new Promise(function (resolve, reject) {
-                var promises = resources.map(function (resource) {
-                    return Utils.loadExternalResourceAuth1(resource, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages);
-                });
-                Promise.all(promises)
-                    .then(function () {
-                    resolve(resources);
-                })["catch"](function (error) {
-                    reject(error);
-                });
-            });
-        };
-        Utils.loadExternalResourceAuth1 = function (resource, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
-            return __awaiter(this, void 0, void 0, function () {
-                var storedAccessToken;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, getStoredAccessToken(resource)];
-                        case 1:
-                            storedAccessToken = _a.sent();
-                            if (!storedAccessToken) return [3 /*break*/, 6];
-                            return [4 /*yield*/, resource.getData(storedAccessToken)];
-                        case 2:
-                            _a.sent();
-                            if (!(resource.status === HTTPStatusCode.OK)) return [3 /*break*/, 3];
-                            return [2 /*return*/, resource];
-                        case 3: 
-                        // the stored token is no good for this resource
-                        return [4 /*yield*/, Utils.doAuthChain(resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages)];
-                        case 4:
-                            // the stored token is no good for this resource
-                            _a.sent();
-                            _a.label = 5;
-                        case 5:
-                            if (resource.status === HTTPStatusCode.OK || resource.status === HTTPStatusCode.MOVED_TEMPORARILY) {
-                                return [2 /*return*/, resource];
-                            }
-                            throw Utils.createAuthorizationFailedError();
-                        case 6: return [4 /*yield*/, resource.getData()];
-                        case 7:
-                            _a.sent();
-                            if (!(resource.status === HTTPStatusCode.MOVED_TEMPORARILY || resource.status === HTTPStatusCode.UNAUTHORIZED)) return [3 /*break*/, 9];
-                            return [4 /*yield*/, Utils.doAuthChain(resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages)];
-                        case 8:
-                            _a.sent();
-                            _a.label = 9;
-                        case 9:
-                            if (resource.status === HTTPStatusCode.OK || resource.status === HTTPStatusCode.MOVED_TEMPORARILY) {
-                                return [2 /*return*/, resource];
-                            }
-                            throw Utils.createAuthorizationFailedError();
-                    }
-                });
-            });
-        };
-        Utils.doAuthChain = function (resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
-            return __awaiter(this, void 0, void 0, function () {
-                var externalService, kioskService, clickThroughService, loginService, serviceToTry, lastAttempted, kioskInteraction, contentProviderInteraction, contentProviderInteraction;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            // This function enters the flowchart at the < External? > junction
-                            // http://iiif.io/api/auth/1.0/#workflow-from-the-browser-client-perspective
-                            if (!resource.isAccessControlled()) {
-                                return [2 /*return*/, resource]; // no services found
-                            }
-                            externalService = resource.externalService;
-                            if (externalService) {
-                                externalService.options = resource.options;
-                            }
-                            kioskService = resource.kioskService;
-                            if (kioskService) {
-                                kioskService.options = resource.options;
-                            }
-                            clickThroughService = resource.clickThroughService;
-                            if (clickThroughService) {
-                                clickThroughService.options = resource.options;
-                            }
-                            loginService = resource.loginService;
-                            if (loginService) {
-                                loginService.options = resource.options;
-                            }
-                            if (!(!resource.isResponseHandled && resource.status === HTTPStatusCode.MOVED_TEMPORARILY)) return [3 /*break*/, 2];
-                            return [4 /*yield*/, handleMovedTemporarily(resource)];
-                        case 1:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 2:
-                            serviceToTry = null;
-                            lastAttempted = null;
-                            // repetition of logic is left in these steps for clarity:
-                            // Looking for external pattern
-                            serviceToTry = externalService;
-                            if (!serviceToTry) return [3 /*break*/, 4];
-                            lastAttempted = serviceToTry;
-                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
-                        case 3:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 4:
-                            // Looking for kiosk pattern
-                            serviceToTry = kioskService;
-                            if (!serviceToTry) return [3 /*break*/, 7];
-                            lastAttempted = serviceToTry;
-                            kioskInteraction = openContentProviderInteraction(serviceToTry);
-                            if (!kioskInteraction) return [3 /*break*/, 7];
-                            return [4 /*yield*/, userInteractedWithContentProvider(kioskInteraction)];
-                        case 5:
-                            _a.sent();
-                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
-                        case 6:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 7:
-                            // The code for the next two patterns is identical (other than the profile name).
-                            // The difference is in the expected behaviour of
-                            //
-                            //    await userInteractedWithContentProvider(contentProviderInteraction);
-                            // 
-                            // For clickthrough the opened window should close immediately having established
-                            // a session, whereas for login the user might spend some time entering credentials etc.
-                            // Looking for clickthrough pattern
-                            serviceToTry = clickThroughService;
-                            if (!serviceToTry) return [3 /*break*/, 11];
-                            lastAttempted = serviceToTry;
-                            return [4 /*yield*/, getContentProviderInteraction(resource, serviceToTry)];
-                        case 8:
-                            contentProviderInteraction = _a.sent();
-                            if (!contentProviderInteraction) return [3 /*break*/, 11];
-                            // should close immediately
-                            return [4 /*yield*/, userInteractedWithContentProvider(contentProviderInteraction)];
-                        case 9:
-                            // should close immediately
-                            _a.sent();
-                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
-                        case 10:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 11:
-                            // Looking for login pattern
-                            serviceToTry = loginService;
-                            if (!serviceToTry) return [3 /*break*/, 15];
-                            lastAttempted = serviceToTry;
-                            return [4 /*yield*/, getContentProviderInteraction(resource, serviceToTry)];
-                        case 12:
-                            contentProviderInteraction = _a.sent();
-                            if (!contentProviderInteraction) return [3 /*break*/, 15];
-                            // we expect the user to spend some time interacting
-                            return [4 /*yield*/, userInteractedWithContentProvider(contentProviderInteraction)];
-                        case 13:
-                            // we expect the user to spend some time interacting
-                            _a.sent();
-                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
-                        case 14:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 15:
-                            // nothing worked! Use the most recently tried service as the source of
-                            // messages to show to the user.
-                            if (lastAttempted) {
-                                showOutOfOptionsMessages(resource, lastAttempted);
-                            }
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        };
-        Utils.attemptResourceWithToken = function (resource, openTokenService, authService) {
-            return __awaiter(this, void 0, void 0, function () {
-                var tokenService, tokenMessage;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            tokenService = authService.getService(Manifesto.ServiceProfile.AUTH1TOKEN.toString());
-                            if (!tokenService) return [3 /*break*/, 3];
-                            return [4 /*yield*/, openTokenService(resource, tokenService)];
-                        case 1:
-                            tokenMessage = _a.sent();
-                            if (!(tokenMessage && tokenMessage.accessToken)) return [3 /*break*/, 3];
-                            return [4 /*yield*/, resource.getData(tokenMessage)];
-                        case 2:
-                            _a.sent();
-                            return [2 /*return*/, resource];
-                        case 3: return [2 /*return*/];
-                    }
-                });
-            });
-        };
-        Utils.loadExternalResourcesAuth09 = function (resources, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options) {
-            return new Promise(function (resolve, reject) {
-                var promises = resources.map(function (resource) {
-                    return Utils.loadExternalResourceAuth09(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options);
-                });
-                Promise.all(promises)
-                    .then(function () {
-                    resolve(resources);
-                })["catch"](function (error) {
-                    reject(error);
-                });
-            });
-        };
-        // IIIF auth api pre v1.0
-        // Keeping this around for now until the auth 1.0 implementation is stable
-        Utils.loadExternalResourceAuth09 = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options) {
-            return new Promise(function (resolve, reject) {
-                if (options && options.pessimisticAccessControl) {
-                    // pessimistic: access control cookies may have been deleted.
-                    // always request the access token for every access controlled info.json request
-                    // returned access tokens are not stored, therefore the login window flashes for every request.
-                    resource.getData().then(function () {
-                        if (resource.isAccessControlled()) {
-                            // if the resource has a click through service, use that.
-                            if (resource.clickThroughService) {
-                                resolve(clickThrough(resource));
-                                //} else if(resource.restrictedService) {
-                                resolve(restricted(resource));
-                            }
-                            else {
-                                login(resource).then(function () {
-                                    getAccessToken(resource, true).then(function (token) {
-                                        resource.getData(token).then(function () {
-                                            resolve(handleResourceResponse(resource));
-                                        })["catch"](function (message) {
-                                            reject(Utils.createInternalServerError(message));
-                                        });
-                                    })["catch"](function (message) {
-                                        reject(Utils.createInternalServerError(message));
-                                    });
-                                })["catch"](function (message) {
-                                    reject(Utils.createInternalServerError(message));
-                                });
-                            }
-                        }
-                        else {
-                            // this info.json isn't access controlled, therefore no need to request an access token.
-                            resolve(resource);
-                        }
-                    })["catch"](function (message) {
-                        reject(Utils.createInternalServerError(message));
-                    });
-                }
-                else {
-                    // optimistic: access control cookies may not have been deleted.
-                    // store access tokens to avoid login window flashes.
-                    // if cookies are deleted a page refresh is required.
-                    // try loading the resource using an access token that matches the info.json domain.
-                    // if an access token is found, request the resource using it regardless of whether it is access controlled.
-                    getStoredAccessToken(resource, tokenStorageStrategy).then(function (storedAccessToken) {
-                        if (storedAccessToken) {
-                            // try using the stored access token
-                            resource.getData(storedAccessToken).then(function () {
-                                // if the info.json loaded using the stored access token
-                                if (resource.status === HTTPStatusCode.OK) {
-                                    resolve(handleResourceResponse(resource));
-                                }
-                                else {
-                                    // otherwise, load the resource data to determine the correct access control services.
-                                    // if access controlled, do login.
-                                    Utils.authorize(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken).then(function () {
-                                        resolve(handleResourceResponse(resource));
-                                    })["catch"](function (error) {
-                                        // if (resource.restrictedService){
-                                        //     reject(Utils.createRestrictedError());
-                                        // } else {
-                                        reject(Utils.createAuthorizationFailedError());
-                                        //}
-                                    });
-                                }
-                            })["catch"](function (error) {
-                                reject(Utils.createAuthorizationFailedError());
-                            });
-                        }
-                        else {
-                            Utils.authorize(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken).then(function () {
-                                resolve(handleResourceResponse(resource));
-                            })["catch"](function (error) {
-                                reject(Utils.createAuthorizationFailedError());
-                            });
-                        }
-                    })["catch"](function (error) {
-                        reject(Utils.createAuthorizationFailedError());
-                    });
-                }
-            });
-        };
-        Utils.createError = function (name, message) {
-            var error = new Error();
-            error.message = message;
-            error.name = name;
-            return error;
-        };
-        Utils.createAuthorizationFailedError = function () {
-            return Utils.createError(manifesto.StatusCodes.AUTHORIZATION_FAILED.toString(), "Authorization failed");
-        };
-        Utils.createRestrictedError = function () {
-            return Utils.createError(manifesto.StatusCodes.RESTRICTED.toString(), "Restricted");
-        };
-        Utils.createInternalServerError = function (message) {
-            return Utils.createError(manifesto.StatusCodes.INTERNAL_SERVER_ERROR.toString(), message);
-        };
-        Utils.authorize = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken) {
-            return new Promise(function (resolve, reject) {
-                resource.getData().then(function () {
-                    if (resource.isAccessControlled()) {
-                        getStoredAccessToken(resource, tokenStorageStrategy).then(function (storedAccessToken) {
-                            if (storedAccessToken) {
-                                // try using the stored access token
-                                resource.getData(storedAccessToken).then(function () {
-                                    if (resource.status === HTTPStatusCode.OK) {
-                                        resolve(resource); // happy path ended
-                                    }
-                                    else {
-                                        // the stored token is no good for this resource
-                                        Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
-                                    }
-                                })["catch"](function (message) {
-                                    reject(Utils.createInternalServerError(message));
-                                });
-                            }
-                            else {
-                                // There was no stored token, but the user might have a cookie that will grant a token
-                                getAccessToken(resource, false).then(function (accessToken) {
-                                    if (accessToken) {
-                                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
-                                            // try using the fresh access token
-                                            resource.getData(accessToken).then(function () {
-                                                if (resource.status === HTTPStatusCode.OK) {
-                                                    resolve(resource);
-                                                }
-                                                else {
-                                                    // User has a token, but it's not good enough
-                                                    Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
-                                                }
-                                            })["catch"](function (message) {
-                                                reject(Utils.createInternalServerError(message));
-                                            });
-                                        })["catch"](function (message) {
-                                            // not able to store access token
-                                            reject(Utils.createInternalServerError(message));
-                                        });
-                                    }
-                                    else {
-                                        // The user did not have a cookie that granted a token
-                                        Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
-                                    }
-                                });
-                            }
-                        })["catch"](function (message) {
-                            reject(Utils.createInternalServerError(message));
-                        });
-                    }
-                    else {
-                        // this info.json isn't access controlled, therefore there's no need to request an access token
-                        resolve(resource);
-                    }
-                });
-            });
-        };
-        Utils.showAuthInteraction = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject) {
-            if (resource.status === HTTPStatusCode.MOVED_TEMPORARILY && !resource.isResponseHandled) {
-                // if the resource was redirected to a degraded version
-                // and the response hasn't been handled yet.
-                // if the client wishes to trigger a login, set resource.isResponseHandled to true
-                // and call loadExternalResources() again passing the resource.
-                resolve(resource);
-                // } else if (resource.restrictedService) {
-                //     resolve(restricted(resource));
-                //     // TODO: move to next etc
-            }
-            else if (resource.clickThroughService && !resource.isResponseHandled) {
-                // if the resource has a click through service, use that.
-                clickThrough(resource).then(function () {
-                    getAccessToken(resource, true).then(function (accessToken) {
-                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
-                            resource.getData(accessToken).then(function () {
-                                resolve(resource);
-                            })["catch"](function (message) {
-                                reject(Utils.createInternalServerError(message));
-                            });
-                        })["catch"](function (message) {
-                            reject(Utils.createInternalServerError(message));
-                        });
-                    })["catch"](function (message) {
-                        reject(Utils.createInternalServerError(message));
-                    });
-                });
-            }
-            else {
-                // get an access token
-                login(resource).then(function () {
-                    getAccessToken(resource, true).then(function (accessToken) {
-                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
-                            resource.getData(accessToken).then(function () {
-                                resolve(resource);
-                            })["catch"](function (message) {
-                                reject(Utils.createInternalServerError(message));
-                            });
-                        })["catch"](function (message) {
-                            reject(Utils.createInternalServerError(message));
-                        });
-                    })["catch"](function (message) {
-                        reject(Utils.createInternalServerError(message));
-                    });
-                });
-            }
-        };
-        ;
-        Utils.getService = function (resource, profile) {
-            var services = this.getServices(resource);
-            // coerce profile to string
-            if (typeof (profile) !== 'string') {
-                profile = profile.toString();
-            }
-            for (var i = 0; i < services.length; i++) {
-                var service = services[i];
-                if (service.getProfile().toString() === profile) {
-                    return service;
-                }
-            }
-            return null;
-        };
-        Utils.getResourceById = function (parentResource, id) {
-            return [parentResource.__jsonld].en().traverseUnique(function (x) { return Utils.getAllArrays(x); })
-                .first(function (r) { return r['@id'] === id; });
-        };
-        Utils.getAllArrays = function (obj) {
-            var all = [].en();
-            if (!obj)
-                return all;
-            for (var key in obj) {
-                var val = obj[key];
-                if (Array.isArray(val)) {
-                    all = all.concat(val);
-                }
-            }
-            return all;
-        };
-        Utils.getServices = function (resource) {
-            var service;
-            // if passing a manifesto-parsed object, use the __jsonld.service property,
-            // otherwise look for a service property (info.json services)
-            if (resource.__jsonld) {
-                service = resource.__jsonld.service;
-            }
-            else {
-                service = resource.service;
-            }
-            var services = [];
-            if (!service)
-                return services;
-            // coerce to array
-            if (!Array.isArray(service)) {
-                service = [service];
-            }
-            for (var i = 0; i < service.length; i++) {
-                var s = service[i];
-                if (typeof (s) === 'string') {
-                    var r = this.getResourceById(resource.options.resource, s);
-                    if (r) {
-                        services.push(new Manifesto.Service(r.__jsonld || r, resource.options));
-                    }
-                }
-                else {
-                    services.push(new Manifesto.Service(s, resource.options));
-                }
-            }
-            return services;
-        };
-        Utils.getTemporalComponent = function (target) {
-            var temporal = /t=([^&]+)/g.exec(target);
-            var t = null;
-            if (temporal && temporal[1]) {
-                t = temporal[1].split(',');
-            }
-            return t;
-        };
-        return Utils;
-    }());
-    Manifesto.Utils = Utils;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var Language = /** @class */ (function () {
-        function Language(value, locale) {
-            if (Array.isArray(value)) {
-                if (value.length === 1) {
-                    this.value = value[0];
-                }
-                else {
-                    // concatenate all of the values
-                    this.value = value.join('<br/>');
-                }
-            }
-            else {
-                this.value = value;
-            }
-            this.locale = locale;
-        }
-        return Language;
-    }());
-    Manifesto.Language = Language;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var LanguageMap = /** @class */ (function (_super) {
-        __extends(LanguageMap, _super);
-        function LanguageMap() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        LanguageMap.parse = function (language, defaultLocale) {
-            var tc = [];
-            var t;
-            if (!language) {
-                return tc;
-            }
-            else if (Array.isArray(language)) {
-                for (var i = 0; i < language.length; i++) {
-                    var value = language[i];
-                    if (typeof (value) === 'string') {
-                        t = new Manifesto.Language(value, defaultLocale);
-                    }
-                    else {
-                        t = new Manifesto.Language(value['@value'], value['@language'] || defaultLocale);
-                    }
-                    tc.push(t);
-                }
-            }
-            else if (typeof (language) === 'string') {
-                // if it's just a single string value, create one language in the configured locale
-                t = new Manifesto.Language(language, defaultLocale);
-                tc.push(t);
-                return tc;
-            }
-            else {
-                // it's an object
-                if (language['@value']) {
-                    // presentation 2
-                    t = new Manifesto.Language(language['@value'], language['@language'] || defaultLocale);
-                    tc.push(t);
-                }
-                else {
-                    // presentation 3
-                    Object.keys(language).forEach(function (key) {
-                        // todo: support multiple values in array
-                        if (language[key].length) {
-                            t = new Manifesto.Language(language[key], key);
-                            tc.push(t);
-                        }
-                        else {
-                            throw new Error('language must have a value');
-                        }
-                    });
-                }
-            }
-            return tc;
-        };
-        LanguageMap.getValue = function (languageCollection, locale) {
-            if (languageCollection.length) {
-                if (locale) {
-                    var language = languageCollection.en().where(function (t) { return t.locale === locale || Manifesto.Utils.getInexactLocale(t.locale) === Manifesto.Utils.getInexactLocale(locale); }).first();
-                    if (language) {
-                        return language.value;
-                    }
-                }
-                // return the first valuel
-                return languageCollection[0].value;
-            }
-            return null;
-        };
-        return LanguageMap;
-    }(Array));
-    Manifesto.LanguageMap = LanguageMap;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var LabelValuePair = /** @class */ (function () {
-        function LabelValuePair(defaultLocale) {
-            this.defaultLocale = defaultLocale;
-        }
-        LabelValuePair.prototype.parse = function (resource) {
-            this.resource = resource;
-            this.label = Manifesto.LanguageMap.parse(this.resource.label, this.defaultLocale);
-            this.value = Manifesto.LanguageMap.parse(this.resource.value, this.defaultLocale);
-        };
-        // shortcuts to get/set values based on default locale
-        LabelValuePair.prototype.getLabel = function () {
-            if (this.label) {
-                return Manifesto.LanguageMap.getValue(this.label, this.defaultLocale);
-            }
-            return null;
-        };
-        LabelValuePair.prototype.setLabel = function (value) {
-            var _this = this;
-            if (this.label && this.label.length) {
-                var t = this.label.en().where(function (x) { return x.locale === _this.defaultLocale || x.locale === Manifesto.Utils.getInexactLocale(_this.defaultLocale); }).first();
-                if (t)
-                    t.value = value;
-            }
-        };
-        LabelValuePair.prototype.getValue = function () {
-            if (this.value) {
-                var locale = this.defaultLocale;
-                // if the label has a locale, prefer that to the default locale
-                if (this.label && this.label.length && this.label[0].locale) {
-                    locale = this.label[0].locale;
-                }
-                return Manifesto.LanguageMap.getValue(this.value, locale);
-            }
-            return null;
-        };
-        LabelValuePair.prototype.setValue = function (value) {
-            var _this = this;
-            if (this.value && this.value.length) {
-                var t = this.value.en().where(function (x) { return x.locale === _this.defaultLocale || x.locale === Manifesto.Utils.getInexactLocale(_this.defaultLocale); }).first();
-                if (t)
-                    t.value = value;
-            }
-        };
-        return LabelValuePair;
-    }());
-    Manifesto.LabelValuePair = LabelValuePair;
-})(Manifesto || (Manifesto = {}));
-
-var Manifesto;
-(function (Manifesto) {
-    var Size = /** @class */ (function () {
-        function Size(width, height) {
-            this.width = width;
-            this.height = height;
-        }
-        return Size;
-    }());
-    Manifesto.Size = Size;
-})(Manifesto || (Manifesto = {}));
-
-global.manifesto = global.Manifesto = module.exports = {
-    AnnotationMotivation: new Manifesto.AnnotationMotivation(),
-    Behavior: new Manifesto.Behavior(),
-    IIIFResourceType: new Manifesto.IIIFResourceType(),
-    LabelValuePair: Manifesto.LabelValuePair,
-    Language: Manifesto.Language,
-    LanguageMap: Manifesto.LanguageMap,
-    ManifestType: new Manifesto.ManifestType(),
-    MediaType: new Manifesto.MediaType(),
-    RenderingFormat: new Manifesto.RenderingFormat(),
-    ResourceType: new Manifesto.ResourceType(),
-    ServiceProfile: new Manifesto.ServiceProfile(),
-    Size: Manifesto.Size,
-    TreeNode: Manifesto.TreeNode,
-    TreeNodeType: new Manifesto.TreeNodeType(),
-    Utils: Manifesto.Utils,
-    ViewingDirection: new Manifesto.ViewingDirection(),
-    ViewingHint: new Manifesto.ViewingHint(),
-    StatusCodes: {
-        AUTHORIZATION_FAILED: 1,
-        FORBIDDEN: 2,
-        INTERNAL_SERVER_ERROR: 3,
-        RESTRICTED: 4
-    },
-    create: function (manifest, options) {
-        return Manifesto.Deserialiser.parse(manifest, options);
-    },
-    loadManifest: function (uri) {
-        return Manifesto.Utils.loadResource(uri);
-    }
-};
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Annotation = /** @class */ (function (_super) {
-        __extends(Annotation, _super);
-        function Annotation(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        Annotation.prototype.getBody = function () {
-            var bodies = [];
-            var body = this.getProperty('body');
-            // todo: make this a generic "property that can be an object or array enumerator" util
-            if (body) {
-                if (Array.isArray(body)) {
-                    for (var i = 0; i < body.length; i++) {
-                        var b = body[i];
-                        if (b.items) {
-                            for (var i_1 = 0; i_1 < b.items.length; i_1++) { // todo: don't ignore that it's a choice. maybe add isChoice() to IAnnotationBody?
-                                var c = b.items[i_1];
-                                bodies.push(new Manifesto.AnnotationBody(c, this.options));
-                            }
-                        }
-                        else {
-                            bodies.push(new Manifesto.AnnotationBody(b, this.options));
-                        }
-                    }
-                }
-                else if (body.items) {
-                    for (var i = 0; i < body.items.length; i++) {
-                        var b = body.items[i];
-                        bodies.push(new Manifesto.AnnotationBody(b, this.options));
-                    }
-                }
-                else {
-                    bodies.push(new Manifesto.AnnotationBody(body, this.options));
-                }
-            }
-            return bodies;
-        };
-        Annotation.prototype.getMotivation = function () {
-            var motivation = this.getProperty('motivation');
-            if (motivation) {
-                return new Manifesto.AnnotationMotivation(motivation.toLowerCase());
-            }
-            return null;
-        };
-        // open annotation
-        Annotation.prototype.getOn = function () {
-            return this.getProperty('on');
-        };
-        Annotation.prototype.getTarget = function () {
-            return this.getProperty('target');
-        };
-        Annotation.prototype.getResource = function () {
-            return new Manifesto.Resource(this.getProperty('resource'), this.options);
-        };
-        return Annotation;
-    }(Manifesto.ManifestResource));
-    Manifesto.Annotation = Annotation;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var AnnotationBody = /** @class */ (function (_super) {
-        __extends(AnnotationBody, _super);
-        function AnnotationBody(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        AnnotationBody.prototype.getFormat = function () {
-            var format = this.getProperty('format');
-            if (format) {
-                return new Manifesto.MediaType(Manifesto.Utils.getMediaType(format));
-            }
-            return null;
-        };
-        AnnotationBody.prototype.getType = function () {
-            var type = this.getProperty('type');
-            if (type) {
-                return new Manifesto.ResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
-            }
-            return null;
-        };
-        AnnotationBody.prototype.getWidth = function () {
-            return this.getProperty('width');
-        };
-        AnnotationBody.prototype.getHeight = function () {
-            return this.getProperty('height');
-        };
-        return AnnotationBody;
-    }(Manifesto.ManifestResource));
-    Manifesto.AnnotationBody = AnnotationBody;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var AnnotationList = /** @class */ (function (_super) {
-        __extends(AnnotationList, _super);
-        function AnnotationList(label, jsonld, options) {
-            var _this = _super.call(this, jsonld) || this;
-            _this.label = label;
-            _this.options = options;
-            return _this;
-        }
-        AnnotationList.prototype.getIIIFResourceType = function () {
-            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
-        };
-        AnnotationList.prototype.getLabel = function () {
-            return this.label;
-        };
-        AnnotationList.prototype.getResources = function () {
-            var _this = this;
-            var resources = this.getProperty('resources');
-            return resources.map(function (resource) { return new Manifesto.Annotation(resource, _this.options); });
-        };
-        AnnotationList.prototype.load = function () {
-            var _this = this;
-            return new Promise(function (resolve, reject) {
-                if (_this.isLoaded) {
-                    resolve(_this);
-                }
-                else {
-                    var id = _this.__jsonld.id;
-                    if (!id) {
-                        id = _this.__jsonld['@id'];
-                    }
-                    Manifesto.Utils.loadResource(id).then(function (data) {
-                        _this.__jsonld = JSON.parse(data);
-                        _this.context = _this.getProperty('context');
-                        _this.id = _this.getProperty('id');
-                        _this.isLoaded = true;
-                        resolve(_this);
-                    }).catch(reject);
-                }
-            });
-        };
-        return AnnotationList;
-    }(Manifesto.JSONLDResource));
-    Manifesto.AnnotationList = AnnotationList;
-})(Manifesto || (Manifesto = {}));
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var AnnotationPage = /** @class */ (function (_super) {
-        __extends(AnnotationPage, _super);
-        function AnnotationPage(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        AnnotationPage.prototype.getItems = function () {
-            return this.getProperty('items');
-        };
-        return AnnotationPage;
-    }(Manifesto.ManifestResource));
-    Manifesto.AnnotationPage = AnnotationPage;
-})(Manifesto || (Manifesto = {}));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Manifesto;
-(function (Manifesto) {
-    var Thumbnail = /** @class */ (function (_super) {
-        __extends(Thumbnail, _super);
-        function Thumbnail(jsonld, options) {
-            return _super.call(this, jsonld, options) || this;
-        }
-        return Thumbnail;
-    }(Manifesto.Resource));
-    Manifesto.Thumbnail = Thumbnail;
-})(Manifesto || (Manifesto = {}));
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"http":30,"https":8,"url":36}],2:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -6696,7 +3165,8 @@ function toByteArray (b64) {
     ? validLen - 4
     : validLen
 
-  for (var i = 0; i < len; i += 4) {
+  var i
+  for (i = 0; i < len; i += 4) {
     tmp =
       (revLookup[b64.charCodeAt(i)] << 18) |
       (revLookup[b64.charCodeAt(i + 1)] << 12) |
@@ -6781,14 +3251,14 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 
-},{}],4:[function(require,module,exports){
-(function (global){
+},{}],3:[function(require,module,exports){
+(function (global,Buffer){
 /*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @author   Feross Aboukhadijeh <http://feross.org>
  * @license  MIT
  */
 /* eslint-disable no-proto */
@@ -8575,8 +5045,8 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"base64-js":2,"ieee754":9,"isarray":12}],5:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
+},{"base64-js":1,"buffer":3,"ieee754":8,"isarray":11}],4:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -8642,7 +5112,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -8753,7 +5223,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":11}],7:[function(require,module,exports){
+},{"../../is-buffer/index.js":10}],6:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -9057,7 +5527,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var http = require('http');
 
 var https = module.exports;
@@ -9073,7 +5543,7 @@ https.request = function (params, cb) {
     return http.request.call(this, params, cb);
 }
 
-},{"http":30}],9:[function(require,module,exports){
+},{"http":29}],8:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -9159,32 +5629,36 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
+    if (superCtor) {
+      ctor.super_ = superCtor
+      ctor.prototype = Object.create(superCtor.prototype, {
+        constructor: {
+          value: ctor,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      })
+    }
   };
 } else {
   // old school shim for old browsers
   module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
+    if (superCtor) {
+      ctor.super_ = superCtor
+      var TempCtor = function () {}
+      TempCtor.prototype = superCtor.prototype
+      ctor.prototype = new TempCtor()
+      ctor.prototype.constructor = ctor
+    }
   }
 }
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -9207,14 +5681,63 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+(function (process){
+'use strict';
+
+if (typeof process === 'undefined' ||
+    !process.version ||
+    process.version.indexOf('v0.') === 0 ||
+    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
+  module.exports = { nextTick: nextTick };
+} else {
+  module.exports = process
+}
+
+function nextTick(fn, arg1, arg2, arg3) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('"callback" argument must be a function');
+  }
+  var len = arguments.length;
+  var args, i;
+  switch (len) {
+  case 0:
+  case 1:
+    return process.nextTick(fn);
+  case 2:
+    return process.nextTick(function afterTickOne() {
+      fn.call(null, arg1);
+    });
+  case 3:
+    return process.nextTick(function afterTickTwo() {
+      fn.call(null, arg1, arg2);
+    });
+  case 4:
+    return process.nextTick(function afterTickThree() {
+      fn.call(null, arg1, arg2, arg3);
+    });
+  default:
+    args = new Array(len - 1);
+    i = 0;
+    while (i < args.length) {
+      args[i++] = arguments[i];
+    }
+    return process.nextTick(function afterTick() {
+      fn.apply(null, args);
+    });
+  }
+}
+
+
+}).call(this,require('_process'))
+},{"_process":13}],13:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -10162,7 +6685,7 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -10248,7 +6771,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-},{"./_stream_readable":20,"./_stream_writable":22,"core-util-is":6,"inherits":10,"process-nextick-args":26}],19:[function(require,module,exports){
+},{"./_stream_readable":20,"./_stream_writable":22,"core-util-is":5,"inherits":9,"process-nextick-args":12}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -10281,7 +6804,7 @@ module.exports = PassThrough;
 var Transform = require('./_stream_transform');
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -10296,7 +6819,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":21,"core-util-is":6,"inherits":10}],20:[function(require,module,exports){
+},{"./_stream_transform":21,"core-util-is":5,"inherits":9}],20:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -10364,7 +6887,7 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -11318,7 +7841,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":18,"./internal/streams/BufferList":23,"./internal/streams/destroy":24,"./internal/streams/stream":25,"_process":13,"core-util-is":6,"events":7,"inherits":10,"isarray":12,"process-nextick-args":26,"safe-buffer":29,"string_decoder/":27,"util":3}],21:[function(require,module,exports){
+},{"./_stream_duplex":18,"./internal/streams/BufferList":23,"./internal/streams/destroy":24,"./internal/streams/stream":25,"_process":13,"core-util-is":5,"events":6,"inherits":9,"isarray":11,"process-nextick-args":12,"safe-buffer":26,"string_decoder/":27,"util":2}],21:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11389,7 +7912,7 @@ module.exports = Transform;
 var Duplex = require('./_stream_duplex');
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -11533,7 +8056,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":18,"core-util-is":6,"inherits":10}],22:[function(require,module,exports){
+},{"./_stream_duplex":18,"core-util-is":5,"inherits":9}],22:[function(require,module,exports){
 (function (process,global,setImmediate){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -11601,7 +8124,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = require('core-util-is');
+var util = Object.create(require('core-util-is'));
 util.inherits = require('inherits');
 /*</replacement>*/
 
@@ -12223,7 +8746,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"./_stream_duplex":18,"./internal/streams/destroy":24,"./internal/streams/stream":25,"_process":13,"core-util-is":6,"inherits":10,"process-nextick-args":26,"safe-buffer":29,"timers":34,"util-deprecate":38}],23:[function(require,module,exports){
+},{"./_stream_duplex":18,"./internal/streams/destroy":24,"./internal/streams/stream":25,"_process":13,"core-util-is":5,"inherits":9,"process-nextick-args":12,"safe-buffer":26,"timers":33,"util-deprecate":37}],23:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12303,7 +8826,7 @@ if (util && util.inspect && util.inspect.custom) {
     return this.constructor.name + ' ' + obj;
   };
 }
-},{"safe-buffer":29,"util":3}],24:[function(require,module,exports){
+},{"safe-buffer":26,"util":2}],24:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -12378,58 +8901,74 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":26}],25:[function(require,module,exports){
+},{"process-nextick-args":12}],25:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":7}],26:[function(require,module,exports){
-(function (process){
-'use strict';
+},{"events":6}],26:[function(require,module,exports){
+/* eslint-disable node/no-deprecated-api */
+var buffer = require('buffer')
+var Buffer = buffer.Buffer
 
-if (!process.version ||
-    process.version.indexOf('v0.') === 0 ||
-    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
-  module.exports = { nextTick: nextTick };
+// alternative to using Object.keys for old browsers
+function copyProps (src, dst) {
+  for (var key in src) {
+    dst[key] = src[key]
+  }
+}
+if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+  module.exports = buffer
 } else {
-  module.exports = process
+  // Copy properties from require('buffer')
+  copyProps(buffer, exports)
+  exports.Buffer = SafeBuffer
 }
 
-function nextTick(fn, arg1, arg2, arg3) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('"callback" argument must be a function');
+function SafeBuffer (arg, encodingOrOffset, length) {
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+// Copy static methods from Buffer
+copyProps(Buffer, SafeBuffer)
+
+SafeBuffer.from = function (arg, encodingOrOffset, length) {
+  if (typeof arg === 'number') {
+    throw new TypeError('Argument must not be a number')
   }
-  var len = arguments.length;
-  var args, i;
-  switch (len) {
-  case 0:
-  case 1:
-    return process.nextTick(fn);
-  case 2:
-    return process.nextTick(function afterTickOne() {
-      fn.call(null, arg1);
-    });
-  case 3:
-    return process.nextTick(function afterTickTwo() {
-      fn.call(null, arg1, arg2);
-    });
-  case 4:
-    return process.nextTick(function afterTickThree() {
-      fn.call(null, arg1, arg2, arg3);
-    });
-  default:
-    args = new Array(len - 1);
-    i = 0;
-    while (i < args.length) {
-      args[i++] = arguments[i];
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+SafeBuffer.alloc = function (size, fill, encoding) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  var buf = Buffer(size)
+  if (fill !== undefined) {
+    if (typeof encoding === 'string') {
+      buf.fill(fill, encoding)
+    } else {
+      buf.fill(fill)
     }
-    return process.nextTick(function afterTick() {
-      fn.apply(null, args);
-    });
+  } else {
+    buf.fill(0)
   }
+  return buf
 }
 
+SafeBuffer.allocUnsafe = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return Buffer(size)
+}
 
-}).call(this,require('_process'))
-},{"_process":13}],27:[function(require,module,exports){
+SafeBuffer.allocUnsafeSlow = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return buffer.SlowBuffer(size)
+}
+
+},{"buffer":3}],27:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12726,7 +9265,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":29}],28:[function(require,module,exports){
+},{"safe-buffer":26}],28:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -12736,70 +9275,6 @@ exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
 },{"./lib/_stream_duplex.js":18,"./lib/_stream_passthrough.js":19,"./lib/_stream_readable.js":20,"./lib/_stream_transform.js":21,"./lib/_stream_writable.js":22}],29:[function(require,module,exports){
-/* eslint-disable node/no-deprecated-api */
-var buffer = require('buffer')
-var Buffer = buffer.Buffer
-
-// alternative to using Object.keys for old browsers
-function copyProps (src, dst) {
-  for (var key in src) {
-    dst[key] = src[key]
-  }
-}
-if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-  module.exports = buffer
-} else {
-  // Copy properties from require('buffer')
-  copyProps(buffer, exports)
-  exports.Buffer = SafeBuffer
-}
-
-function SafeBuffer (arg, encodingOrOffset, length) {
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-// Copy static methods from Buffer
-copyProps(Buffer, SafeBuffer)
-
-SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  if (typeof arg === 'number') {
-    throw new TypeError('Argument must not be a number')
-  }
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-SafeBuffer.alloc = function (size, fill, encoding) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  var buf = Buffer(size)
-  if (fill !== undefined) {
-    if (typeof encoding === 'string') {
-      buf.fill(fill, encoding)
-    } else {
-      buf.fill(fill)
-    }
-  } else {
-    buf.fill(0)
-  }
-  return buf
-}
-
-SafeBuffer.allocUnsafe = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return Buffer(size)
-}
-
-SafeBuffer.allocUnsafeSlow = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return buffer.SlowBuffer(size)
-}
-
-},{"buffer":4}],30:[function(require,module,exports){
 (function (global){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -12887,7 +9362,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":32,"./lib/response":33,"builtin-status-codes":5,"url":36,"xtend":39}],31:[function(require,module,exports){
+},{"./lib/request":31,"./lib/response":32,"builtin-status-codes":4,"url":35,"xtend":38}],30:[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -12964,7 +9439,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -13295,7 +9770,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":31,"./response":33,"_process":13,"buffer":4,"inherits":10,"readable-stream":28,"to-arraybuffer":35}],33:[function(require,module,exports){
+},{"./capability":30,"./response":32,"_process":13,"buffer":3,"inherits":9,"readable-stream":28,"to-arraybuffer":34}],32:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -13523,7 +9998,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":31,"_process":13,"buffer":4,"inherits":10,"readable-stream":28}],34:[function(require,module,exports){
+},{"./capability":30,"_process":13,"buffer":3,"inherits":9,"readable-stream":28}],33:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -13602,7 +10077,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":13,"timers":34}],35:[function(require,module,exports){
+},{"process/browser.js":13,"timers":33}],34:[function(require,module,exports){
 var Buffer = require('buffer').Buffer
 
 module.exports = function (buf) {
@@ -13631,7 +10106,7 @@ module.exports = function (buf) {
 	}
 }
 
-},{"buffer":4}],36:[function(require,module,exports){
+},{"buffer":3}],35:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -14365,7 +10840,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":37,"punycode":14,"querystring":17}],37:[function(require,module,exports){
+},{"./util":36,"punycode":14,"querystring":17}],36:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -14383,7 +10858,7 @@ module.exports = {
   }
 };
 
-},{}],38:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 (function (global){
 
 /**
@@ -14454,7 +10929,7 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -14475,7 +10950,3602 @@ function extend() {
     return target
 }
 
-},{}]},{},[1])(1)
+},{}],39:[function(require,module,exports){
+(function (global){
+
+var Manifesto;
+(function (Manifesto) {
+    var StringValue = /** @class */ (function () {
+        function StringValue(value) {
+            this.value = "";
+            if (value) {
+                this.value = value.toLowerCase();
+            }
+        }
+        StringValue.prototype.toString = function () {
+            return this.value;
+        };
+        return StringValue;
+    }());
+    Manifesto.StringValue = StringValue;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var Duration = /** @class */ (function () {
+        function Duration(start, end) {
+            this.start = start;
+            this.end = end;
+        }
+        Duration.prototype.getLength = function () {
+            return this.end - this.start;
+        };
+        return Duration;
+    }());
+    Manifesto.Duration = Duration;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var AnnotationMotivation = /** @class */ (function (_super) {
+        __extends(AnnotationMotivation, _super);
+        function AnnotationMotivation() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        AnnotationMotivation.prototype.bookmarking = function () {
+            return new AnnotationMotivation(AnnotationMotivation.BOOKMARKING.toString());
+        };
+        AnnotationMotivation.prototype.classifying = function () {
+            return new AnnotationMotivation(AnnotationMotivation.CLASSIFYING.toString());
+        };
+        AnnotationMotivation.prototype.commenting = function () {
+            return new AnnotationMotivation(AnnotationMotivation.COMMENTING.toString());
+        };
+        AnnotationMotivation.prototype.describing = function () {
+            return new AnnotationMotivation(AnnotationMotivation.DESCRIBING.toString());
+        };
+        AnnotationMotivation.prototype.editing = function () {
+            return new AnnotationMotivation(AnnotationMotivation.EDITING.toString());
+        };
+        AnnotationMotivation.prototype.highlighting = function () {
+            return new AnnotationMotivation(AnnotationMotivation.HIGHLIGHTING.toString());
+        };
+        AnnotationMotivation.prototype.identifying = function () {
+            return new AnnotationMotivation(AnnotationMotivation.IDENTIFYING.toString());
+        };
+        AnnotationMotivation.prototype.linking = function () {
+            return new AnnotationMotivation(AnnotationMotivation.LINKING.toString());
+        };
+        AnnotationMotivation.prototype.moderating = function () {
+            return new AnnotationMotivation(AnnotationMotivation.MODERATING.toString());
+        };
+        AnnotationMotivation.prototype.painting = function () {
+            return new AnnotationMotivation(AnnotationMotivation.PAINTING.toString());
+        };
+        AnnotationMotivation.prototype.questioning = function () {
+            return new AnnotationMotivation(AnnotationMotivation.QUESTIONING.toString());
+        };
+        AnnotationMotivation.prototype.replying = function () {
+            return new AnnotationMotivation(AnnotationMotivation.REPLYING.toString());
+        };
+        AnnotationMotivation.prototype.tagging = function () {
+            return new AnnotationMotivation(AnnotationMotivation.TAGGING.toString());
+        };
+        AnnotationMotivation.prototype.transcribing = function () {
+            return new AnnotationMotivation(AnnotationMotivation.TRANSCRIBING.toString());
+        };
+        AnnotationMotivation.BOOKMARKING = new AnnotationMotivation("oa:bookmarking");
+        AnnotationMotivation.CLASSIFYING = new AnnotationMotivation("oa:classifying");
+        AnnotationMotivation.COMMENTING = new AnnotationMotivation("oa:commenting");
+        AnnotationMotivation.DESCRIBING = new AnnotationMotivation("oa:describing");
+        AnnotationMotivation.EDITING = new AnnotationMotivation("oa:editing");
+        AnnotationMotivation.HIGHLIGHTING = new AnnotationMotivation("oa:highlighting");
+        AnnotationMotivation.IDENTIFYING = new AnnotationMotivation("oa:identifying");
+        AnnotationMotivation.LINKING = new AnnotationMotivation("oa:linking");
+        AnnotationMotivation.MODERATING = new AnnotationMotivation("oa:moderating");
+        AnnotationMotivation.PAINTING = new AnnotationMotivation("sc:painting");
+        AnnotationMotivation.QUESTIONING = new AnnotationMotivation("oa:questioning");
+        AnnotationMotivation.REPLYING = new AnnotationMotivation("oa:replying");
+        AnnotationMotivation.TAGGING = new AnnotationMotivation("oa:tagging");
+        AnnotationMotivation.TRANSCRIBING = new AnnotationMotivation("oad:transcribing");
+        return AnnotationMotivation;
+    }(Manifesto.StringValue));
+    Manifesto.AnnotationMotivation = AnnotationMotivation;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Behavior = /** @class */ (function (_super) {
+        __extends(Behavior, _super);
+        function Behavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        Behavior.prototype.autoadvance = function () {
+            return new Behavior(Behavior.AUTOADVANCE.toString());
+        };
+        Behavior.prototype.nonav = function () {
+            return new Behavior(Behavior.NONAV.toString());
+        };
+        Behavior.prototype.paged = function () {
+            return new Behavior(Behavior.PAGED.toString());
+        };
+        Behavior.AUTOADVANCE = new Behavior("auto-advance");
+        Behavior.NONAV = new Behavior("no-nav");
+        Behavior.PAGED = new Behavior("paged");
+        return Behavior;
+    }(Manifesto.StringValue));
+    Manifesto.Behavior = Behavior;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var IIIFResourceType = /** @class */ (function (_super) {
+        __extends(IIIFResourceType, _super);
+        function IIIFResourceType() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        IIIFResourceType.prototype.annotation = function () {
+            return new IIIFResourceType(IIIFResourceType.ANNOTATION.toString());
+        };
+        IIIFResourceType.prototype.canvas = function () {
+            return new IIIFResourceType(IIIFResourceType.CANVAS.toString());
+        };
+        IIIFResourceType.prototype.collection = function () {
+            return new IIIFResourceType(IIIFResourceType.COLLECTION.toString());
+        };
+        IIIFResourceType.prototype.manifest = function () {
+            return new IIIFResourceType(IIIFResourceType.MANIFEST.toString());
+        };
+        IIIFResourceType.prototype.range = function () {
+            return new IIIFResourceType(IIIFResourceType.RANGE.toString());
+        };
+        IIIFResourceType.prototype.sequence = function () {
+            return new IIIFResourceType(IIIFResourceType.SEQUENCE.toString());
+        };
+        IIIFResourceType.ANNOTATION = new IIIFResourceType("annotation");
+        IIIFResourceType.CANVAS = new IIIFResourceType("canvas");
+        IIIFResourceType.COLLECTION = new IIIFResourceType("collection");
+        IIIFResourceType.MANIFEST = new IIIFResourceType("manifest");
+        IIIFResourceType.RANGE = new IIIFResourceType("range");
+        IIIFResourceType.SEQUENCE = new IIIFResourceType("sequence");
+        return IIIFResourceType;
+    }(Manifesto.StringValue));
+    Manifesto.IIIFResourceType = IIIFResourceType;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ManifestType = /** @class */ (function (_super) {
+        __extends(ManifestType, _super);
+        function ManifestType() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        ManifestType.prototype.empty = function () {
+            return new ManifestType(ManifestType.EMPTY.toString());
+        };
+        ManifestType.prototype.manuscript = function () {
+            return new ManifestType(ManifestType.MANUSCRIPT.toString());
+        };
+        ManifestType.prototype.monograph = function () {
+            return new ManifestType(ManifestType.MONOGRAPH.toString());
+        };
+        ManifestType.EMPTY = new ManifestType("");
+        ManifestType.MANUSCRIPT = new ManifestType("manuscript");
+        ManifestType.MONOGRAPH = new ManifestType("monograph");
+        return ManifestType;
+    }(Manifesto.StringValue));
+    Manifesto.ManifestType = ManifestType;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var RenderingFormat = /** @class */ (function (_super) {
+        __extends(RenderingFormat, _super);
+        function RenderingFormat() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        RenderingFormat.prototype.pdf = function () {
+            return new RenderingFormat(RenderingFormat.PDF.toString());
+        };
+        RenderingFormat.prototype.doc = function () {
+            return new RenderingFormat(RenderingFormat.DOC.toString());
+        };
+        RenderingFormat.prototype.docx = function () {
+            return new RenderingFormat(RenderingFormat.DOCX.toString());
+        };
+        RenderingFormat.PDF = new RenderingFormat("application/pdf");
+        RenderingFormat.DOC = new RenderingFormat("application/msword");
+        RenderingFormat.DOCX = new RenderingFormat("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        return RenderingFormat;
+    }(Manifesto.StringValue));
+    Manifesto.RenderingFormat = RenderingFormat;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var MediaType = /** @class */ (function (_super) {
+        __extends(MediaType, _super);
+        function MediaType() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        MediaType.prototype.jpg = function () {
+            return new MediaType(MediaType.JPG.toString());
+        };
+        MediaType.prototype.mp4 = function () {
+            return new MediaType(MediaType.MP4.toString());
+        };
+        MediaType.prototype.pdf = function () {
+            return new MediaType(MediaType.PDF.toString());
+        };
+        MediaType.prototype.threejs = function () {
+            return new MediaType(MediaType.THREEJS.toString());
+        };
+        MediaType.prototype.webm = function () {
+            return new MediaType(MediaType.WEBM.toString());
+        };
+        MediaType.JPG = new MediaType("image/jpeg");
+        MediaType.MP4 = new MediaType("video/mp4");
+        MediaType.PDF = new MediaType("application/pdf");
+        MediaType.THREEJS = new MediaType("application/vnd.threejs+json");
+        MediaType.WEBM = new MediaType("video/webm");
+        return MediaType;
+    }(Manifesto.StringValue));
+    Manifesto.MediaType = MediaType;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ResourceType = /** @class */ (function (_super) {
+        __extends(ResourceType, _super);
+        function ResourceType() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        ResourceType.prototype.canvas = function () {
+            return new ResourceType(ResourceType.CANVAS.toString());
+        };
+        ResourceType.prototype.choice = function () {
+            return new ResourceType(ResourceType.CHOICE.toString());
+        };
+        ResourceType.prototype.document = function () {
+            return new ResourceType(ResourceType.DOCUMENT.toString());
+        };
+        ResourceType.prototype.image = function () {
+            return new ResourceType(ResourceType.IMAGE.toString());
+        };
+        ResourceType.prototype.movingimage = function () {
+            return new ResourceType(ResourceType.MOVINGIMAGE.toString());
+        };
+        ResourceType.prototype.physicalobject = function () {
+            return new ResourceType(ResourceType.PHYSICALOBJECT.toString());
+        };
+        ResourceType.prototype.sound = function () {
+            return new ResourceType(ResourceType.SOUND.toString());
+        };
+        ResourceType.prototype.text = function () {
+            return new ResourceType(ResourceType.TEXT.toString());
+        };
+        ResourceType.CANVAS = new ResourceType("canvas");
+        ResourceType.CHOICE = new ResourceType("choice");
+        ResourceType.DOCUMENT = new ResourceType("document");
+        ResourceType.IMAGE = new ResourceType("image");
+        ResourceType.MOVINGIMAGE = new ResourceType("movingimage");
+        ResourceType.PHYSICALOBJECT = new ResourceType("physicalobject");
+        ResourceType.SOUND = new ResourceType("sound");
+        ResourceType.TEXT = new ResourceType("textualbody");
+        return ResourceType;
+    }(Manifesto.StringValue));
+    Manifesto.ResourceType = ResourceType;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ServiceProfile = /** @class */ (function (_super) {
+        __extends(ServiceProfile, _super);
+        function ServiceProfile() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        ServiceProfile.prototype.auth1Clickthrough = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1CLICKTHROUGH.toString());
+        };
+        ServiceProfile.prototype.auth1External = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1EXTERNAL.toString());
+        };
+        ServiceProfile.prototype.auth1Kiosk = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1KIOSK.toString());
+        };
+        ServiceProfile.prototype.auth1Login = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1LOGIN.toString());
+        };
+        ServiceProfile.prototype.auth1Logout = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1LOGOUT.toString());
+        };
+        ServiceProfile.prototype.auth1Probe = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1PROBE.toString());
+        };
+        ServiceProfile.prototype.auth1Token = function () {
+            return new ServiceProfile(ServiceProfile.AUTH1TOKEN.toString());
+        };
+        ServiceProfile.prototype.autoComplete = function () {
+            return new ServiceProfile(ServiceProfile.AUTOCOMPLETE.toString());
+        };
+        ServiceProfile.prototype.iiif1ImageLevel1 = function () {
+            return new ServiceProfile(ServiceProfile.IIIF1IMAGELEVEL1.toString());
+        };
+        ServiceProfile.prototype.iiif1ImageLevel2 = function () {
+            return new ServiceProfile(ServiceProfile.IIIF1IMAGELEVEL2.toString());
+        };
+        ServiceProfile.prototype.iiif2ImageLevel1 = function () {
+            return new ServiceProfile(ServiceProfile.IIIF2IMAGELEVEL1.toString());
+        };
+        ServiceProfile.prototype.iiif2ImageLevel2 = function () {
+            return new ServiceProfile(ServiceProfile.IIIF2IMAGELEVEL2.toString());
+        };
+        ServiceProfile.prototype.ixif = function () {
+            return new ServiceProfile(ServiceProfile.IXIF.toString());
+        };
+        ServiceProfile.prototype.login = function () {
+            return new ServiceProfile(ServiceProfile.AUTHLOGIN.toString());
+        };
+        ServiceProfile.prototype.clickThrough = function () {
+            return new ServiceProfile(ServiceProfile.AUTHCLICKTHROUGH.toString());
+        };
+        ServiceProfile.prototype.restricted = function () {
+            return new ServiceProfile(ServiceProfile.AUTHRESTRICTED.toString());
+        };
+        ServiceProfile.prototype.logout = function () {
+            return new ServiceProfile(ServiceProfile.AUTHLOGOUT.toString());
+        };
+        ServiceProfile.prototype.otherManifestations = function () {
+            return new ServiceProfile(ServiceProfile.OTHERMANIFESTATIONS.toString());
+        };
+        ServiceProfile.prototype.search = function () {
+            return new ServiceProfile(ServiceProfile.SEARCH.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIFImageCompliance1 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIFImageCompliance2 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIFImageConformance1 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIFImageConformance2 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIF1ImageCompliance1 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIF1ImageCompliance2 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIF1ImageConformance1 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString());
+        };
+        ServiceProfile.prototype.stanfordIIIF1ImageConformance2 = function () {
+            return new ServiceProfile(ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString());
+        };
+        ServiceProfile.prototype.token = function () {
+            return new ServiceProfile(ServiceProfile.AUTHTOKEN.toString());
+        };
+        ServiceProfile.prototype.trackingExtensions = function () {
+            return new ServiceProfile(ServiceProfile.TRACKINGEXTENSIONS.toString());
+        };
+        ServiceProfile.prototype.uiExtensions = function () {
+            return new ServiceProfile(ServiceProfile.UIEXTENSIONS.toString());
+        };
+        ServiceProfile.prototype.printExtensions = function () {
+            return new ServiceProfile(ServiceProfile.PRINTEXTENSIONS.toString());
+        };
+        ServiceProfile.prototype.shareExtensions = function () {
+            return new ServiceProfile(ServiceProfile.SHAREEXTENSIONS.toString());
+        };
+        // image api
+        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level0");
+        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level1");
+        ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/compliance.html#level2");
+        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level0");
+        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level1");
+        ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/conformance.html#level2");
+        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level0");
+        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level1");
+        ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/compliance.html#level2");
+        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE0 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level0");
+        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1");
+        ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2 = new ServiceProfile("http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level2");
+        ServiceProfile.IIIF1IMAGELEVEL0 = new ServiceProfile("http://iiif.io/api/image/1/level0.json");
+        ServiceProfile.IIIF1IMAGELEVEL0PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level0.json");
+        ServiceProfile.IIIF1IMAGELEVEL1 = new ServiceProfile("http://iiif.io/api/image/1/level1.json");
+        ServiceProfile.IIIF1IMAGELEVEL1PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level1.json");
+        ServiceProfile.IIIF1IMAGELEVEL2 = new ServiceProfile("http://iiif.io/api/image/1/level2.json");
+        ServiceProfile.IIIF1IMAGELEVEL2PROFILE = new ServiceProfile("http://iiif.io/api/image/1/profiles/level2.json");
+        ServiceProfile.IIIF2IMAGELEVEL0 = new ServiceProfile("http://iiif.io/api/image/2/level0.json");
+        ServiceProfile.IIIF2IMAGELEVEL0PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level0.json");
+        ServiceProfile.IIIF2IMAGELEVEL1 = new ServiceProfile("http://iiif.io/api/image/2/level1.json");
+        ServiceProfile.IIIF2IMAGELEVEL1PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level1.json");
+        ServiceProfile.IIIF2IMAGELEVEL2 = new ServiceProfile("http://iiif.io/api/image/2/level2.json");
+        ServiceProfile.IIIF2IMAGELEVEL2PROFILE = new ServiceProfile("http://iiif.io/api/image/2/profiles/level2.json");
+        // auth api
+        ServiceProfile.AUTHCLICKTHROUGH = new ServiceProfile("http://iiif.io/api/auth/0/login/clickthrough");
+        ServiceProfile.AUTHLOGIN = new ServiceProfile("http://iiif.io/api/auth/0/login");
+        ServiceProfile.AUTHLOGOUT = new ServiceProfile("http://iiif.io/api/auth/0/logout");
+        ServiceProfile.AUTHRESTRICTED = new ServiceProfile("http://iiif.io/api/auth/0/login/restricted");
+        ServiceProfile.AUTHTOKEN = new ServiceProfile("http://iiif.io/api/auth/0/token");
+        ServiceProfile.AUTH1CLICKTHROUGH = new ServiceProfile("http://iiif.io/api/auth/1/clickthrough");
+        ServiceProfile.AUTH1EXTERNAL = new ServiceProfile("http://iiif.io/api/auth/1/external");
+        ServiceProfile.AUTH1KIOSK = new ServiceProfile("http://iiif.io/api/auth/1/kiosk");
+        ServiceProfile.AUTH1LOGIN = new ServiceProfile("http://iiif.io/api/auth/1/login");
+        ServiceProfile.AUTH1LOGOUT = new ServiceProfile("http://iiif.io/api/auth/1/logout");
+        ServiceProfile.AUTH1PROBE = new ServiceProfile("http://iiif.io/api/auth/1/probe");
+        ServiceProfile.AUTH1TOKEN = new ServiceProfile("http://iiif.io/api/auth/1/token");
+        // search api
+        ServiceProfile.AUTOCOMPLETE = new ServiceProfile("http://iiif.io/api/search/0/autocomplete");
+        ServiceProfile.SEARCH = new ServiceProfile("http://iiif.io/api/search/0/search");
+        // extensions
+        ServiceProfile.TRACKINGEXTENSIONS = new ServiceProfile("http://universalviewer.io/tracking-extensions-profile");
+        ServiceProfile.UIEXTENSIONS = new ServiceProfile("http://universalviewer.io/ui-extensions-profile");
+        ServiceProfile.PRINTEXTENSIONS = new ServiceProfile("http://universalviewer.io/print-extensions-profile");
+        ServiceProfile.SHAREEXTENSIONS = new ServiceProfile("http://universalviewer.io/share-extensions-profile");
+        // other
+        ServiceProfile.OTHERMANIFESTATIONS = new ServiceProfile("http://iiif.io/api/otherManifestations.json");
+        ServiceProfile.IXIF = new ServiceProfile("http://wellcomelibrary.org/ld/ixif/0/alpha.json");
+        return ServiceProfile;
+    }(Manifesto.StringValue));
+    Manifesto.ServiceProfile = ServiceProfile;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ViewingDirection = /** @class */ (function (_super) {
+        __extends(ViewingDirection, _super);
+        function ViewingDirection() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        ViewingDirection.prototype.leftToRight = function () {
+            return new ViewingDirection(ViewingDirection.LEFTTORIGHT.toString());
+        };
+        ViewingDirection.prototype.rightToLeft = function () {
+            return new ViewingDirection(ViewingDirection.RIGHTTOLEFT.toString());
+        };
+        ViewingDirection.prototype.topToBottom = function () {
+            return new ViewingDirection(ViewingDirection.TOPTOBOTTOM.toString());
+        };
+        ViewingDirection.prototype.bottomToTop = function () {
+            return new ViewingDirection(ViewingDirection.BOTTOMTOTOP.toString());
+        };
+        ViewingDirection.LEFTTORIGHT = new ViewingDirection("left-to-right");
+        ViewingDirection.RIGHTTOLEFT = new ViewingDirection("right-to-left");
+        ViewingDirection.TOPTOBOTTOM = new ViewingDirection("top-to-bottom");
+        ViewingDirection.BOTTOMTOTOP = new ViewingDirection("bottom-to-top");
+        return ViewingDirection;
+    }(Manifesto.StringValue));
+    Manifesto.ViewingDirection = ViewingDirection;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ViewingHint = /** @class */ (function (_super) {
+        __extends(ViewingHint, _super);
+        function ViewingHint() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        ViewingHint.prototype.continuous = function () {
+            return new ViewingHint(ViewingHint.CONTINUOUS.toString());
+        };
+        ViewingHint.prototype.empty = function () {
+            return new ViewingHint(ViewingHint.EMPTY.toString());
+        };
+        ViewingHint.prototype.individuals = function () {
+            return new ViewingHint(ViewingHint.INDIVIDUALS.toString());
+        };
+        ViewingHint.prototype.nonPaged = function () {
+            return new ViewingHint(ViewingHint.NONPAGED.toString());
+        };
+        ViewingHint.prototype.paged = function () {
+            return new ViewingHint(ViewingHint.PAGED.toString());
+        };
+        ViewingHint.prototype.top = function () {
+            return new ViewingHint(ViewingHint.TOP.toString());
+        };
+        ViewingHint.CONTINUOUS = new ViewingHint("continuous");
+        ViewingHint.EMPTY = new ViewingHint("");
+        ViewingHint.INDIVIDUALS = new ViewingHint("individuals");
+        ViewingHint.NONPAGED = new ViewingHint("non-paged");
+        ViewingHint.PAGED = new ViewingHint("paged");
+        ViewingHint.TOP = new ViewingHint("top");
+        return ViewingHint;
+    }(Manifesto.StringValue));
+    Manifesto.ViewingHint = ViewingHint;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var JSONLDResource = /** @class */ (function () {
+        function JSONLDResource(jsonld) {
+            this.__jsonld = jsonld;
+            this.context = this.getProperty('context');
+            this.id = this.getProperty('id');
+        }
+        JSONLDResource.prototype.getProperty = function (name) {
+            var prop = null;
+            if (this.__jsonld) {
+                prop = this.__jsonld[name];
+                if (!prop) {
+                    // property may have a prepended '@'
+                    prop = this.__jsonld['@' + name];
+                }
+            }
+            return prop;
+        };
+        return JSONLDResource;
+    }());
+    Manifesto.JSONLDResource = JSONLDResource;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var ManifestResource = /** @class */ (function (_super) {
+        __extends(ManifestResource, _super);
+        function ManifestResource(jsonld, options) {
+            var _this = _super.call(this, jsonld) || this;
+            _this.options = options;
+            return _this;
+        }
+        ManifestResource.prototype.getIIIFResourceType = function () {
+            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
+        };
+        ManifestResource.prototype.getLabel = function () {
+            var label = this.getProperty('label');
+            if (label) {
+                return Manifesto.LanguageMap.parse(label, this.options.locale);
+            }
+            return [];
+        };
+        ManifestResource.prototype.getDefaultLabel = function () {
+            return Manifesto.LanguageMap.getValue(this.getLabel());
+        };
+        ManifestResource.prototype.getMetadata = function () {
+            var _metadata = this.getProperty('metadata');
+            var metadata = [];
+            if (!_metadata)
+                return metadata;
+            for (var i = 0; i < _metadata.length; i++) {
+                var item = _metadata[i];
+                var metadataItem = new Manifesto.LabelValuePair(this.options.locale);
+                metadataItem.parse(item);
+                metadata.push(metadataItem);
+            }
+            return metadata;
+        };
+        ManifestResource.prototype.getRendering = function (format) {
+            var renderings = this.getRenderings();
+            // normalise format to string
+            if (typeof (format) !== 'string') {
+                format = format.toString();
+            }
+            for (var i = 0; i < renderings.length; i++) {
+                var rendering = renderings[i];
+                if (rendering.getFormat().toString() === format) {
+                    return rendering;
+                }
+            }
+            return null;
+        };
+        ManifestResource.prototype.getRenderings = function () {
+            var rendering;
+            // if passing a manifesto-parsed object, use the __jsonld.rendering property,
+            // otherwise look for a rendering property
+            if (this.__jsonld) {
+                rendering = this.__jsonld.rendering;
+            }
+            else {
+                rendering = this.rendering;
+            }
+            var renderings = [];
+            if (!rendering)
+                return renderings;
+            // coerce to array
+            if (!Array.isArray(rendering)) {
+                rendering = [rendering];
+            }
+            for (var i = 0; i < rendering.length; i++) {
+                var r = rendering[i];
+                renderings.push(new Manifesto.Rendering(r, this.options));
+            }
+            return renderings;
+        };
+        ManifestResource.prototype.getService = function (profile) {
+            return Manifesto.Utils.getService(this, profile);
+        };
+        ManifestResource.prototype.getServices = function () {
+            return Manifesto.Utils.getServices(this);
+        };
+        ManifestResource.prototype.getThumbnail = function () {
+            var thumbnail = this.getProperty('thumbnail');
+            if (Array.isArray(thumbnail)) {
+                thumbnail = thumbnail[0];
+            }
+            if (thumbnail) {
+                return new Manifesto.Thumbnail(thumbnail, this.options);
+            }
+            return null;
+        };
+        ManifestResource.prototype.isAnnotation = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.ANNOTATION.toString();
+        };
+        ManifestResource.prototype.isCanvas = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.CANVAS.toString();
+        };
+        ManifestResource.prototype.isCollection = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.COLLECTION.toString();
+        };
+        ManifestResource.prototype.isManifest = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.MANIFEST.toString();
+        };
+        ManifestResource.prototype.isRange = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.RANGE.toString();
+        };
+        ManifestResource.prototype.isSequence = function () {
+            return this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.SEQUENCE.toString();
+        };
+        return ManifestResource;
+    }(Manifesto.JSONLDResource));
+    Manifesto.ManifestResource = ManifestResource;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Resource = /** @class */ (function (_super) {
+        __extends(Resource, _super);
+        function Resource(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        Resource.prototype.getFormat = function () {
+            var format = this.getProperty('format');
+            if (format) {
+                return new Manifesto.MediaType(format.toLowerCase());
+            }
+            return null;
+        };
+        Resource.prototype.getResources = function () {
+            var resources = [];
+            if (!this.__jsonld.resources)
+                return resources;
+            for (var i = 0; i < this.__jsonld.resources.length; i++) {
+                var a = this.__jsonld.resources[i];
+                var annotation = new Manifesto.Annotation(a, this.options);
+                resources.push(annotation);
+            }
+            return resources;
+        };
+        Resource.prototype.getType = function () {
+            var type = this.getProperty('type');
+            if (type) {
+                return new Manifesto.ResourceType(Manifesto.Utils.normaliseType(type));
+            }
+            return null;
+        };
+        Resource.prototype.getWidth = function () {
+            return this.getProperty('width');
+        };
+        Resource.prototype.getHeight = function () {
+            return this.getProperty('height');
+        };
+        Resource.prototype.getMaxWidth = function () {
+            return this.getProperty('maxWidth');
+        };
+        Resource.prototype.getMaxHeight = function () {
+            var maxHeight = this.getProperty('maxHeight');
+            // if a maxHeight hasn't been specified, default to maxWidth.
+            // maxWidth in essence becomes maxEdge
+            if (!maxHeight) {
+                return this.getMaxWidth();
+            }
+            return null;
+        };
+        return Resource;
+    }(Manifesto.ManifestResource));
+    Manifesto.Resource = Resource;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Canvas = /** @class */ (function (_super) {
+        __extends(Canvas, _super);
+        function Canvas(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        // http://iiif.io/api/image/2.1/#canonical-uri-syntax
+        Canvas.prototype.getCanonicalImageUri = function (w) {
+            var id = null;
+            var region = 'full';
+            var rotation = 0;
+            var quality = 'default';
+            var width = w;
+            var size;
+            // if an info.json has been loaded
+            if (this.externalResource && this.externalResource.data && this.externalResource.data['@id']) {
+                id = this.externalResource.data['@id'];
+                if (!width) {
+                    width = this.externalResource.data.width;
+                }
+                if (this.externalResource.data['@context']) {
+                    if (this.externalResource.data['@context'].indexOf('/1.0/context.json') > -1 ||
+                        this.externalResource.data['@context'].indexOf('/1.1/context.json') > -1 ||
+                        this.externalResource.data['@context'].indexOf('/1/context.json') > -1) {
+                        quality = 'native';
+                    }
+                }
+            }
+            else {
+                // info.json hasn't been loaded yet
+                var images = this.getImages();
+                if (images && images.length) {
+                    var firstImage = images[0];
+                    var resource = firstImage.getResource();
+                    var services = resource.getServices();
+                    if (!width) {
+                        width = resource.getWidth();
+                    }
+                    if (services.length) {
+                        var service = services[0];
+                        id = service.id;
+                        quality = Manifesto.Utils.getImageQuality(service.getProfile());
+                    }
+                    else if (width === resource.getWidth()) {
+                        // if the passed width is the same as the resource width
+                        // i.e. not looking for a thumbnail
+                        // return the full size image.
+                        // used for download options when loading static images.
+                        return resource.id;
+                    }
+                }
+                // todo: should this be moved to getThumbUri?
+                if (!id) {
+                    var thumbnail = this.getProperty('thumbnail');
+                    if (thumbnail) {
+                        if (typeof (thumbnail) === 'string') {
+                            return thumbnail;
+                        }
+                        else {
+                            if (thumbnail['@id']) {
+                                return thumbnail['@id'];
+                            }
+                            else if (thumbnail.length) {
+                                return thumbnail[0].id;
+                            }
+                        }
+                    }
+                }
+            }
+            size = width + ',';
+            // trim off trailing '/'
+            if (id && id.endsWith('/')) {
+                id = id.substr(0, id.length - 1);
+            }
+            var uri = [id, region, size, rotation, quality + '.jpg'].join('/');
+            return uri;
+        };
+        Canvas.prototype.getMaxDimensions = function () {
+            var maxDimensions = null;
+            var profile;
+            if (this.externalResource.data && this.externalResource.data.profile) {
+                profile = this.externalResource.data.profile;
+                if (Array.isArray(profile)) {
+                    profile = profile.filter(function (p) { return p["maxWidth" || "maxwidth"]; })[0];
+                    if (profile) {
+                        maxDimensions = new Manifesto.Size(profile.maxWidth, profile.maxHeight ? profile.maxHeight : profile.maxWidth);
+                    }
+                }
+            }
+            return maxDimensions;
+        };
+        // Presentation API 3.0
+        Canvas.prototype.getContent = function () {
+            var content = [];
+            var items = this.__jsonld.items || this.__jsonld.content;
+            if (!items)
+                return content;
+            // should be contained in an AnnotationPage
+            var annotationPage = null;
+            if (items.length) {
+                annotationPage = new Manifesto.AnnotationPage(items[0], this.options);
+            }
+            if (!annotationPage) {
+                return content;
+            }
+            var annotations = annotationPage.getItems();
+            for (var i = 0; i < annotations.length; i++) {
+                var a = annotations[i];
+                var annotation = new Manifesto.Annotation(a, this.options);
+                content.push(annotation);
+            }
+            return content;
+        };
+        Canvas.prototype.getDuration = function () {
+            return this.getProperty('duration');
+        };
+        Canvas.prototype.getImages = function () {
+            var images = [];
+            if (!this.__jsonld.images)
+                return images;
+            for (var i = 0; i < this.__jsonld.images.length; i++) {
+                var a = this.__jsonld.images[i];
+                var annotation = new Manifesto.Annotation(a, this.options);
+                images.push(annotation);
+            }
+            return images;
+        };
+        Canvas.prototype.getIndex = function () {
+            return this.getProperty('index');
+        };
+        Canvas.prototype.getOtherContent = function () {
+            var _this = this;
+            var otherContent = Array.isArray(this.getProperty('otherContent')) ?
+                this.getProperty('otherContent') :
+                [this.getProperty('otherContent')];
+            var canonicalComparison = function (typeA, typeB) {
+                if (typeof typeA !== 'string' || typeof typeB !== 'string') {
+                    return false;
+                }
+                return typeA.toLowerCase() === typeA.toLowerCase();
+            };
+            var otherPromises = otherContent
+                .filter(function (otherContent) { return otherContent && canonicalComparison(otherContent['@type'], 'sc:AnnotationList'); })
+                .map(function (annotationList, i) { return ((new Manifesto.AnnotationList(annotationList['label'] || "Annotation list " + i, annotationList, _this.options))); })
+                .map(function (annotationList) { return annotationList.load(); });
+            return Promise.all(otherPromises);
+        };
+        // Prefer thumbnail service to image service if supplied and if
+        // the thumbnail service can provide a satisfactory size +/- x pixels.
+        // this is used to get thumb URIs *before* the info.json has been requested
+        // and populate thumbnails in a viewer.
+        // the publisher may also provide pre-computed fixed-size thumbs for better performance.
+        //getThumbUri(width: number): string {
+        //
+        //    var uri;
+        //    var images: IAnnotation[] = this.getImages();
+        //
+        //    if (images && images.length) {
+        //        var firstImage = images[0];
+        //        var resource: IResource = firstImage.getResource();
+        //        var services: IService[] = resource.getServices();
+        //
+        //        for (let i = 0; i < services.length; i++) {
+        //            var service: IService = services[i];
+        //            var id = service.id;
+        //
+        //            if (!_endsWith(id, '/')) {
+        //                id += '/';
+        //            }
+        //
+        //            uri = id + 'full/' + width + ',/0/' + Utils.getImageQuality(service.getProfile()) + '.jpg';
+        //        }
+        //    }
+        //
+        //    return uri;
+        //}
+        //getType(): CanvasType {
+        //    return new CanvasType(this.getProperty('@type').toLowerCase());
+        //}
+        Canvas.prototype.getWidth = function () {
+            return this.getProperty('width');
+        };
+        Canvas.prototype.getHeight = function () {
+            return this.getProperty('height');
+        };
+        return Canvas;
+    }(Manifesto.Resource));
+    Manifesto.Canvas = Canvas;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var IIIFResource = /** @class */ (function (_super) {
+        __extends(IIIFResource, _super);
+        function IIIFResource(jsonld, options) {
+            var _this = _super.call(this, jsonld, options) || this;
+            _this.index = -1;
+            _this.isLoaded = false;
+            var defaultOptions = {
+                defaultLabel: '-',
+                locale: 'en-GB',
+                resource: _this,
+                pessimisticAccessControl: false
+            };
+            _this.options = Object.assign(defaultOptions, options);
+            return _this;
+        }
+        IIIFResource.prototype.getAttribution = function () {
+            // console.warn('getAttribution will be deprecated, use getRequiredStatement instead.');
+            var attribution = this.getProperty('attribution');
+            if (attribution) {
+                return Manifesto.LanguageMap.parse(attribution, this.options.locale);
+            }
+            return [];
+        };
+        IIIFResource.prototype.getDescription = function () {
+            var description = this.getProperty('description');
+            if (description) {
+                return Manifesto.LanguageMap.parse(description, this.options.locale);
+            }
+            return [];
+        };
+        IIIFResource.prototype.getIIIFResourceType = function () {
+            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
+        };
+        IIIFResource.prototype.getLogo = function () {
+            var logo = this.getProperty('logo');
+            if (!logo)
+                return null;
+            if (typeof (logo) === 'string')
+                return logo;
+            if (Array.isArray(logo) && logo.length) {
+                logo = logo[0];
+            }
+            return logo['@id'] || logo.id;
+        };
+        IIIFResource.prototype.getLicense = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('license'), this.options.locale);
+        };
+        IIIFResource.prototype.getNavDate = function () {
+            return new Date(this.getProperty('navDate'));
+        };
+        IIIFResource.prototype.getRelated = function () {
+            return this.getProperty('related');
+        };
+        IIIFResource.prototype.getSeeAlso = function () {
+            return this.getProperty('seeAlso');
+        };
+        IIIFResource.prototype.getDefaultTree = function () {
+            this.defaultTree = new Manifesto.TreeNode('root');
+            this.defaultTree.data = this;
+            return this.defaultTree;
+        };
+        IIIFResource.prototype.getRequiredStatement = function () {
+            var requiredStatement = null;
+            var _requiredStatement = this.getProperty('requiredStatement');
+            if (_requiredStatement) {
+                requiredStatement = new Manifesto.LabelValuePair(this.options.locale);
+                requiredStatement.parse(_requiredStatement);
+            }
+            else {
+                // fall back to attribution (if it exists)
+                var attribution = this.getAttribution();
+                if (attribution) {
+                    requiredStatement = new Manifesto.LabelValuePair(this.options.locale);
+                    requiredStatement.value = attribution;
+                }
+            }
+            return requiredStatement;
+        };
+        IIIFResource.prototype.isCollection = function () {
+            if (this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.COLLECTION.toString()) {
+                return true;
+            }
+            return false;
+        };
+        IIIFResource.prototype.isManifest = function () {
+            if (this.getIIIFResourceType().toString() === Manifesto.IIIFResourceType.MANIFEST.toString()) {
+                return true;
+            }
+            return false;
+        };
+        IIIFResource.prototype.load = function () {
+            var that = this;
+            return new Promise(function (resolve, reject) {
+                if (that.isLoaded) {
+                    resolve(that);
+                }
+                else {
+                    var options_1 = that.options;
+                    options_1.navDate = that.getNavDate();
+                    var id = that.__jsonld.id;
+                    if (!id) {
+                        id = that.__jsonld['@id'];
+                    }
+                    Manifesto.Utils.loadResource(id).then(function (data) {
+                        that.parentLabel = Manifesto.LanguageMap.getValue(that.getLabel(), options_1.locale);
+                        var parsed = Manifesto.Deserialiser.parse(data, options_1);
+                        that = Object.assign(that, parsed);
+                        that.index = options_1.index;
+                        resolve(that);
+                    });
+                }
+            });
+        };
+        return IIIFResource;
+    }(Manifesto.ManifestResource));
+    Manifesto.IIIFResource = IIIFResource;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Manifest = /** @class */ (function (_super) {
+        __extends(Manifest, _super);
+        function Manifest(jsonld, options) {
+            var _this = _super.call(this, jsonld, options) || this;
+            _this.index = 0;
+            _this._allRanges = null;
+            _this.items = [];
+            _this._topRanges = [];
+            if (_this.__jsonld.structures && _this.__jsonld.structures.length) {
+                var topRanges = _this._getTopRanges();
+                for (var i = 0; i < topRanges.length; i++) {
+                    var range = topRanges[i];
+                    _this._parseRanges(range, String(i));
+                }
+            }
+            return _this;
+        }
+        Manifest.prototype.getPosterCanvas = function () {
+            var posterCanvas = this.getProperty('posterCanvas');
+            if (posterCanvas) {
+                posterCanvas = new Manifesto.Canvas(posterCanvas, this.options);
+            }
+            return posterCanvas;
+        };
+        Manifest.prototype.getBehavior = function () {
+            var behavior = this.getProperty('behavior');
+            if (Array.isArray(behavior)) {
+                behavior = behavior[0];
+            }
+            if (behavior) {
+                return new Manifesto.Behavior(behavior);
+            }
+            return null;
+        };
+        Manifest.prototype.getDefaultTree = function () {
+            _super.prototype.getDefaultTree.call(this);
+            this.defaultTree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
+            if (!this.isLoaded) {
+                return this.defaultTree;
+            }
+            var topRanges = this.getTopRanges();
+            // if there are any ranges in the manifest, default to the first 'top' range or generated placeholder
+            if (topRanges.length) {
+                topRanges[0].getTree(this.defaultTree);
+            }
+            Manifesto.Utils.generateTreeNodeIds(this.defaultTree);
+            return this.defaultTree;
+        };
+        Manifest.prototype._getTopRanges = function () {
+            var topRanges = [];
+            if (this.__jsonld.structures && this.__jsonld.structures.length) {
+                for (var i = 0; i < this.__jsonld.structures.length; i++) {
+                    var json = this.__jsonld.structures[i];
+                    if (json.viewingHint === Manifesto.ViewingHint.TOP.toString()) {
+                        topRanges.push(json);
+                    }
+                }
+                // if no viewingHint="top" range was found, create a default one
+                if (!topRanges.length) {
+                    var range = {};
+                    range.ranges = this.__jsonld.structures;
+                    topRanges.push(range);
+                }
+            }
+            return topRanges;
+        };
+        Manifest.prototype.getTopRanges = function () {
+            return this._topRanges;
+        };
+        Manifest.prototype._getRangeById = function (id) {
+            if (this.__jsonld.structures && this.__jsonld.structures.length) {
+                for (var i = 0; i < this.__jsonld.structures.length; i++) {
+                    var r = this.__jsonld.structures[i];
+                    if (r['@id'] === id || r.id === id) {
+                        return r;
+                    }
+                }
+            }
+            return null;
+        };
+        //private _parseRangeCanvas(json: any, range: IRange): void {
+        // todo: currently this isn't needed
+        //var canvas: IJSONLDResource = new JSONLDResource(json);
+        //range.items.push(<IManifestResource>canvas);
+        //}
+        Manifest.prototype._parseRanges = function (r, path, parentRange) {
+            var range;
+            var id = null;
+            if (typeof (r) === 'string') {
+                id = r;
+                r = this._getRangeById(id);
+            }
+            if (!r) {
+                console.warn("Range:", id, "does not exist");
+                return;
+            }
+            range = new Manifesto.Range(r, this.options);
+            range.parentRange = parentRange;
+            range.path = path;
+            if (!parentRange) {
+                this._topRanges.push(range);
+            }
+            else {
+                parentRange.items.push(range);
+            }
+            var items = r.items || r.members;
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    // todo: use an ItemType constant?
+                    if (item['@type'] && item['@type'].toLowerCase() === 'sc:range' || item['type'] && item['type'].toLowerCase() === 'range') {
+                        this._parseRanges(item, path + '/' + i, range);
+                    }
+                    else if (item['@type'] && item['@type'].toLowerCase() === 'sc:canvas' || item['type'] && item['type'].toLowerCase() === 'canvas') {
+                        // store the ids on the __jsonld object to be used by Range.getCanvasIds()
+                        if (!range.canvases) {
+                            range.canvases = [];
+                        }
+                        var id_1 = item.id || item['@id'];
+                        range.canvases.push(id_1);
+                    }
+                }
+            }
+            else if (r.ranges) {
+                for (var i = 0; i < r.ranges.length; i++) {
+                    this._parseRanges(r.ranges[i], path + '/' + i, range);
+                }
+            }
+        };
+        Manifest.prototype.getAllRanges = function () {
+            if (this._allRanges != null)
+                return this._allRanges;
+            this._allRanges = [];
+            var topRanges = this.getTopRanges();
+            var _loop_1 = function (i) {
+                var topRange = topRanges[i];
+                if (topRange.id) {
+                    this_1._allRanges.push(topRange); // it might be a placeholder root range
+                }
+                var reducer = function (acc, next) {
+                    acc.add(next);
+                    var nextRanges = next.getRanges();
+                    if (nextRanges.length) {
+                        return nextRanges.reduce(reducer, acc);
+                    }
+                    return acc;
+                };
+                var subRanges = Array.from(topRange.getRanges().reduce(reducer, new Set()));
+                this_1._allRanges = this_1._allRanges.concat(subRanges);
+            };
+            var this_1 = this;
+            for (var i = 0; i < topRanges.length; i++) {
+                _loop_1(i);
+            }
+            return this._allRanges;
+        };
+        Manifest.prototype.getRangeById = function (id) {
+            var ranges = this.getAllRanges();
+            for (var i = 0; i < ranges.length; i++) {
+                var range = ranges[i];
+                if (range.id === id) {
+                    return range;
+                }
+            }
+            return null;
+        };
+        Manifest.prototype.getRangeByPath = function (path) {
+            var ranges = this.getAllRanges();
+            for (var i = 0; i < ranges.length; i++) {
+                var range = ranges[i];
+                if (range.path === path) {
+                    return range;
+                }
+            }
+            return null;
+        };
+        Manifest.prototype.getSequences = function () {
+            if (this.items.length) {
+                return this.items;
+            }
+            // IxIF mediaSequences overrode sequences, so need to be checked first.
+            // deprecate this when presentation 3 ships
+            var items = this.__jsonld.mediaSequences || this.__jsonld.sequences;
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    var s = items[i];
+                    var sequence = new Manifesto.Sequence(s, this.options);
+                    this.items.push(sequence);
+                }
+            }
+            else if (this.__jsonld.items) {
+                var sequence = new Manifesto.Sequence(this.__jsonld.items, this.options);
+                this.items.push(sequence);
+            }
+            return this.items;
+        };
+        Manifest.prototype.getSequenceByIndex = function (sequenceIndex) {
+            return this.getSequences()[sequenceIndex];
+        };
+        Manifest.prototype.getTotalSequences = function () {
+            return this.getSequences().length;
+        };
+        Manifest.prototype.getManifestType = function () {
+            var service = this.getService(Manifesto.ServiceProfile.UIEXTENSIONS);
+            if (service) {
+                return new Manifesto.ManifestType(service.getProperty('manifestType'));
+            }
+            return new Manifesto.ManifestType('');
+        };
+        Manifest.prototype.getTrackingLabel = function () {
+            var service = this.getService(Manifesto.ServiceProfile.TRACKINGEXTENSIONS);
+            if (service) {
+                return service.getProperty('trackingLabel');
+            }
+            return '';
+        };
+        Manifest.prototype.isMultiSequence = function () {
+            return this.getTotalSequences() > 1;
+        };
+        Manifest.prototype.isPagingEnabled = function () {
+            var viewingHint = this.getViewingHint();
+            if (viewingHint) {
+                return viewingHint.toString() === Manifesto.ViewingHint.PAGED.toString();
+            }
+            var behavior = this.getBehavior();
+            if (behavior) {
+                return behavior.toString() === Manifesto.Behavior.PAGED.toString();
+            }
+            return false;
+        };
+        Manifest.prototype.getViewingDirection = function () {
+            if (this.getProperty('viewingDirection')) {
+                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
+            }
+            return null;
+        };
+        Manifest.prototype.getViewingHint = function () {
+            if (this.getProperty('viewingHint')) {
+                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
+            }
+            return null;
+        };
+        return Manifest;
+    }(Manifesto.IIIFResource));
+    Manifesto.Manifest = Manifest;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Collection = /** @class */ (function (_super) {
+        __extends(Collection, _super);
+        function Collection(jsonld, options) {
+            var _this = _super.call(this, jsonld, options) || this;
+            _this.items = [];
+            _this._collections = null;
+            _this._manifests = null;
+            jsonld.__collection = _this;
+            return _this;
+        }
+        Collection.prototype.getCollections = function () {
+            if (this._collections) {
+                return this._collections;
+            }
+            return this._collections = this.items.filter(function (m) { return m.isCollection(); });
+        };
+        Collection.prototype.getManifests = function () {
+            if (this._manifests) {
+                return this._manifests;
+            }
+            return this._manifests = this.items.filter(function (m) { return m.isManifest(); });
+        };
+        Collection.prototype.getCollectionByIndex = function (collectionIndex) {
+            var collections = this.getCollections();
+            if (!collections[collectionIndex]) {
+                throw new Error("Collection index is outside range of array");
+            }
+            var collection = collections[collectionIndex];
+            collection.options.index = collectionIndex;
+            // id for collection MUST be dereferenceable
+            return collection.load();
+        };
+        Collection.prototype.getManifestByIndex = function (manifestIndex) {
+            var manifests = this.getManifests();
+            if (!manifests[manifestIndex]) {
+                throw new Error("Manifest index is outside range of array");
+            }
+            var manifest = manifests[manifestIndex];
+            manifest.options.index = manifestIndex;
+            return manifest.load();
+        };
+        Collection.prototype.getTotalCollections = function () {
+            return this.getCollections().length;
+        };
+        Collection.prototype.getTotalManifests = function () {
+            return this.getManifests().length;
+        };
+        Collection.prototype.getTotalItems = function () {
+            return this.items.length;
+        };
+        Collection.prototype.getViewingDirection = function () {
+            if (this.getProperty('viewingDirection')) {
+                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
+            }
+            return Manifesto.ViewingDirection.LEFTTORIGHT;
+        };
+        /**
+         * Get a tree of sub collections and manifests, using each child manifest's first 'top' range.
+         */
+        Collection.prototype.getDefaultTree = function () {
+            _super.prototype.getDefaultTree.call(this);
+            this.defaultTree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
+            this._parseManifests(this);
+            this._parseCollections(this);
+            Manifesto.Utils.generateTreeNodeIds(this.defaultTree);
+            return this.defaultTree;
+        };
+        Collection.prototype._parseManifests = function (parentCollection) {
+            if (parentCollection.getManifests() && parentCollection.getManifests().length) {
+                for (var i = 0; i < parentCollection.getManifests().length; i++) {
+                    var manifest = parentCollection.getManifests()[i];
+                    var tree = manifest.getDefaultTree();
+                    tree.label = manifest.parentLabel || Manifesto.LanguageMap.getValue(manifest.getLabel(), this.options.locale) || 'manifest ' + (i + 1);
+                    tree.navDate = manifest.getNavDate();
+                    tree.data.id = manifest.id;
+                    tree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
+                    parentCollection.defaultTree.addNode(tree);
+                }
+            }
+        };
+        Collection.prototype._parseCollections = function (parentCollection) {
+            if (parentCollection.getCollections() && parentCollection.getCollections().length) {
+                for (var i = 0; i < parentCollection.getCollections().length; i++) {
+                    var collection = parentCollection.getCollections()[i];
+                    var tree = collection.getDefaultTree();
+                    tree.label = collection.parentLabel || Manifesto.LanguageMap.getValue(collection.getLabel(), this.options.locale) || 'collection ' + (i + 1);
+                    tree.navDate = collection.getNavDate();
+                    tree.data.id = collection.id;
+                    tree.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
+                    parentCollection.defaultTree.addNode(tree);
+                    this._parseCollections(collection);
+                }
+            }
+        };
+        return Collection;
+    }(Manifesto.IIIFResource));
+    Manifesto.Collection = Collection;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Range = /** @class */ (function (_super) {
+        __extends(Range, _super);
+        function Range(jsonld, options) {
+            var _this = _super.call(this, jsonld, options) || this;
+            _this._ranges = null;
+            _this.canvases = null;
+            _this.items = [];
+            return _this;
+        }
+        Range.prototype.getCanvasIds = function () {
+            if (this.__jsonld.canvases) {
+                return this.__jsonld.canvases;
+            }
+            else if (this.canvases) {
+                return this.canvases;
+            }
+            return [];
+        };
+        Range.prototype.getDuration = function () {
+            if (this.canvases && this.canvases.length) {
+                var startTimes = [];
+                var endTimes = [];
+                for (var _i = 0, _a = this.canvases; _i < _a.length; _i++) {
+                    var canvas = _a[_i];
+                    if (!canvas)
+                        continue;
+                    var _b = (canvas.match(/(.*)#t=([0-9.]+),?([0-9.]+)?/) || [undefined, canvas]), canvasId = _b[1], start_1 = _b[2], end_1 = _b[3];
+                    if (canvasId) {
+                        startTimes.push(parseFloat(start_1));
+                        endTimes.push(parseFloat(end_1));
+                    }
+                }
+                if (startTimes.length && endTimes.length) {
+                    return new Manifesto.Duration(Math.min.apply(Math, startTimes), Math.max.apply(Math, endTimes));
+                }
+            }
+            else {
+                // get child ranges and calculate the start and end based on them
+                var childRanges = this.getRanges();
+                var startTimes = [];
+                var endTimes = [];
+                for (var _c = 0, childRanges_1 = childRanges; _c < childRanges_1.length; _c++) {
+                    var childRange = childRanges_1[_c];
+                    var duration = childRange.getDuration();
+                    if (duration) {
+                        startTimes.push(duration.start);
+                        endTimes.push(duration.end);
+                    }
+                }
+                if (startTimes.length && endTimes.length) {
+                    return new Manifesto.Duration(Math.min.apply(Math, startTimes), Math.max.apply(Math, endTimes));
+                }
+            }
+            var start;
+            var end;
+            if (this.canvases && this.canvases.length) {
+                for (var i = 0; i < this.canvases.length; i++) {
+                    var canvas = this.canvases[i];
+                    var temporal = Manifesto.Utils.getTemporalComponent(canvas);
+                    if (temporal && temporal.length > 1) {
+                        if (i === 0) {
+                            start = Number(temporal[0]);
+                        }
+                        if (i === this.canvases.length - 1) {
+                            end = Number(temporal[1]);
+                        }
+                    }
+                }
+            }
+            else {
+                // get child ranges and calculate the start and end based on them
+                var childRanges = this.getRanges();
+                for (var i = 0; i < childRanges.length; i++) {
+                    var childRange = childRanges[i];
+                    var duration = childRange.getDuration();
+                    if (duration) {
+                        if (i === 0) {
+                            start = duration.start;
+                        }
+                        if (i === childRanges.length - 1) {
+                            end = duration.end;
+                        }
+                    }
+                }
+            }
+            if (start !== undefined && end !== undefined) {
+                return new Manifesto.Duration(start, end);
+            }
+            return undefined;
+        };
+        // getCanvases(): ICanvas[] {
+        //     if (this._canvases) {
+        //         return this._canvases;
+        //     }
+        //     return this._canvases = <ICanvas[]>this.items.en().where(m => m.isCanvas()).toArray();
+        // }
+        Range.prototype.getRanges = function () {
+            if (this._ranges) {
+                return this._ranges;
+            }
+            return this._ranges = this.items.filter(function (m) { return m.isRange(); });
+        };
+        Range.prototype.getBehavior = function () {
+            var behavior = this.getProperty('behavior');
+            if (Array.isArray(behavior)) {
+                behavior = behavior[0];
+            }
+            if (behavior) {
+                return new Manifesto.Behavior(behavior);
+            }
+            return null;
+        };
+        Range.prototype.getViewingDirection = function () {
+            if (this.getProperty('viewingDirection')) {
+                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
+            }
+            return null;
+        };
+        Range.prototype.getViewingHint = function () {
+            if (this.getProperty('viewingHint')) {
+                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
+            }
+            return null;
+        };
+        Range.prototype.getTree = function (treeRoot) {
+            treeRoot.data = this;
+            this.treeNode = treeRoot;
+            var ranges = this.getRanges();
+            if (ranges && ranges.length) {
+                for (var i = 0; i < ranges.length; i++) {
+                    var range = ranges[i];
+                    var node = new Manifesto.TreeNode();
+                    treeRoot.addNode(node);
+                    this._parseTreeNode(node, range);
+                }
+            }
+            Manifesto.Utils.generateTreeNodeIds(treeRoot);
+            return treeRoot;
+        };
+        Range.prototype.spansTime = function (time) {
+            var duration = this.getDuration();
+            if (duration) {
+                if (time >= duration.start && time <= duration.end) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        Range.prototype._parseTreeNode = function (node, range) {
+            node.label = Manifesto.LanguageMap.getValue(range.getLabel(), this.options.locale);
+            node.data = range;
+            node.data.type = Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.RANGE.toString());
+            range.treeNode = node;
+            var ranges = range.getRanges();
+            if (ranges && ranges.length) {
+                for (var i = 0; i < ranges.length; i++) {
+                    var childRange = ranges[i];
+                    var behavior = childRange.getBehavior();
+                    if (behavior && behavior.toString() === Manifesto.Behavior.NONAV.toString()) {
+                        continue;
+                    }
+                    else {
+                        var childNode = new Manifesto.TreeNode();
+                        node.addNode(childNode);
+                        this._parseTreeNode(childNode, childRange);
+                    }
+                }
+            }
+        };
+        return Range;
+    }(Manifesto.ManifestResource));
+    Manifesto.Range = Range;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Rendering = /** @class */ (function (_super) {
+        __extends(Rendering, _super);
+        function Rendering(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        Rendering.prototype.getFormat = function () {
+            return new Manifesto.RenderingFormat(this.getProperty('format'));
+        };
+        return Rendering;
+    }(Manifesto.ManifestResource));
+    Manifesto.Rendering = Rendering;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Sequence = /** @class */ (function (_super) {
+        __extends(Sequence, _super);
+        function Sequence(jsonld, options) {
+            var _this = _super.call(this, jsonld, options) || this;
+            _this.items = [];
+            _this._thumbnails = null;
+            return _this;
+        }
+        Sequence.prototype.getCanvases = function () {
+            if (this.items.length) {
+                return this.items;
+            }
+            var items = this.__jsonld.canvases || this.__jsonld.elements;
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    var c = items[i];
+                    var canvas = new Manifesto.Canvas(c, this.options);
+                    canvas.index = i;
+                    this.items.push(canvas);
+                }
+            }
+            else if (this.__jsonld) {
+                for (var i = 0; i < this.__jsonld.length; i++) {
+                    var c = this.__jsonld[i];
+                    var canvas = new Manifesto.Canvas(c, this.options);
+                    canvas.index = i;
+                    this.items.push(canvas);
+                }
+            }
+            return this.items;
+        };
+        Sequence.prototype.getCanvasById = function (id) {
+            for (var i = 0; i < this.getTotalCanvases(); i++) {
+                var canvas = this.getCanvasByIndex(i);
+                // normalise canvas id
+                var canvasId = Manifesto.Utils.normaliseUrl(canvas.id);
+                if (Manifesto.Utils.normaliseUrl(id) === canvasId) {
+                    return canvas;
+                }
+            }
+            return null;
+        };
+        Sequence.prototype.getCanvasByIndex = function (canvasIndex) {
+            return this.getCanvases()[canvasIndex];
+        };
+        Sequence.prototype.getCanvasIndexById = function (id) {
+            for (var i = 0; i < this.getTotalCanvases(); i++) {
+                var canvas = this.getCanvasByIndex(i);
+                if (canvas.id === id) {
+                    return i;
+                }
+            }
+            return null;
+        };
+        Sequence.prototype.getCanvasIndexByLabel = function (label, foliated) {
+            label = label.trim();
+            if (!isNaN(label)) { // if the label is numeric
+                label = parseInt(label, 10).toString(); // trim any preceding zeros.
+                if (foliated)
+                    label += 'r'; // default to recto
+            }
+            var doublePageRegExp = /(\d*)\D+(\d*)/;
+            var match, regExp, regStr, labelPart1, labelPart2;
+            for (var i = 0; i < this.getTotalCanvases(); i++) {
+                var canvas = this.getCanvasByIndex(i);
+                // check if there's a literal match
+                if (Manifesto.LanguageMap.getValue(canvas.getLabel(), this.options.locale) === label) {
+                    return i;
+                }
+                // check if there's a match for double-page spreads e.g. 100-101, 100_101, 100 101
+                match = doublePageRegExp.exec(label);
+                if (!match)
+                    continue;
+                labelPart1 = match[1];
+                labelPart2 = match[2];
+                if (!labelPart2)
+                    continue;
+                regStr = "^" + labelPart1 + "\\D+" + labelPart2 + "$";
+                regExp = new RegExp(regStr);
+                if (regExp.test(canvas.getLabel().toString())) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        Sequence.prototype.getLastCanvasLabel = function (alphanumeric) {
+            for (var i = this.getTotalCanvases() - 1; i >= 0; i--) {
+                var canvas = this.getCanvasByIndex(i);
+                var label = Manifesto.LanguageMap.getValue(canvas.getLabel(), this.options.locale);
+                if (alphanumeric) {
+                    var regExp = /^[a-zA-Z0-9]*$/;
+                    if (regExp.test(label)) {
+                        return label;
+                    }
+                }
+                else if (label) {
+                    return label;
+                }
+            }
+            return this.options.defaultLabel;
+        };
+        Sequence.prototype.getLastPageIndex = function () {
+            return this.getTotalCanvases() - 1;
+        };
+        Sequence.prototype.getNextPageIndex = function (canvasIndex, pagingEnabled) {
+            var index;
+            if (pagingEnabled) {
+                var indices = this.getPagedIndices(canvasIndex);
+                var viewingDirection = this.getViewingDirection();
+                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
+                    index = indices[0] + 1;
+                }
+                else {
+                    index = indices[indices.length - 1] + 1;
+                }
+            }
+            else {
+                index = canvasIndex + 1;
+            }
+            if (index > this.getLastPageIndex()) {
+                return -1;
+            }
+            return index;
+        };
+        Sequence.prototype.getPagedIndices = function (canvasIndex, pagingEnabled) {
+            var indices = [];
+            if (!pagingEnabled) {
+                indices.push(canvasIndex);
+            }
+            else {
+                if (this.isFirstCanvas(canvasIndex) || this.isLastCanvas(canvasIndex)) {
+                    indices = [canvasIndex];
+                }
+                else if (canvasIndex % 2) {
+                    indices = [canvasIndex, canvasIndex + 1];
+                }
+                else {
+                    indices = [canvasIndex - 1, canvasIndex];
+                }
+                var viewingDirection = this.getViewingDirection();
+                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
+                    indices = indices.reverse();
+                }
+            }
+            return indices;
+        };
+        Sequence.prototype.getPrevPageIndex = function (canvasIndex, pagingEnabled) {
+            var index;
+            if (pagingEnabled) {
+                var indices = this.getPagedIndices(canvasIndex);
+                var viewingDirection = this.getViewingDirection();
+                if (viewingDirection && viewingDirection.toString() === Manifesto.ViewingDirection.RIGHTTOLEFT.toString()) {
+                    index = indices[indices.length - 1] - 1;
+                }
+                else {
+                    index = indices[0] - 1;
+                }
+            }
+            else {
+                index = canvasIndex - 1;
+            }
+            return index;
+        };
+        Sequence.prototype.getStartCanvasIndex = function () {
+            var startCanvas = this.getStartCanvas();
+            if (startCanvas) {
+                // if there's a startCanvas attribute, loop through the canvases and return the matching index.
+                for (var i = 0; i < this.getTotalCanvases(); i++) {
+                    var canvas = this.getCanvasByIndex(i);
+                    if (canvas.id === startCanvas)
+                        return i;
+                }
+            }
+            // default to first canvas.
+            return 0;
+        };
+        // todo: deprecate
+        Sequence.prototype.getThumbs = function (width, height) {
+            console.warn('getThumbs will be deprecated, use getThumbnails instead');
+            var thumbs = [];
+            var totalCanvases = this.getTotalCanvases();
+            for (var i = 0; i < totalCanvases; i++) {
+                var canvas = this.getCanvasByIndex(i);
+                var thumb = new Manifesto.Thumb(width, canvas);
+                thumbs.push(thumb);
+            }
+            return thumbs;
+        };
+        Sequence.prototype.getThumbnails = function () {
+            if (this._thumbnails != null)
+                return this._thumbnails;
+            this._thumbnails = [];
+            var canvases = this.getCanvases();
+            for (var i = 0; i < canvases.length; i++) {
+                var thumbnail = canvases[i].getThumbnail();
+                if (thumbnail) {
+                    this._thumbnails.push(thumbnail);
+                }
+            }
+            return this._thumbnails;
+        };
+        Sequence.prototype.getStartCanvas = function () {
+            return this.getProperty('startCanvas');
+        };
+        Sequence.prototype.getTotalCanvases = function () {
+            return this.getCanvases().length;
+        };
+        Sequence.prototype.getViewingDirection = function () {
+            if (this.getProperty('viewingDirection')) {
+                return new Manifesto.ViewingDirection(this.getProperty('viewingDirection'));
+            }
+            else if (this.options.resource.getViewingDirection) {
+                return this.options.resource.getViewingDirection();
+            }
+            return null;
+        };
+        Sequence.prototype.getViewingHint = function () {
+            if (this.getProperty('viewingHint')) {
+                return new Manifesto.ViewingHint(this.getProperty('viewingHint'));
+            }
+            return null;
+        };
+        Sequence.prototype.isCanvasIndexOutOfRange = function (canvasIndex) {
+            return canvasIndex > this.getTotalCanvases() - 1;
+        };
+        Sequence.prototype.isFirstCanvas = function (canvasIndex) {
+            return canvasIndex === 0;
+        };
+        Sequence.prototype.isLastCanvas = function (canvasIndex) {
+            return canvasIndex === this.getTotalCanvases() - 1;
+        };
+        Sequence.prototype.isMultiCanvas = function () {
+            return this.getTotalCanvases() > 1;
+        };
+        Sequence.prototype.isPagingEnabled = function () {
+            var viewingHint = this.getViewingHint();
+            if (viewingHint) {
+                return viewingHint.toString() === Manifesto.ViewingHint.PAGED.toString();
+            }
+            return false;
+        };
+        // checks if the number of canvases is even - therefore has a front and back cover
+        Sequence.prototype.isTotalCanvasesEven = function () {
+            return this.getTotalCanvases() % 2 === 0;
+        };
+        return Sequence;
+    }(Manifesto.ManifestResource));
+    Manifesto.Sequence = Sequence;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var Deserialiser = /** @class */ (function () {
+        function Deserialiser() {
+        }
+        Deserialiser.parse = function (manifest, options) {
+            if (typeof manifest === 'string') {
+                manifest = JSON.parse(manifest);
+            }
+            return this.parseJson(manifest, options);
+        };
+        Deserialiser.parseJson = function (json, options) {
+            var resource;
+            // have options been passed for the manifest to inherit?
+            if (options) {
+                if (options.navDate && !isNaN(options.navDate.getTime())) {
+                    json.navDate = options.navDate.toString();
+                }
+            }
+            if (json['@type']) {
+                switch (json['@type']) {
+                    case 'sc:Collection':
+                        resource = this.parseCollection(json, options);
+                        break;
+                    case 'sc:Manifest':
+                        resource = this.parseManifest(json, options);
+                        break;
+                    default:
+                        return null;
+                }
+            }
+            else {
+                // presentation 3
+                switch (json['type']) {
+                    case 'Collection':
+                        resource = this.parseCollection(json, options);
+                        break;
+                    case 'Manifest':
+                        resource = this.parseManifest(json, options);
+                        break;
+                    default:
+                        return null;
+                }
+            }
+            // Top-level resource was loaded from a URI, so flag it to prevent
+            // unnecessary reload:
+            resource.isLoaded = true;
+            return resource;
+        };
+        Deserialiser.parseCollection = function (json, options) {
+            var collection = new Manifesto.Collection(json, options);
+            if (options) {
+                collection.index = options.index || 0;
+            }
+            else {
+                collection.index = 0;
+            }
+            this.parseCollections(collection, options);
+            this.parseManifests(collection, options);
+            this.parseItems(collection, options);
+            return collection;
+        };
+        Deserialiser.parseCollections = function (collection, options) {
+            var items;
+            if (collection.__jsonld.collections) {
+                items = collection.__jsonld.collections;
+            }
+            else if (collection.__jsonld.items) {
+                items = collection.__jsonld.items.filter(function (m) { return m.type.toLowerCase() === 'collection'; });
+            }
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    if (options) {
+                        options.index = i;
+                    }
+                    var item = this.parseCollection(items[i], options);
+                    item.index = i;
+                    item.parentCollection = collection;
+                    collection.items.push(item);
+                }
+            }
+        };
+        Deserialiser.parseManifest = function (json, options) {
+            var manifest = new Manifesto.Manifest(json, options);
+            return manifest;
+        };
+        Deserialiser.parseManifests = function (collection, options) {
+            var items;
+            if (collection.__jsonld.manifests) {
+                items = collection.__jsonld.manifests;
+            }
+            else if (collection.__jsonld.items) {
+                items = collection.__jsonld.items.filter(function (m) { return m.type.toLowerCase() === 'manifest'; });
+            }
+            if (items) {
+                for (var i = 0; i < items.length; i++) {
+                    var item = this.parseManifest(items[i], options);
+                    item.index = i;
+                    item.parentCollection = collection;
+                    collection.items.push(item);
+                }
+            }
+        };
+        Deserialiser.parseItem = function (json, options) {
+            if (json['@type']) {
+                if (json['@type'].toLowerCase() === 'sc:manifest') {
+                    return this.parseManifest(json, options);
+                }
+                else if (json['@type'].toLowerCase() === 'sc:collection') {
+                    return this.parseCollection(json, options);
+                }
+            }
+            else if (json.type) {
+                if (json.type.toLowerCase() === 'manifest') {
+                    return this.parseManifest(json, options);
+                }
+                else if (json.type.toLowerCase() === 'collection') {
+                    return this.parseCollection(json, options);
+                }
+            }
+            return null;
+        };
+        Deserialiser.parseItems = function (collection, options) {
+            var items = collection.__jsonld.members || collection.__jsonld.items;
+            if (items) {
+                var _loop_1 = function (i) {
+                    if (options) {
+                        options.index = i;
+                    }
+                    var item = this_1.parseItem(items[i], options);
+                    if (!item)
+                        return { value: void 0 };
+                    // only add to items if not already parsed from backwards-compatible collections/manifests arrays
+                    if (collection.items.filter(function (m) { return m.id === item.id; })[0]) {
+                        return "continue";
+                    }
+                    item.index = i;
+                    item.parentCollection = collection;
+                    collection.items.push(item);
+                };
+                var this_1 = this;
+                for (var i = 0; i < items.length; i++) {
+                    var state_1 = _loop_1(i);
+                    if (typeof state_1 === "object")
+                        return state_1.value;
+                }
+            }
+        };
+        return Deserialiser;
+    }());
+    Manifesto.Deserialiser = Deserialiser;
+    var Serialiser = /** @class */ (function () {
+        function Serialiser() {
+        }
+        Serialiser.serialise = function (manifest) {
+            // todo
+            return "";
+        };
+        return Serialiser;
+    }());
+    Manifesto.Serialiser = Serialiser;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Service = /** @class */ (function (_super) {
+        __extends(Service, _super);
+        function Service(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        Service.prototype.getProfile = function () {
+            var profile = this.getProperty('profile');
+            if (!profile) {
+                profile = this.getProperty('dcterms:conformsTo');
+            }
+            if (Array.isArray(profile)) {
+                return new Manifesto.ServiceProfile(profile[0]);
+            }
+            return new Manifesto.ServiceProfile(profile);
+        };
+        Service.prototype.getConfirmLabel = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('confirmLabel'), this.options.locale);
+        };
+        Service.prototype.getDescription = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('description'), this.options.locale);
+        };
+        Service.prototype.getFailureDescription = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('failureDescription'), this.options.locale);
+        };
+        Service.prototype.getFailureHeader = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('failureHeader'), this.options.locale);
+        };
+        Service.prototype.getHeader = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('header'), this.options.locale);
+        };
+        Service.prototype.getServiceLabel = function () {
+            return Manifesto.Utils.getLocalisedValue(this.getProperty('label'), this.options.locale);
+        };
+        Service.prototype.getInfoUri = function () {
+            var infoUri = this.id;
+            if (!infoUri.endsWith('/')) {
+                infoUri += '/';
+            }
+            infoUri += 'info.json';
+            return infoUri;
+        };
+        return Service;
+    }(Manifesto.ManifestResource));
+    Manifesto.Service = Service;
+})(Manifesto || (Manifesto = {}));
+
+
+var Manifesto;
+(function (Manifesto) {
+    // todo: deprecate
+    // this is used by Sequence.getThumbs
+    var Thumb = /** @class */ (function () {
+        function Thumb(width, canvas) {
+            this.data = canvas;
+            this.index = canvas.index;
+            this.width = width;
+            var heightRatio = canvas.getHeight() / canvas.getWidth();
+            if (heightRatio) {
+                this.height = Math.floor(this.width * heightRatio);
+            }
+            else {
+                this.height = width;
+            }
+            this.uri = canvas.getCanonicalImageUri(width);
+            this.label = Manifesto.LanguageMap.getValue(canvas.getLabel()); // todo: pass locale?
+        }
+        return Thumb;
+    }());
+    Manifesto.Thumb = Thumb;
+})(Manifesto || (Manifesto = {}));
+
+
+var Manifesto;
+(function (Manifesto) {
+    var TreeNode = /** @class */ (function () {
+        function TreeNode(label, data) {
+            this.label = label;
+            this.data = data || {};
+            this.nodes = [];
+        }
+        TreeNode.prototype.addNode = function (node) {
+            this.nodes.push(node);
+            node.parentNode = this;
+        };
+        TreeNode.prototype.isCollection = function () {
+            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.COLLECTION.toString());
+        };
+        TreeNode.prototype.isManifest = function () {
+            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.MANIFEST.toString());
+        };
+        TreeNode.prototype.isRange = function () {
+            return this.data.type === Manifesto.Utils.normaliseType(Manifesto.TreeNodeType.RANGE.toString());
+        };
+        return TreeNode;
+    }());
+    Manifesto.TreeNode = TreeNode;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var TreeNodeType = /** @class */ (function (_super) {
+        __extends(TreeNodeType, _super);
+        function TreeNodeType() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // todo: use getters when ES3 target is no longer required.
+        TreeNodeType.prototype.collection = function () {
+            return new TreeNodeType(TreeNodeType.COLLECTION.toString());
+        };
+        TreeNodeType.prototype.manifest = function () {
+            return new TreeNodeType(TreeNodeType.MANIFEST.toString());
+        };
+        TreeNodeType.prototype.range = function () {
+            return new TreeNodeType(TreeNodeType.RANGE.toString());
+        };
+        TreeNodeType.COLLECTION = new TreeNodeType("collection");
+        TreeNodeType.MANIFEST = new TreeNodeType("manifest");
+        TreeNodeType.RANGE = new TreeNodeType("range");
+        return TreeNodeType;
+    }(Manifesto.StringValue));
+    Manifesto.TreeNodeType = TreeNodeType;
+})(Manifesto || (Manifesto = {}));
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var http = require('http');
+var https = require('https');
+var url = require('url');
+var Manifesto;
+(function (Manifesto) {
+    var Utils = /** @class */ (function () {
+        function Utils() {
+        }
+        Utils.getMediaType = function (type) {
+            type = type.toLowerCase();
+            type = type.split(';')[0];
+            return type.trim();
+        };
+        Utils.getImageQuality = function (profile) {
+            var p = profile.toString();
+            if (p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString() ||
+                p === Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString() ||
+                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString() ||
+                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString() ||
+                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString() ||
+                p === Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) {
+                return 'native';
+            }
+            return 'default';
+        };
+        Utils.getInexactLocale = function (locale) {
+            if (locale.indexOf('-') !== -1) {
+                return locale.substr(0, locale.indexOf('-'));
+            }
+            return locale;
+        };
+        Utils.getLocalisedValue = function (resource, locale) {
+            // if the resource is not an array of translations, return the string.
+            if (!Array.isArray(resource)) {
+                return resource;
+            }
+            // test for exact match
+            for (var i = 0; i < resource.length; i++) {
+                var value_1 = resource[i];
+                var language_1 = value_1['@language'];
+                if (locale === language_1) {
+                    return value_1['@value'];
+                }
+            }
+            // test for inexact match
+            var match = locale.substr(0, locale.indexOf('-'));
+            for (var i = 0; i < resource.length; i++) {
+                var value = resource[i];
+                var language = value['@language'];
+                if (language === match) {
+                    return value['@value'];
+                }
+            }
+            return null;
+        };
+        Utils.generateTreeNodeIds = function (treeNode, index) {
+            if (index === void 0) { index = 0; }
+            var id;
+            if (!treeNode.parentNode) {
+                id = '0';
+            }
+            else {
+                id = treeNode.parentNode.id + "-" + index;
+            }
+            treeNode.id = id;
+            for (var i = 0; i < treeNode.nodes.length; i++) {
+                var n = treeNode.nodes[i];
+                Utils.generateTreeNodeIds(n, i);
+            }
+        };
+        Utils.normaliseType = function (type) {
+            type = (type || '').toLowerCase();
+            if (type.indexOf(':') !== -1) {
+                var split = type.split(':');
+                return split[1];
+            }
+            return type;
+        };
+        Utils.normaliseUrl = function (url) {
+            url = url.substr(url.indexOf('://'));
+            if (url.indexOf('#') !== -1) {
+                url = url.split('#')[0];
+            }
+            return url;
+        };
+        Utils.normalisedUrlsMatch = function (url1, url2) {
+            return Utils.normaliseUrl(url1) === Utils.normaliseUrl(url2);
+        };
+        Utils.isImageProfile = function (profile) {
+            if (typeof (profile) === 'string') {
+                profile = new Manifesto.ServiceProfile(profile);
+            }
+            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2PROFILE.toString())) {
+                return true;
+            }
+            return false;
+        };
+        Utils.isLevel0ImageProfile = function (profile) {
+            if (typeof (profile) === 'string') {
+                profile = new Manifesto.ServiceProfile(profile);
+            }
+            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL0PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL0PROFILE.toString())) {
+                return true;
+            }
+            return false;
+        };
+        Utils.isLevel1ImageProfile = function (profile) {
+            if (typeof (profile) === 'string') {
+                profile = new Manifesto.ServiceProfile(profile);
+            }
+            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL1PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL1PROFILE.toString())) {
+                return true;
+            }
+            return false;
+        };
+        Utils.isLevel2ImageProfile = function (profile) {
+            if (typeof (profile) === 'string') {
+                profile = new Manifesto.ServiceProfile(profile);
+            }
+            if (Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECOMPLIANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECOMPLIANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIFIMAGECONFORMANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.STANFORDIIIF1IMAGECONFORMANCE2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF1IMAGELEVEL2PROFILE.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2.toString()) ||
+                Utils.normalisedUrlsMatch(profile.toString(), Manifesto.ServiceProfile.IIIF2IMAGELEVEL2PROFILE.toString())) {
+                return true;
+            }
+            return false;
+        };
+        Utils.loadResource = function (uri) {
+            return new Promise(function (resolve, reject) {
+                var u = url.parse(uri);
+                var req;
+                var opts = {
+                    host: u.hostname,
+                    port: u.port,
+                    path: u.path,
+                    method: "GET",
+                    withCredentials: false
+                };
+                switch (u.protocol) {
+                    case 'https:':
+                        req = https.request(opts, function (response) {
+                            var result = "";
+                            response.on('data', function (chunk) {
+                                result += chunk;
+                            });
+                            response.on('end', function () {
+                                resolve(result);
+                            });
+                        });
+                        req.on('error', function (error) {
+                            reject(error);
+                        });
+                        req.end();
+                        break;
+                    case 'dat:':
+                        var xhr_1 = new XMLHttpRequest();
+                        xhr_1.onreadystatechange = function () {
+                            if (xhr_1.readyState === 4) {
+                                resolve(xhr_1.response);
+                            }
+                        };
+                        xhr_1.open("GET", uri, true);
+                        xhr_1.send();
+                        break;
+                    default:
+                        req = http.request(opts, function (response) {
+                            var result = "";
+                            response.on('data', function (chunk) {
+                                result += chunk;
+                            });
+                            response.on('end', function () {
+                                resolve(result);
+                            });
+                        });
+                        req.on('error', function (error) {
+                            reject(error);
+                        });
+                        req.end();
+                        break;
+                }
+            });
+        };
+        Utils.loadExternalResourcesAuth1 = function (resources, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
+            return new Promise(function (resolve, reject) {
+                var promises = resources.map(function (resource) {
+                    return Utils.loadExternalResourceAuth1(resource, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages);
+                });
+                Promise.all(promises)
+                    .then(function () {
+                    resolve(resources);
+                })["catch"](function (error) {
+                    reject(error);
+                });
+            });
+        };
+        Utils.loadExternalResourceAuth1 = function (resource, openContentProviderInteraction, openTokenService, getStoredAccessToken, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
+            return __awaiter(this, void 0, void 0, function () {
+                var storedAccessToken;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, getStoredAccessToken(resource)];
+                        case 1:
+                            storedAccessToken = _a.sent();
+                            if (!storedAccessToken) return [3 /*break*/, 6];
+                            return [4 /*yield*/, resource.getData(storedAccessToken)];
+                        case 2:
+                            _a.sent();
+                            if (!(resource.status === HTTPStatusCode.OK)) return [3 /*break*/, 3];
+                            return [2 /*return*/, resource];
+                        case 3: 
+                        // the stored token is no good for this resource
+                        return [4 /*yield*/, Utils.doAuthChain(resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages)];
+                        case 4:
+                            // the stored token is no good for this resource
+                            _a.sent();
+                            _a.label = 5;
+                        case 5:
+                            if (resource.status === HTTPStatusCode.OK || resource.status === HTTPStatusCode.MOVED_TEMPORARILY) {
+                                return [2 /*return*/, resource];
+                            }
+                            throw Utils.createAuthorizationFailedError();
+                        case 6: return [4 /*yield*/, resource.getData()];
+                        case 7:
+                            _a.sent();
+                            if (!(resource.status === HTTPStatusCode.MOVED_TEMPORARILY || resource.status === HTTPStatusCode.UNAUTHORIZED)) return [3 /*break*/, 9];
+                            return [4 /*yield*/, Utils.doAuthChain(resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages)];
+                        case 8:
+                            _a.sent();
+                            _a.label = 9;
+                        case 9:
+                            if (resource.status === HTTPStatusCode.OK || resource.status === HTTPStatusCode.MOVED_TEMPORARILY) {
+                                return [2 /*return*/, resource];
+                            }
+                            throw Utils.createAuthorizationFailedError();
+                    }
+                });
+            });
+        };
+        Utils.doAuthChain = function (resource, openContentProviderInteraction, openTokenService, userInteractedWithContentProvider, getContentProviderInteraction, handleMovedTemporarily, showOutOfOptionsMessages) {
+            return __awaiter(this, void 0, void 0, function () {
+                var externalService, kioskService, clickThroughService, loginService, serviceToTry, lastAttempted, kioskInteraction, contentProviderInteraction, contentProviderInteraction;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            // This function enters the flowchart at the < External? > junction
+                            // http://iiif.io/api/auth/1.0/#workflow-from-the-browser-client-perspective
+                            if (!resource.isAccessControlled()) {
+                                return [2 /*return*/, resource]; // no services found
+                            }
+                            externalService = resource.externalService;
+                            if (externalService) {
+                                externalService.options = resource.options;
+                            }
+                            kioskService = resource.kioskService;
+                            if (kioskService) {
+                                kioskService.options = resource.options;
+                            }
+                            clickThroughService = resource.clickThroughService;
+                            if (clickThroughService) {
+                                clickThroughService.options = resource.options;
+                            }
+                            loginService = resource.loginService;
+                            if (loginService) {
+                                loginService.options = resource.options;
+                            }
+                            if (!(!resource.isResponseHandled && resource.status === HTTPStatusCode.MOVED_TEMPORARILY)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, handleMovedTemporarily(resource)];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 2:
+                            serviceToTry = null;
+                            lastAttempted = null;
+                            // repetition of logic is left in these steps for clarity:
+                            // Looking for external pattern
+                            serviceToTry = externalService;
+                            if (!serviceToTry) return [3 /*break*/, 4];
+                            lastAttempted = serviceToTry;
+                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
+                        case 3:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 4:
+                            // Looking for kiosk pattern
+                            serviceToTry = kioskService;
+                            if (!serviceToTry) return [3 /*break*/, 7];
+                            lastAttempted = serviceToTry;
+                            kioskInteraction = openContentProviderInteraction(serviceToTry);
+                            if (!kioskInteraction) return [3 /*break*/, 7];
+                            return [4 /*yield*/, userInteractedWithContentProvider(kioskInteraction)];
+                        case 5:
+                            _a.sent();
+                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
+                        case 6:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 7:
+                            // The code for the next two patterns is identical (other than the profile name).
+                            // The difference is in the expected behaviour of
+                            //
+                            //    await userInteractedWithContentProvider(contentProviderInteraction);
+                            // 
+                            // For clickthrough the opened window should close immediately having established
+                            // a session, whereas for login the user might spend some time entering credentials etc.
+                            // Looking for clickthrough pattern
+                            serviceToTry = clickThroughService;
+                            if (!serviceToTry) return [3 /*break*/, 11];
+                            lastAttempted = serviceToTry;
+                            return [4 /*yield*/, getContentProviderInteraction(resource, serviceToTry)];
+                        case 8:
+                            contentProviderInteraction = _a.sent();
+                            if (!contentProviderInteraction) return [3 /*break*/, 11];
+                            // should close immediately
+                            return [4 /*yield*/, userInteractedWithContentProvider(contentProviderInteraction)];
+                        case 9:
+                            // should close immediately
+                            _a.sent();
+                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
+                        case 10:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 11:
+                            // Looking for login pattern
+                            serviceToTry = loginService;
+                            if (!serviceToTry) return [3 /*break*/, 15];
+                            lastAttempted = serviceToTry;
+                            return [4 /*yield*/, getContentProviderInteraction(resource, serviceToTry)];
+                        case 12:
+                            contentProviderInteraction = _a.sent();
+                            if (!contentProviderInteraction) return [3 /*break*/, 15];
+                            // we expect the user to spend some time interacting
+                            return [4 /*yield*/, userInteractedWithContentProvider(contentProviderInteraction)];
+                        case 13:
+                            // we expect the user to spend some time interacting
+                            _a.sent();
+                            return [4 /*yield*/, Utils.attemptResourceWithToken(resource, openTokenService, serviceToTry)];
+                        case 14:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 15:
+                            // nothing worked! Use the most recently tried service as the source of
+                            // messages to show to the user.
+                            if (lastAttempted) {
+                                showOutOfOptionsMessages(resource, lastAttempted);
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        Utils.attemptResourceWithToken = function (resource, openTokenService, authService) {
+            return __awaiter(this, void 0, void 0, function () {
+                var tokenService, tokenMessage;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            tokenService = authService.getService(Manifesto.ServiceProfile.AUTH1TOKEN.toString());
+                            if (!tokenService) return [3 /*break*/, 3];
+                            return [4 /*yield*/, openTokenService(resource, tokenService)];
+                        case 1:
+                            tokenMessage = _a.sent();
+                            if (!(tokenMessage && tokenMessage.accessToken)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, resource.getData(tokenMessage)];
+                        case 2:
+                            _a.sent();
+                            return [2 /*return*/, resource];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        Utils.loadExternalResourcesAuth09 = function (resources, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options) {
+            return new Promise(function (resolve, reject) {
+                var promises = resources.map(function (resource) {
+                    return Utils.loadExternalResourceAuth09(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options);
+                });
+                Promise.all(promises)
+                    .then(function () {
+                    resolve(resources);
+                })["catch"](function (error) {
+                    reject(error);
+                });
+            });
+        };
+        // IIIF auth api pre v1.0
+        // Keeping this around for now until the auth 1.0 implementation is stable
+        Utils.loadExternalResourceAuth09 = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken, handleResourceResponse, options) {
+            return new Promise(function (resolve, reject) {
+                if (options && options.pessimisticAccessControl) {
+                    // pessimistic: access control cookies may have been deleted.
+                    // always request the access token for every access controlled info.json request
+                    // returned access tokens are not stored, therefore the login window flashes for every request.
+                    resource.getData().then(function () {
+                        if (resource.isAccessControlled()) {
+                            // if the resource has a click through service, use that.
+                            if (resource.clickThroughService) {
+                                resolve(clickThrough(resource));
+                                //} else if(resource.restrictedService) {
+                                resolve(restricted(resource));
+                            }
+                            else {
+                                login(resource).then(function () {
+                                    getAccessToken(resource, true).then(function (token) {
+                                        resource.getData(token).then(function () {
+                                            resolve(handleResourceResponse(resource));
+                                        })["catch"](function (message) {
+                                            reject(Utils.createInternalServerError(message));
+                                        });
+                                    })["catch"](function (message) {
+                                        reject(Utils.createInternalServerError(message));
+                                    });
+                                })["catch"](function (message) {
+                                    reject(Utils.createInternalServerError(message));
+                                });
+                            }
+                        }
+                        else {
+                            // this info.json isn't access controlled, therefore no need to request an access token.
+                            resolve(resource);
+                        }
+                    })["catch"](function (message) {
+                        reject(Utils.createInternalServerError(message));
+                    });
+                }
+                else {
+                    // optimistic: access control cookies may not have been deleted.
+                    // store access tokens to avoid login window flashes.
+                    // if cookies are deleted a page refresh is required.
+                    // try loading the resource using an access token that matches the info.json domain.
+                    // if an access token is found, request the resource using it regardless of whether it is access controlled.
+                    getStoredAccessToken(resource, tokenStorageStrategy).then(function (storedAccessToken) {
+                        if (storedAccessToken) {
+                            // try using the stored access token
+                            resource.getData(storedAccessToken).then(function () {
+                                // if the info.json loaded using the stored access token
+                                if (resource.status === HTTPStatusCode.OK) {
+                                    resolve(handleResourceResponse(resource));
+                                }
+                                else {
+                                    // otherwise, load the resource data to determine the correct access control services.
+                                    // if access controlled, do login.
+                                    Utils.authorize(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken).then(function () {
+                                        resolve(handleResourceResponse(resource));
+                                    })["catch"](function (error) {
+                                        // if (resource.restrictedService){
+                                        //     reject(Utils.createRestrictedError());
+                                        // } else {
+                                        reject(Utils.createAuthorizationFailedError());
+                                        //}
+                                    });
+                                }
+                            })["catch"](function (error) {
+                                reject(Utils.createAuthorizationFailedError());
+                            });
+                        }
+                        else {
+                            Utils.authorize(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken).then(function () {
+                                resolve(handleResourceResponse(resource));
+                            })["catch"](function (error) {
+                                reject(Utils.createAuthorizationFailedError());
+                            });
+                        }
+                    })["catch"](function (error) {
+                        reject(Utils.createAuthorizationFailedError());
+                    });
+                }
+            });
+        };
+        Utils.createError = function (name, message) {
+            var error = new Error();
+            error.message = message;
+            error.name = name;
+            return error;
+        };
+        Utils.createAuthorizationFailedError = function () {
+            return Utils.createError(manifesto.StatusCodes.AUTHORIZATION_FAILED.toString(), "Authorization failed");
+        };
+        Utils.createRestrictedError = function () {
+            return Utils.createError(manifesto.StatusCodes.RESTRICTED.toString(), "Restricted");
+        };
+        Utils.createInternalServerError = function (message) {
+            return Utils.createError(manifesto.StatusCodes.INTERNAL_SERVER_ERROR.toString(), message);
+        };
+        Utils.authorize = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, getStoredAccessToken) {
+            return new Promise(function (resolve, reject) {
+                resource.getData().then(function () {
+                    if (resource.isAccessControlled()) {
+                        getStoredAccessToken(resource, tokenStorageStrategy).then(function (storedAccessToken) {
+                            if (storedAccessToken) {
+                                // try using the stored access token
+                                resource.getData(storedAccessToken).then(function () {
+                                    if (resource.status === HTTPStatusCode.OK) {
+                                        resolve(resource); // happy path ended
+                                    }
+                                    else {
+                                        // the stored token is no good for this resource
+                                        Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
+                                    }
+                                })["catch"](function (message) {
+                                    reject(Utils.createInternalServerError(message));
+                                });
+                            }
+                            else {
+                                // There was no stored token, but the user might have a cookie that will grant a token
+                                getAccessToken(resource, false).then(function (accessToken) {
+                                    if (accessToken) {
+                                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
+                                            // try using the fresh access token
+                                            resource.getData(accessToken).then(function () {
+                                                if (resource.status === HTTPStatusCode.OK) {
+                                                    resolve(resource);
+                                                }
+                                                else {
+                                                    // User has a token, but it's not good enough
+                                                    Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
+                                                }
+                                            })["catch"](function (message) {
+                                                reject(Utils.createInternalServerError(message));
+                                            });
+                                        })["catch"](function (message) {
+                                            // not able to store access token
+                                            reject(Utils.createInternalServerError(message));
+                                        });
+                                    }
+                                    else {
+                                        // The user did not have a cookie that granted a token
+                                        Utils.showAuthInteraction(resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject);
+                                    }
+                                });
+                            }
+                        })["catch"](function (message) {
+                            reject(Utils.createInternalServerError(message));
+                        });
+                    }
+                    else {
+                        // this info.json isn't access controlled, therefore there's no need to request an access token
+                        resolve(resource);
+                    }
+                });
+            });
+        };
+        Utils.showAuthInteraction = function (resource, tokenStorageStrategy, clickThrough, restricted, login, getAccessToken, storeAccessToken, resolve, reject) {
+            if (resource.status === HTTPStatusCode.MOVED_TEMPORARILY && !resource.isResponseHandled) {
+                // if the resource was redirected to a degraded version
+                // and the response hasn't been handled yet.
+                // if the client wishes to trigger a login, set resource.isResponseHandled to true
+                // and call loadExternalResources() again passing the resource.
+                resolve(resource);
+                // } else if (resource.restrictedService) {
+                //     resolve(restricted(resource));
+                //     // TODO: move to next etc
+            }
+            else if (resource.clickThroughService && !resource.isResponseHandled) {
+                // if the resource has a click through service, use that.
+                clickThrough(resource).then(function () {
+                    getAccessToken(resource, true).then(function (accessToken) {
+                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
+                            resource.getData(accessToken).then(function () {
+                                resolve(resource);
+                            })["catch"](function (message) {
+                                reject(Utils.createInternalServerError(message));
+                            });
+                        })["catch"](function (message) {
+                            reject(Utils.createInternalServerError(message));
+                        });
+                    })["catch"](function (message) {
+                        reject(Utils.createInternalServerError(message));
+                    });
+                });
+            }
+            else {
+                // get an access token
+                login(resource).then(function () {
+                    getAccessToken(resource, true).then(function (accessToken) {
+                        storeAccessToken(resource, accessToken, tokenStorageStrategy).then(function () {
+                            resource.getData(accessToken).then(function () {
+                                resolve(resource);
+                            })["catch"](function (message) {
+                                reject(Utils.createInternalServerError(message));
+                            });
+                        })["catch"](function (message) {
+                            reject(Utils.createInternalServerError(message));
+                        });
+                    })["catch"](function (message) {
+                        reject(Utils.createInternalServerError(message));
+                    });
+                });
+            }
+        };
+        ;
+        Utils.getService = function (resource, profile) {
+            var services = this.getServices(resource);
+            // coerce profile to string
+            if (typeof (profile) !== 'string') {
+                profile = profile.toString();
+            }
+            for (var i = 0; i < services.length; i++) {
+                var service = services[i];
+                if (service.getProfile().toString() === profile) {
+                    return service;
+                }
+            }
+            return null;
+        };
+        Utils.getResourceById = function (parentResource, id) {
+            return Utils.traverseAndFind(parentResource.__jsonld, '@id', id);
+        };
+        /**
+         * Does a depth first traversal of an Object, returning an Object that
+         * matches provided k and v arguments
+         * @example Utils.traverseAndFind({foo: 'bar'}, 'foo', 'bar')
+         */
+        Utils.traverseAndFind = function (object, k, v) {
+            if (object.hasOwnProperty(k) && object[k] === v) {
+                return object;
+            }
+            for (var i = 0; i < Object.keys(object).length; i++) {
+                if (typeof object[Object.keys(object)[i]] === "object") {
+                    var o = Utils.traverseAndFind(object[Object.keys(object)[i]], k, v);
+                    if (o != null) {
+                        return o;
+                    }
+                }
+            }
+        };
+        Utils.getServices = function (resource) {
+            var service;
+            // if passing a manifesto-parsed object, use the __jsonld.service property,
+            // otherwise look for a service property (info.json services)
+            if (resource.__jsonld) {
+                service = resource.__jsonld.service;
+            }
+            else {
+                service = resource.service;
+            }
+            var services = [];
+            if (!service)
+                return services;
+            // coerce to array
+            if (!Array.isArray(service)) {
+                service = [service];
+            }
+            for (var i = 0; i < service.length; i++) {
+                var s = service[i];
+                if (typeof (s) === 'string') {
+                    var r = this.getResourceById(resource.options.resource, s);
+                    if (r) {
+                        services.push(new Manifesto.Service(r.__jsonld || r, resource.options));
+                    }
+                }
+                else {
+                    services.push(new Manifesto.Service(s, resource.options));
+                }
+            }
+            return services;
+        };
+        Utils.getTemporalComponent = function (target) {
+            var temporal = /t=([^&]+)/g.exec(target);
+            var t = null;
+            if (temporal && temporal[1]) {
+                t = temporal[1].split(',');
+            }
+            return t;
+        };
+        return Utils;
+    }());
+    Manifesto.Utils = Utils;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var Language = /** @class */ (function () {
+        function Language(value, locale) {
+            if (Array.isArray(value)) {
+                if (value.length === 1) {
+                    this.value = value[0];
+                }
+                else {
+                    // concatenate all of the values
+                    this.value = value.join('<br/>');
+                }
+            }
+            else {
+                this.value = value;
+            }
+            this.locale = locale;
+        }
+        return Language;
+    }());
+    Manifesto.Language = Language;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var LanguageMap = /** @class */ (function (_super) {
+        __extends(LanguageMap, _super);
+        function LanguageMap() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        LanguageMap.parse = function (language, defaultLocale) {
+            var tc = [];
+            var t;
+            if (!language) {
+                return tc;
+            }
+            else if (Array.isArray(language)) {
+                for (var i = 0; i < language.length; i++) {
+                    var value = language[i];
+                    if (typeof (value) === 'string') {
+                        t = new Manifesto.Language(value, defaultLocale);
+                    }
+                    else {
+                        t = new Manifesto.Language(value['@value'], value['@language'] || defaultLocale);
+                    }
+                    tc.push(t);
+                }
+            }
+            else if (typeof (language) === 'string') {
+                // if it's just a single string value, create one language in the configured locale
+                t = new Manifesto.Language(language, defaultLocale);
+                tc.push(t);
+                return tc;
+            }
+            else {
+                // it's an object
+                if (language['@value']) {
+                    // presentation 2
+                    t = new Manifesto.Language(language['@value'], language['@language'] || defaultLocale);
+                    tc.push(t);
+                }
+                else {
+                    // presentation 3
+                    Object.keys(language).forEach(function (key) {
+                        // todo: support multiple values in array
+                        if (language[key].length) {
+                            t = new Manifesto.Language(language[key], key);
+                            tc.push(t);
+                        }
+                        else {
+                            throw new Error('language must have a value');
+                        }
+                    });
+                }
+            }
+            return tc;
+        };
+        LanguageMap.getValue = function (languageCollection, locale) {
+            if (languageCollection.length) {
+                if (locale) {
+                    var language = languageCollection.filter(function (t) { return t.locale === locale || Manifesto.Utils.getInexactLocale(t.locale) === Manifesto.Utils.getInexactLocale(locale); })[0];
+                    if (language) {
+                        return language.value;
+                    }
+                }
+                // return the first valuel
+                return languageCollection[0].value;
+            }
+            return null;
+        };
+        return LanguageMap;
+    }(Array));
+    Manifesto.LanguageMap = LanguageMap;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var LabelValuePair = /** @class */ (function () {
+        function LabelValuePair(defaultLocale) {
+            this.defaultLocale = defaultLocale;
+        }
+        LabelValuePair.prototype.parse = function (resource) {
+            this.resource = resource;
+            this.label = Manifesto.LanguageMap.parse(this.resource.label, this.defaultLocale);
+            this.value = Manifesto.LanguageMap.parse(this.resource.value, this.defaultLocale);
+        };
+        // shortcuts to get/set values based on default locale
+        LabelValuePair.prototype.getLabel = function () {
+            if (this.label) {
+                return Manifesto.LanguageMap.getValue(this.label, this.defaultLocale);
+            }
+            return null;
+        };
+        LabelValuePair.prototype.setLabel = function (value) {
+            var _this = this;
+            if (this.label && this.label.length) {
+                var t = this.label.filter(function (x) { return x.locale === _this.defaultLocale || x.locale === Manifesto.Utils.getInexactLocale(_this.defaultLocale); })[0];
+                if (t)
+                    t.value = value;
+            }
+        };
+        LabelValuePair.prototype.getValue = function () {
+            if (this.value) {
+                var locale = this.defaultLocale;
+                // if the label has a locale, prefer that to the default locale
+                if (this.label && this.label.length && this.label[0].locale) {
+                    locale = this.label[0].locale;
+                }
+                return Manifesto.LanguageMap.getValue(this.value, locale);
+            }
+            return null;
+        };
+        LabelValuePair.prototype.setValue = function (value) {
+            var _this = this;
+            if (this.value && this.value.length) {
+                var t = this.value.filter(function (x) { return x.locale === _this.defaultLocale || x.locale === Manifesto.Utils.getInexactLocale(_this.defaultLocale); })[0];
+                if (t)
+                    t.value = value;
+            }
+        };
+        return LabelValuePair;
+    }());
+    Manifesto.LabelValuePair = LabelValuePair;
+})(Manifesto || (Manifesto = {}));
+
+var Manifesto;
+(function (Manifesto) {
+    var Size = /** @class */ (function () {
+        function Size(width, height) {
+            this.width = width;
+            this.height = height;
+        }
+        return Size;
+    }());
+    Manifesto.Size = Size;
+})(Manifesto || (Manifesto = {}));
+
+global.manifesto = global.Manifesto = module.exports = {
+    AnnotationMotivation: new Manifesto.AnnotationMotivation(),
+    Behavior: new Manifesto.Behavior(),
+    IIIFResourceType: new Manifesto.IIIFResourceType(),
+    LabelValuePair: Manifesto.LabelValuePair,
+    Language: Manifesto.Language,
+    LanguageMap: Manifesto.LanguageMap,
+    ManifestType: new Manifesto.ManifestType(),
+    MediaType: new Manifesto.MediaType(),
+    RenderingFormat: new Manifesto.RenderingFormat(),
+    ResourceType: new Manifesto.ResourceType(),
+    ServiceProfile: new Manifesto.ServiceProfile(),
+    Size: Manifesto.Size,
+    TreeNode: Manifesto.TreeNode,
+    TreeNodeType: new Manifesto.TreeNodeType(),
+    Utils: Manifesto.Utils,
+    ViewingDirection: new Manifesto.ViewingDirection(),
+    ViewingHint: new Manifesto.ViewingHint(),
+    Annotation: Manifesto.Annotation,
+    AnnotationBody: Manifesto.AnnotationBody,
+    AnnotationList: Manifesto.AnnotationList,
+    AnnotationPage: Manifesto.AnnotationPage,
+    Canvas: Manifesto.Canvas,
+    Collection: Manifesto.Collection,
+    Duration: Manifesto.Duration,
+    Manifest: Manifesto.Manifest,
+    Range: Manifesto.Range,
+    Sequence: Manifesto.Sequence,
+    Service: Manifesto.Service,
+    Thumbnail: Manifesto.Thumbnail,
+    Thumb: Manifesto.Thumb,
+    StatusCodes: {
+        AUTHORIZATION_FAILED: 1,
+        FORBIDDEN: 2,
+        INTERNAL_SERVER_ERROR: 3,
+        RESTRICTED: 4
+    },
+    create: function (manifest, options) {
+        return Manifesto.Deserialiser.parse(manifest, options);
+    },
+    loadManifest: function (uri) {
+        return Manifesto.Utils.loadResource(uri);
+    }
+};
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Annotation = /** @class */ (function (_super) {
+        __extends(Annotation, _super);
+        function Annotation(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        Annotation.prototype.getBody = function () {
+            var bodies = [];
+            var body = this.getProperty('body');
+            // todo: make this a generic "property that can be an object or array enumerator" util
+            if (body) {
+                if (Array.isArray(body)) {
+                    for (var i = 0; i < body.length; i++) {
+                        var b = body[i];
+                        if (b.items) {
+                            for (var i_1 = 0; i_1 < b.items.length; i_1++) { // todo: don't ignore that it's a choice. maybe add isChoice() to IAnnotationBody?
+                                var c = b.items[i_1];
+                                bodies.push(new Manifesto.AnnotationBody(c, this.options));
+                            }
+                        }
+                        else {
+                            bodies.push(new Manifesto.AnnotationBody(b, this.options));
+                        }
+                    }
+                }
+                else if (body.items) {
+                    for (var i = 0; i < body.items.length; i++) {
+                        var b = body.items[i];
+                        bodies.push(new Manifesto.AnnotationBody(b, this.options));
+                    }
+                }
+                else {
+                    bodies.push(new Manifesto.AnnotationBody(body, this.options));
+                }
+            }
+            return bodies;
+        };
+        Annotation.prototype.getMotivation = function () {
+            var motivation = this.getProperty('motivation');
+            if (motivation) {
+                return new Manifesto.AnnotationMotivation(motivation.toLowerCase());
+            }
+            return null;
+        };
+        // open annotation
+        Annotation.prototype.getOn = function () {
+            return this.getProperty('on');
+        };
+        Annotation.prototype.getTarget = function () {
+            return this.getProperty('target');
+        };
+        Annotation.prototype.getResource = function () {
+            return new Manifesto.Resource(this.getProperty('resource'), this.options);
+        };
+        return Annotation;
+    }(Manifesto.ManifestResource));
+    Manifesto.Annotation = Annotation;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var AnnotationBody = /** @class */ (function (_super) {
+        __extends(AnnotationBody, _super);
+        function AnnotationBody(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        AnnotationBody.prototype.getFormat = function () {
+            var format = this.getProperty('format');
+            if (format) {
+                return new Manifesto.MediaType(Manifesto.Utils.getMediaType(format));
+            }
+            return null;
+        };
+        AnnotationBody.prototype.getType = function () {
+            var type = this.getProperty('type');
+            if (type) {
+                return new Manifesto.ResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
+            }
+            return null;
+        };
+        AnnotationBody.prototype.getWidth = function () {
+            return this.getProperty('width');
+        };
+        AnnotationBody.prototype.getHeight = function () {
+            return this.getProperty('height');
+        };
+        return AnnotationBody;
+    }(Manifesto.ManifestResource));
+    Manifesto.AnnotationBody = AnnotationBody;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var AnnotationList = /** @class */ (function (_super) {
+        __extends(AnnotationList, _super);
+        function AnnotationList(label, jsonld, options) {
+            var _this = _super.call(this, jsonld) || this;
+            _this.label = label;
+            _this.options = options;
+            return _this;
+        }
+        AnnotationList.prototype.getIIIFResourceType = function () {
+            return new Manifesto.IIIFResourceType(Manifesto.Utils.normaliseType(this.getProperty('type')));
+        };
+        AnnotationList.prototype.getLabel = function () {
+            return this.label;
+        };
+        AnnotationList.prototype.getResources = function () {
+            var _this = this;
+            var resources = this.getProperty('resources');
+            return resources.map(function (resource) { return new Manifesto.Annotation(resource, _this.options); });
+        };
+        AnnotationList.prototype.load = function () {
+            var _this = this;
+            return new Promise(function (resolve, reject) {
+                if (_this.isLoaded) {
+                    resolve(_this);
+                }
+                else {
+                    var id = _this.__jsonld.id;
+                    if (!id) {
+                        id = _this.__jsonld['@id'];
+                    }
+                    Manifesto.Utils.loadResource(id).then(function (data) {
+                        _this.__jsonld = JSON.parse(data);
+                        _this.context = _this.getProperty('context');
+                        _this.id = _this.getProperty('id');
+                        _this.isLoaded = true;
+                        resolve(_this);
+                    }).catch(reject);
+                }
+            });
+        };
+        return AnnotationList;
+    }(Manifesto.JSONLDResource));
+    Manifesto.AnnotationList = AnnotationList;
+})(Manifesto || (Manifesto = {}));
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var AnnotationPage = /** @class */ (function (_super) {
+        __extends(AnnotationPage, _super);
+        function AnnotationPage(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        AnnotationPage.prototype.getItems = function () {
+            return this.getProperty('items');
+        };
+        return AnnotationPage;
+    }(Manifesto.ManifestResource));
+    Manifesto.AnnotationPage = AnnotationPage;
+})(Manifesto || (Manifesto = {}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Manifesto;
+(function (Manifesto) {
+    var Thumbnail = /** @class */ (function (_super) {
+        __extends(Thumbnail, _super);
+        function Thumbnail(jsonld, options) {
+            return _super.call(this, jsonld, options) || this;
+        }
+        return Thumbnail;
+    }(Manifesto.Resource));
+    Manifesto.Thumbnail = Thumbnail;
+})(Manifesto || (Manifesto = {}));
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"http":29,"https":7,"url":35}]},{},[39])(39)
 });
 
 // @iiif/manifold v1.2.36 https://github.com/iiif-commons/manifold#readme
@@ -16565,7 +16635,7 @@ define("lib/xss.min.js", function(){});
 define('UVDataProvider',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var UVDataProvider = /** @class */ (function () {
+    var UVDataProvider = (function () {
         function UVDataProvider(readonly) {
             this.readonly = false;
             this.readonly = readonly;
@@ -16593,7 +16663,7 @@ var __extends = (this && this.__extends) || (function () {
 define('URLDataProvider',["require", "exports", "./UVDataProvider"], function (require, exports, UVDataProvider_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var URLDataProvider = /** @class */ (function (_super) {
+    var URLDataProvider = (function (_super) {
         __extends(URLDataProvider, _super);
         function URLDataProvider(readonly) {
             return _super.call(this, readonly) || this;
@@ -16619,7 +16689,7 @@ define('URLDataProvider',["require", "exports", "./UVDataProvider"], function (r
 define('modules/uv-shared-module/BaseEvents',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var BaseEvents = /** @class */ (function () {
+    var BaseEvents = (function () {
         function BaseEvents() {
         }
         BaseEvents.ACCEPT_TERMS = 'acceptTerms';
@@ -16750,7 +16820,7 @@ define('modules/uv-shared-module/BaseEvents',["require", "exports"], function (r
 define('modules/uv-shared-module/Panel',["require", "exports", "./BaseEvents"], function (require, exports, BaseEvents_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Panel = /** @class */ (function () {
+    var Panel = (function () {
         function Panel($element, fitToParentWidth, fitToParentHeight) {
             this.isResized = false;
             this.$element = $element;
@@ -16798,7 +16868,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/BaseView',["require", "exports", "./Panel"], function (require, exports, Panel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var BaseView = /** @class */ (function (_super) {
+    var BaseView = (function (_super) {
         __extends(BaseView, _super);
         function BaseView($element, fitToParentWidth, fitToParentHeight) {
             return _super.call(this, $element, fitToParentWidth, fitToParentHeight) || this;
@@ -16811,7 +16881,6 @@ define('modules/uv-shared-module/BaseView',["require", "exports", "./Panel"], fu
             this.config.content = {};
             this.config.options = {};
             var that = this;
-            // build config inheritance chain
             if (that.modules && that.modules.length) {
                 that.modules = that.modules.reverse();
                 that.modules.forEach(function (moduleName) {
@@ -16850,7 +16919,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/Dialogue',["require", "exports", "./BaseView", "./BaseEvents"], function (require, exports, BaseView_1, BaseEvents_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Dialogue = /** @class */ (function (_super) {
+    var Dialogue = (function (_super) {
         __extends(Dialogue, _super);
         function Dialogue($element) {
             var _this = _super.call(this, $element, false, false) || this;
@@ -16863,7 +16932,6 @@ define('modules/uv-shared-module/Dialogue',["require", "exports", "./BaseView", 
             var _this = this;
             this.setConfig('dialogue');
             _super.prototype.create.call(this);
-            // events.
             $.subscribe(BaseEvents_1.BaseEvents.CLOSE_ACTIVE_DIALOGUE, function () {
                 if (_this.isActive) {
                     if (_this.allowClose) {
@@ -16947,20 +17015,17 @@ define('modules/uv-shared-module/Dialogue',["require", "exports", "./BaseView", 
                 this.$bottom.hide();
             }
             this.isActive = true;
-            // set the focus to the default button.
             setTimeout(function () {
                 var $defaultButton = _this.$element.find('.default');
                 if ($defaultButton.length) {
                     $defaultButton.focus();
                 }
                 else {
-                    // if there's no default button, focus on the first visible input
                     var $input = _this.$element.find('input:visible').first();
                     if ($input.length) {
                         $input.focus();
                     }
                     else {
-                        // if there's no visible first input, focus on the close button
                         _this.$closeButton.focus();
                     }
                 }
@@ -17008,7 +17073,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/GenericDialogue',["require", "exports", "./BaseEvents", "./Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var GenericDialogue = /** @class */ (function (_super) {
+    var GenericDialogue = (function (_super) {
         __extends(GenericDialogue, _super);
         function GenericDialogue($element) {
             return _super.call(this, $element) || this;
@@ -17030,7 +17095,6 @@ define('modules/uv-shared-module/GenericDialogue',["require", "exports", "./Base
             this.$content.append(this.$message);
             this.$acceptButton = $("\n          <button class=\"btn btn-primary accept default\">\n            " + this.content.ok + "\n          </button>\n        ");
             this.$buttons.append(this.$acceptButton);
-            // Hide the redundant close button
             this.$buttons.find('.close').hide();
             this.$acceptButton.onPressed(function () {
                 _this.accept();
@@ -17081,7 +17145,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/Shell',["require", "exports", "./BaseEvents", "./BaseView", "./GenericDialogue"], function (require, exports, BaseEvents_1, BaseView_1, GenericDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Shell = /** @class */ (function (_super) {
+    var Shell = (function (_super) {
         __extends(Shell, _super);
         function Shell($element) {
             var _this = this;
@@ -17121,7 +17185,6 @@ define('modules/uv-shared-module/Shell',["require", "exports", "./BaseEvents", "
                     $.publish(BaseEvents_1.BaseEvents.CLOSE_ACTIVE_DIALOGUE);
                 }
             });
-            // create shared views.
             new GenericDialogue_1.GenericDialogue(Shell.$genericDialogue);
         };
         Shell.prototype.resize = function () {
@@ -17162,7 +17225,7 @@ define('modules/uv-shared-module/Position',["require", "exports"], function (req
 define('Utils',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var UVUtils = /** @class */ (function () {
+    var UVUtils = (function () {
         function UVUtils() {
         }
         UVUtils.sanitize = function (html) {
@@ -17217,7 +17280,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", "./BaseView", "./Position", "../../Utils"], function (require, exports, Shell_1, BaseView_1, Position_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var CenterPanel = /** @class */ (function (_super) {
+    var CenterPanel = (function (_super) {
         __extends(CenterPanel, _super);
         function CenterPanel($element) {
             var _this = _super.call(this, $element, false, true) || this;
@@ -17287,8 +17350,6 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
         CenterPanel.prototype.updateRequiredStatement = function () {
             var _this = this;
             var requiredStatement = this.extension.helper.getRequiredStatement();
-            //var license = this.provider.getLicense();
-            //var logo = this.provider.getLogo();
             var enabled = Utils.Bools.getBool(this.options.requiredStatementEnabled, true);
             if (!requiredStatement || !requiredStatement.value || !enabled) {
                 return;
@@ -17316,20 +17377,8 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                 });
                 $attributionText.targetBlank();
             }
-            // $attribution.toggleExpandText(this.options.trimAttributionCount, () => {
-            //     this.resize();
-            // });
-            //if (license){
-            //    $license.append('<a href="' + license + '">' + license + '</a>');
-            //} else {
             $license.hide();
-            //}
-            //
-            //if (logo){
-            //    $logo.append('<img src="' + logo + '"/>');
-            //} else {
             $logo.hide();
-            //}
             this.resize();
         };
         CenterPanel.prototype.resize = function () {
@@ -17368,7 +17417,6 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                         this.$attribution.css('left', this.$content.width() - this.$attribution.outerWidth() - this.$attribution.horizontalMargins());
                         break;
                 }
-                // hide the attribution if there's no room for it
                 if (this.$content.width() <= this.$attribution.width()) {
                     this.$attribution.hide();
                 }
@@ -17386,10 +17434,6 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                     this.$subtitleText.width('auto');
                     this.$subtitleWrapper.width('auto');
                     this.$subtitleExpand.hide();
-                    // if the subtitle span is wider than the container, set it to display:block 
-                    // and set its width to that of the container
-                    // this will make it appear elided.
-                    // show the expand button
                     if (this.$subtitleText.width() > this.$content.width()) {
                         this.$subtitleExpand.show();
                         this.$subtitleText.addClass('elided');
@@ -17397,7 +17441,6 @@ define('modules/uv-shared-module/CenterPanel',["require", "exports", "./Shell", 
                     }
                 }
                 else {
-                    // subtitle expanded
                     this.$subtitleText.width(this.$content.width() - this.$subtitleText.horizontalMargins() - 2);
                 }
             }
@@ -17423,12 +17466,13 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../uv-shared-module/Position", "../../Utils"], function (require, exports, BaseEvents_1, CenterPanel_1, Position_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AVCenterPanel = /** @class */ (function (_super) {
+    var AVCenterPanel = (function (_super) {
         __extends(AVCenterPanel, _super);
         function AVCenterPanel($element) {
             var _this = _super.call(this, $element) || this;
             _this._mediaReady = false;
             _this._isThumbsViewOpen = false;
+            _this._mediaReadyQueue = [];
             _this.attributionPosition = Position_1.Position.BOTTOM_RIGHT;
             return _this;
         }
@@ -17441,7 +17485,9 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 that.openMedia(resources);
             });
             $.subscribe(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, function (e, canvasIndex) {
-                _this._viewCanvas(canvasIndex);
+                if (_this._lastCanvasIndex !== canvasIndex) {
+                    _this._viewCanvas(canvasIndex);
+                }
             });
             $.subscribe(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, function (e, currentTime) {
                 _this._whenMediaReady(function () {
@@ -17450,11 +17496,15 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                     }
                 });
             });
+            var x = 0;
             $.subscribe(BaseEvents_1.BaseEvents.RANGE_CHANGED, function (e, range) {
                 if (!_this._observeRangeChanges()) {
                     return;
                 }
+                x++;
+                console.log("Exteral range change " + x, range ? range.id : undefined);
                 _this._whenMediaReady(function () {
+                    console.log("Breaking? " + x, range ? range.id : undefined);
                     that._viewRange(range);
                     that._setTitle();
                 });
@@ -17487,6 +17537,7 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 });
             });
             $.subscribe(BaseEvents_1.BaseEvents.OPEN_TREE_VIEW, function () {
+                console.log('OPEN TREE VIEW?');
                 _this._isThumbsViewOpen = false;
                 _this._whenMediaReady(function () {
                     if (_this.avcomponent) {
@@ -17498,6 +17549,13 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             });
             this._createAVComponent();
         };
+        AVCenterPanel.prototype._flushMediaReadyQueue = function () {
+            for (var _i = 0, _a = this._mediaReadyQueue; _i < _a.length; _i++) {
+                var cb = _a[_i];
+                cb();
+            }
+            this._mediaReadyQueue = [];
+        };
         AVCenterPanel.prototype._createAVComponent = function () {
             var _this = this;
             this.$avcomponent = $('<div class="iiif-av-component"></div>');
@@ -17505,8 +17563,8 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             this.avcomponent = new IIIFComponents.AVComponent({
                 target: this.$avcomponent[0],
             });
-            // Trying to set this early, see what happens.
             this.avcomponent.set({
+                range: this.extension.helper.getCurrentRange(),
                 helper: this.extension.helper,
                 autoPlay: this.config.options.autoPlay,
                 enableFastForward: this.config.options.enableFastForward,
@@ -17521,10 +17579,14 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             });
             this.avcomponent.on('mediaready', function () {
                 _this._mediaReady = true;
+                _this._flushMediaReadyQueue();
             }, false);
             this.avcomponent.on('rangechanged', function (rangeId) {
+                console.groupCollapsed('this.avcomponent.on("rangechanged", ...)');
+                console.log('av component range changed', rangeId);
+                console.trace();
+                console.groupEnd();
                 if (rangeId) {
-                    _this._setTitle();
                     var range = _this.extension.helper.getRangeById(rangeId);
                     if (range) {
                         var currentRange = _this.extension.helper.getCurrentRange();
@@ -17539,6 +17601,7 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 else {
                     $.publish(BaseEvents_1.BaseEvents.RANGE_CHANGED, [null]);
                 }
+                _this._setTitle();
             }, false);
         };
         AVCenterPanel.prototype._observeRangeChanges = function () {
@@ -17552,8 +17615,8 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             var title = '';
             var value;
             var label;
-            // get the current range or canvas title
             var currentRange = this.extension.helper.getCurrentRange();
+            console.log('title => current range', currentRange ? currentRange.id : null);
             if (currentRange) {
                 label = currentRange.getLabel();
             }
@@ -17565,7 +17628,6 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 title = value;
             }
             if (Utils.Bools.getBool(this.config.options.includeParentInTitleEnabled, false)) {
-                // get the parent range or manifest's title
                 if (currentRange) {
                     if (currentRange.parentRange) {
                         label = currentRange.parentRange.getLabel();
@@ -17580,7 +17642,6 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
                 }
             }
             this.title = title;
-            // set subtitle
             var groups = this.extension.helper.getMetadata({
                 range: currentRange
             });
@@ -17611,7 +17672,6 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             var _this = this;
             this.extension.getExternalResources(resources).then(function () {
                 if (_this.avcomponent) {
-                    // reset if the media has already been loaded (degraded flow has happened)
                     if (_this.extension.helper.canvasIndex === _this._lastCanvasIndex) {
                         _this.avcomponent.reset();
                     }
@@ -17638,18 +17698,19 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
             return !this.extension.isDesktopMetric();
         };
         AVCenterPanel.prototype._whenMediaReady = function (cb) {
-            var _this = this;
-            Utils.Async.waitFor(function () {
-                return _this._mediaReady;
-            }, cb);
+            if (this._mediaReady) {
+                cb();
+            }
+            else {
+                this._mediaReadyQueue.push(cb);
+            }
         };
         AVCenterPanel.prototype._viewRange = function (range) {
             var _this = this;
             this._whenMediaReady(function () {
                 if (range && _this.avcomponent) {
-                    _this.avcomponent.playRange(range.id, true);
+                    _this.avcomponent.viewRange(range.id);
                 }
-                // don't resize the av component to avoid expensively redrawing waveforms
                 _this.resize(false);
             });
         };
@@ -17678,7 +17739,7 @@ define('modules/uv-avcenterpanel-module/AVCenterPanel',["require", "exports", ".
 define('modules/uv-shared-module/InformationArgs',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var InformationArgs = /** @class */ (function () {
+    var InformationArgs = (function () {
         function InformationArgs(informationType, param) {
             this.informationType = informationType;
             this.param = param;
@@ -17701,7 +17762,7 @@ define('modules/uv-shared-module/InformationType',["require", "exports"], functi
 define('modules/uv-shared-module/LoginWarningMessages',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var LoginWarningMessages = /** @class */ (function () {
+    var LoginWarningMessages = (function () {
         function LoginWarningMessages() {
         }
         LoginWarningMessages.FORBIDDEN = "forbiddenResourceMessage";
@@ -17713,7 +17774,7 @@ define('modules/uv-shared-module/LoginWarningMessages',["require", "exports"], f
 define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", "./InformationArgs", "./InformationType", "./LoginWarningMessages"], function (require, exports, BaseEvents_1, InformationArgs_1, InformationType_1, LoginWarningMessages_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Auth09 = /** @class */ (function () {
+    var Auth09 = (function () {
         function Auth09() {
         }
         Auth09.loadExternalResources = function (resourcesToLoad, storageStrategy) {
@@ -17729,7 +17790,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
                             $.publish(BaseEvents_1.BaseEvents.FORBIDDEN);
                             break;
                         case manifesto.StatusCodes.RESTRICTED.toString():
-                            // do nothing
                             break;
                         default:
                             $.publish(BaseEvents_1.BaseEvents.SHOW_MESSAGE, [error.message || error]);
@@ -17808,7 +17868,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
             return new Promise(function (resolve, reject) {
                 if (resource.tokenService) {
                     var serviceUri = resource.tokenService.id;
-                    // pick an identifier for this message. We might want to keep track of sent messages
                     var msgId = serviceUri + "|" + new Date().getTime();
                     var receiveAccessToken_1 = function (e) {
                         window.removeEventListener("message", receiveAccessToken_1);
@@ -17849,7 +17908,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
             return new Promise(function (resolve, reject) {
                 var foundItems = [];
                 var item = null;
-                // try to match on the tokenService, if the resource has one:
                 if (resource.tokenService) {
                     item = Utils.Storage.get(resource.tokenService.id, new Utils.StorageType(storageStrategy));
                 }
@@ -17857,7 +17915,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
                     foundItems.push(item);
                 }
                 else {
-                    // find an access token for the domain
                     var domain = Utils.Urls.getUrlParts(resource.dataUri).hostname;
                     var items = Utils.Storage.getItems(new Utils.StorageType(storageStrategy));
                     for (var i = 0; i < items.length; i++) {
@@ -17867,7 +17924,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
                         }
                     }
                 }
-                // sort by expiresAt, earliest to most recent.
                 foundItems = foundItems.sort(function (a, b) {
                     return a.expiresAt - b.expiresAt;
                 });
@@ -17891,7 +17947,6 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
                 else {
                     if (resource.error.status === HTTPStatusCode.UNAUTHORIZED ||
                         resource.error.status === HTTPStatusCode.INTERNAL_SERVER_ERROR) {
-                        // if the browser doesn't support CORS
                         if (!Modernizr.cors) {
                             var informationArgs = new InformationArgs_1.InformationArgs(InformationType_1.InformationType.AUTH_CORS_ERROR, null);
                             $.publish(BaseEvents_1.BaseEvents.SHOW_INFORMATION, [informationArgs]);
@@ -17925,13 +17980,12 @@ define('modules/uv-shared-module/Auth09',["require", "exports", "./BaseEvents", 
 define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "../../Utils", "./InformationArgs", "./InformationType"], function (require, exports, BaseEvents_1, Utils_1, InformationArgs_1, InformationType_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Auth1 = /** @class */ (function () {
+    var Auth1 = (function () {
         function Auth1() {
         }
         Auth1.loadExternalResources = function (resourcesToLoad, storageStrategy, options) {
             return new Promise(function (resolve) {
                 Auth1.storageStrategy = storageStrategy;
-                // set all resources to Auth API V1
                 resourcesToLoad = resourcesToLoad.map(function (resource) {
                     resource.authAPIVersion = 1;
                     resource.options = options;
@@ -17948,7 +18002,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
                             $.publish(BaseEvents_1.BaseEvents.FORBIDDEN);
                             break;
                         case manifesto.StatusCodes.RESTRICTED.toString():
-                            // do nothing
                             break;
                         default:
                             $.publish(BaseEvents_1.BaseEvents.SHOW_MESSAGE, [error.message || error]);
@@ -17964,7 +18017,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
             var cookieServiceUrl = Auth1.getCookieServiceUrl(service);
             return window.open(cookieServiceUrl);
         };
-        // determine the postMessage-style origin for a URL
         Auth1.getOrigin = function (url) {
             var urlHolder = window.location;
             if (url) {
@@ -17975,8 +18027,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
         };
         Auth1.userInteractedWithContentProvider = function (contentProviderWindow) {
             return new Promise(function (resolve) {
-                // What happens here is forever a mystery to a client application.
-                // It can but wait.
                 var poll = window.setInterval(function () {
                     if (contentProviderWindow.closed) {
                         window.clearInterval(poll);
@@ -18011,7 +18061,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
             return new Promise(function (resolve, reject) {
                 var foundItems = [];
                 var item = null;
-                // try to match on the tokenService, if the resource has one:
                 if (resource.tokenService) {
                     item = Utils.Storage.get(resource.tokenService.id, new Utils.StorageType(Auth1.storageStrategy));
                 }
@@ -18019,7 +18068,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
                     foundItems.push(item);
                 }
                 else {
-                    // find an access token for the domain
                     var domain = Utils.Urls.getUrlParts(resource.dataUri).hostname;
                     var items = Utils.Storage.getItems(new Utils.StorageType(Auth1.storageStrategy));
                     for (var i = 0; i < items.length; i++) {
@@ -18029,7 +18077,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
                         }
                     }
                 }
-                // sort by expiresAt, earliest to most recent.
                 foundItems = foundItems.sort(function (a, b) {
                     return a.expiresAt - b.expiresAt;
                 });
@@ -18042,13 +18089,11 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
         };
         Auth1.getContentProviderInteraction = function (resource, service) {
             return new Promise(function (resolve) {
-                // if the info bar has already been shown for degraded logins
                 if (resource.isResponseHandled && !resource.authHoldingPage) {
                     Auth1.showDegradedMessage(resource);
                     resolve(null);
                 }
                 else if (resource.authHoldingPage) {
-                    // redirect holding page
                     resource.authHoldingPage.location.href = Auth1.getCookieServiceUrl(service);
                     resolve(resource.authHoldingPage);
                 }
@@ -18070,9 +18115,7 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
             });
         };
         Auth1.openTokenService = function (resource, tokenService) {
-            // use a Promise across a postMessage call. Discuss...
             return new Promise(function (resolve, reject) {
-                // if necessary, the client can decide not to trust this origin
                 var serviceOrigin = Auth1.getOrigin(tokenService.id);
                 var messageId = new Date().getTime();
                 Auth1.messages[messageId] = {
@@ -18083,13 +18126,7 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
                 };
                 window.addEventListener("message", Auth1.receiveToken, false);
                 var tokenUrl = tokenService.id + "?messageId=" + messageId + "&origin=" + Auth1.getOrigin();
-                // load the access token service url in the #commsFrame iframe.
-                // when the message event listener (Auth1.receiveToken) receives a message from the iframe
-                // it looks in Auth1.messages to find a corresponding message id with the same origin.
-                // if found, it stores the returned access token, resolves and deletes the message.
-                // resolving the message resolves the openTokenService promise.
                 $('#commsFrame').prop('src', tokenUrl);
-                // reject any unhandled messages after a configurable timeout
                 var postMessageTimeout = 5000;
                 setTimeout(function () {
                     if (Auth1.messages[messageId]) {
@@ -18103,9 +18140,8 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
             if (event.data.hasOwnProperty("messageId")) {
                 var message_1 = Auth1.messages[event.data.messageId];
                 if (message_1 && event.origin == message_1.serviceOrigin) {
-                    // Any message with a messageId is a success
                     Auth1.storeAccessToken(message_1.resource, event.data).then(function () {
-                        message_1.resolve(event.data); // resolves openTokenService with the token
+                        message_1.resolve(event.data);
                         delete Auth1.messages[event.data.messageId];
                         return;
                     });
@@ -18113,7 +18149,6 @@ define('modules/uv-shared-module/Auth1',["require", "exports", "./BaseEvents", "
             }
         };
         Auth1.showOutOfOptionsMessages = function (resource, service) {
-            // if the UV is already showing the info bar, no need to show an error message.
             if (resource.status == HTTPStatusCode.MOVED_TEMPORARILY) {
                 return;
             }
@@ -18145,7 +18180,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/AuthDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue", "../../Utils"], function (require, exports, BaseEvents_1, Dialogue_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AuthDialogue = /** @class */ (function (_super) {
+    var AuthDialogue = (function (_super) {
         __extends(AuthDialogue, _super);
         function AuthDialogue($element) {
             return _super.call(this, $element) || this;
@@ -18220,7 +18255,6 @@ define('modules/uv-dialogues-module/AuthDialogue',["require", "exports", "../uv-
         };
         AuthDialogue.prototype._buttonsToAdd = function () {
             var buttonsToAdd = '<a class="confirm btn btn-primary" href="#" target="_parent"></a>';
-            // If the top button is enabled, add an additional close button for consistency.
             if (this.config.topCloseButtonEnabled) {
                 buttonsToAdd += '<button class="close btn btn-default"></button>';
             }
@@ -18244,7 +18278,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/ClickThroughDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ClickThroughDialogue = /** @class */ (function (_super) {
+    var ClickThroughDialogue = (function (_super) {
         __extends(ClickThroughDialogue, _super);
         function ClickThroughDialogue($element) {
             return _super.call(this, $element) || this;
@@ -18274,7 +18308,6 @@ define('modules/uv-dialogues-module/ClickThroughDialogue',["require", "exports",
             </div>');
             this.$message = this.$content.find(".message");
             this.$acceptTermsButton = this.$content.find(".acceptTerms");
-            // TODO: get from config this.$acceptTermsButton.text(this.content.acceptTerms); // figure out config
             this.$acceptTermsButton.text("Accept Terms and Open");
             this.$element.hide();
             this.$acceptTermsButton.on('click', function (e) {
@@ -18319,7 +18352,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/LoginDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var LoginDialogue = /** @class */ (function (_super) {
+    var LoginDialogue = (function (_super) {
         __extends(LoginDialogue, _super);
         function LoginDialogue($element) {
             return _super.call(this, $element) || this;
@@ -18421,7 +18454,7 @@ define('modules/uv-dialogues-module/LoginDialogue',["require", "exports", "../uv
 define('modules/uv-shared-module/StringValue',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var StringValue = /** @class */ (function () {
+    var StringValue = (function () {
         function StringValue(value) {
             this.value = "";
             if (value) {
@@ -18449,7 +18482,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/MetricType',["require", "exports", "./StringValue"], function (require, exports, StringValue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MetricType = /** @class */ (function (_super) {
+    var MetricType = (function (_super) {
         __extends(MetricType, _super);
         function MetricType() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -18477,7 +18510,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/RestrictedDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var RestrictedDialogue = /** @class */ (function (_super) {
+    var RestrictedDialogue = (function (_super) {
         __extends(RestrictedDialogue, _super);
         function RestrictedDialogue($element) {
             return _super.call(this, $element) || this;
@@ -18508,9 +18541,6 @@ define('modules/uv-dialogues-module/RestrictedDialogue',["require", "exports", "
             </div>');
             this.$message = this.$content.find('.message');
             this.$message.targetBlank();
-            // todo: revisit?
-            //this.$nextVisibleButton = this.$content.find('.nextvisible');
-            //this.$nextVisibleButton.text(this.content.nextVisibleItem);
             this.$cancelButton = this.$content.find('.cancel');
             this.$cancelButton.text(this.content.cancel);
             this.$element.hide();
@@ -18553,7 +18583,7 @@ define('modules/uv-dialogues-module/RestrictedDialogue',["require", "exports", "
 define('SynchronousRequire',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SynchronousRequire = /** @class */ (function () {
+    var SynchronousRequire = (function () {
         function SynchronousRequire() {
         }
         SynchronousRequire.load = function (deps, cb) {
@@ -18573,7 +18603,7 @@ define('SynchronousRequire',["require", "exports"], function (require, exports) 
         return SynchronousRequire;
     }());
     exports.SynchronousRequire = SynchronousRequire;
-    var DependencyLoader = /** @class */ (function () {
+    var DependencyLoader = (function () {
         function DependencyLoader(index, dep, deps, cb) {
             this._dep = dep;
             this._deps = deps;
@@ -18600,7 +18630,7 @@ define('SynchronousRequire',["require", "exports"], function (require, exports) 
 define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Utils", "./Auth09", "./Auth1", "../../modules/uv-dialogues-module/AuthDialogue", "./BaseEvents", "../../modules/uv-dialogues-module/ClickThroughDialogue", "../../modules/uv-dialogues-module/LoginDialogue", "../../modules/uv-shared-module/MetricType", "../../modules/uv-dialogues-module/RestrictedDialogue", "./Shell", "../../SynchronousRequire"], function (require, exports, Utils_1, Auth09_1, Auth1_1, AuthDialogue_1, BaseEvents_1, ClickThroughDialogue_1, LoginDialogue_1, MetricType_1, RestrictedDialogue_1, Shell_1, SynchronousRequire_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var BaseExtension = /** @class */ (function () {
+    var BaseExtension = (function () {
         function BaseExtension() {
             this.isCreated = false;
             this.isLoggedIn = false;
@@ -18608,7 +18638,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             this.metrics = [];
             this.shifted = false;
             this.tabbing = false;
-            // auth
         }
         BaseExtension.prototype.create = function () {
             var _this = this;
@@ -18622,7 +18651,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             });
             this._parseMetrics();
             this._initLocales();
-            // add/remove classes.
             this.$element.empty();
             this.$element.removeClass();
             this.$element.addClass('uv');
@@ -18639,7 +18667,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             if (this.isMobile()) {
                 this.$element.addClass('mobile');
             }
-            // todo: deprecate?
             if (this.data.isLightbox) {
                 this.$element.addClass('lightbox');
             }
@@ -18653,13 +18680,11 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             if (this.isFullScreen()) {
                 this.$element.addClass('fullscreen');
             }
-            // events
             if (!this.data.isReload) {
                 var visibilityProp = Utils.Documents.getHiddenProp();
                 if (visibilityProp) {
                     var event_1 = visibilityProp.replace(/[H|h]idden/, '') + 'visibilitychange';
                     document.addEventListener(event_1, function () {
-                        // resize after a tab has been shown (fixes safari layout issue)
                         if (!Utils.Documents.isHidden()) {
                             _this.resize();
                         }
@@ -18672,10 +18697,8 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                         var a = Utils.Urls.getUrlParts(dropUrl);
                         var iiifResourceUri = Utils.Urls.getQuerystringParameterFromString('manifest', a.search);
                         if (!iiifResourceUri) {
-                            // look for collection param
                             iiifResourceUri = Utils.Urls.getQuerystringParameterFromString('collection', a.search);
                         }
-                        //var canvasUri = Utils.Urls.getQuerystringParameterFromString('canvas', url.search);
                         if (iiifResourceUri) {
                             _this.fire(BaseEvents_1.BaseEvents.DROP, iiifResourceUri);
                             var data = {};
@@ -18685,10 +18708,8 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                     }));
                 }
                 this.$element.on('dragover', (function (e) {
-                    // allow drop
                     e.preventDefault();
                 }));
-                // keyboard events.
                 this.$element.on('keyup keydown', function (e) {
                     _this.shifted = e.shiftKey;
                     _this.tabbing = e.keyCode === KeyCodes.KeyDown.Tab;
@@ -19031,9 +19052,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             $.subscribe(BaseEvents_1.BaseEvents.WINDOW_UNLOAD, function () {
                 _this.fire(BaseEvents_1.BaseEvents.WINDOW_UNLOAD);
             });
-            // create shell and shared views.
             this.shell = new Shell_1.Shell(this.$element);
-            // dependencies
             this.getDependencies(function (deps) {
                 _this.loadDependencies(deps);
             });
@@ -19057,7 +19076,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
         BaseExtension.prototype.getDependencies = function (cb) {
             var that = this;
             var depsUri = this.data.root + '/lib/' + this.name + '-dependencies';
-            // check if the deps are already loaded
             var scripts = $('script[data-requiremodule]')
                 .filter(function () {
                 var attr = $(this).attr('data-requiremodule');
@@ -19065,10 +19083,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             });
             if (!scripts.length) {
                 requirejs([depsUri], function (getDeps) {
-                    // getDeps is a function that accepts a file format.
-                    // it uses this to determine which dependencies are appropriate
-                    // for example, 'application/vnd.apple.mpegurl' for the AV extension
-                    // would return hls.min.js, and not dash.all.min.js.
                     var canvas = that.helper.getCurrentCanvas();
                     var mediaFormats = that.getMediaFormats(canvas);
                     var formats = [];
@@ -19079,8 +19093,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                     }
                     var deps = getDeps(formats);
                     var baseUri = that.data.root + '/lib/';
-                    // for each dependency, prepend baseUri unless it starts with a ! which indicates to ignore it.
-                    // check for a requirejs.config that sets a specific path, such as the PDF extension
                     if (deps.sync) {
                         for (var i = 0; i < deps.sync.length; i++) {
                             var dep = deps.sync[i];
@@ -19110,9 +19122,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 that.dependenciesLoaded();
             }
             else if (deps.sync) {
-                // load each sync script.
-                // necessary for cases like this: https://github.com/mrdoob/three.js/issues/9602
-                // then load the async scripts
                 SynchronousRequire_1.SynchronousRequire.load(deps.sync, that.dependencyLoaded).then(function () {
                     if (deps.async) {
                         requirejs(deps.async, function () {
@@ -19143,7 +19152,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             }
             this.createModules();
             this.modulesCreated();
-            $.publish(BaseEvents_1.BaseEvents.RESIZE); // initial sizing
+            $.publish(BaseEvents_1.BaseEvents.RESIZE);
             setTimeout(function () {
                 _this.render();
                 $.publish(BaseEvents_1.BaseEvents.CREATED);
@@ -19176,7 +19185,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             }
             if (!this.isCreated) {
                 if (this.data.startTime) {
-                    // @todo check if in bounds.
                     $.publish(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, [this.data.startTime]);
                 }
             }
@@ -19215,12 +19223,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             var availableLocales = this.data.config.localisation.locales.slice(0);
             var configuredLocales = this.data.locales;
             var finalLocales = [];
-            // loop through configuredLocales array (those passed in when initialising the UV component)
-            // if availableLocales (those available in each extension's l10n directory) contains a configured locale, add it to finalLocales.
-            // if the configured locale has a label, substitute it
-            // mark locale as added.
-            // if limitLocales is disabled,
-            // loop through remaining availableLocales and add to finalLocales.
             if (configuredLocales) {
                 configuredLocales.forEach(function (configuredLocale) {
                     var match = availableLocales.filter(function (item) { return item.name === configuredLocale.name; });
@@ -19262,14 +19264,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
         BaseExtension.prototype._updateMetric = function () {
             var _this = this;
             setTimeout(function () {
-                // loop through all metrics
-                // find one that matches the current dimensions
-                // if a metric is found, and it's not the current metric, set it to be the current metric and publish a METRIC_CHANGED event
-                // if no metric is found, set MetricType.NONE to be the current metric and publish a METRIC_CHANGED event
                 var metricFound = false;
                 for (var i = 0; i < _this.metrics.length; i++) {
                     var metric = _this.metrics[i];
-                    // if the current width and height is within this metric's defined range
                     if (_this.width() >= metric.minWidth && _this.width() <= metric.maxWidth &&
                         _this.height() >= metric.minHeight && _this.height() <= metric.maxHeight) {
                         metricFound = true;
@@ -19291,7 +19288,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             this._updateMetric();
             $.publish(BaseEvents_1.BaseEvents.RESIZE);
         };
-        // re-bootstraps the application with new querystring params
         BaseExtension.prototype.reload = function (data) {
             $.publish(BaseEvents_1.BaseEvents.RELOAD, [data]);
         };
@@ -19299,9 +19295,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             return this.data.config.options.seeAlsoEnabled !== false;
         };
         BaseExtension.prototype.getShareUrl = function () {
-            // If not embedded on an external domain (this causes CORS errors when fetching parent url)
             if (!this.data.embedded) {
-                // Use the current page URL with hash params
                 if (Utils.Documents.isInIFrame()) {
                     return parent.document.location.href;
                 }
@@ -19310,9 +19304,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 }
             }
             else {
-                // If there's a `related` property of format `text/html` in the manifest
                 if (this.helper.hasRelatedPage()) {
-                    // Use the `related` property in the URL box
                     var related = this.helper.getRelated();
                     if (related && related.length) {
                         related = related[0];
@@ -19340,7 +19332,7 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             if (!pathname.startsWith('/')) {
                 pathname = '/' + pathname;
             }
-            pathname = pathname.substr(0, pathname.lastIndexOf('/') + 1); // remove the file name
+            pathname = pathname.substr(0, pathname.lastIndexOf('/') + 1);
             var appUri = origin + pathname;
             var root = '';
             if (!Utils.Documents.isInIFrame()) {
@@ -19352,7 +19344,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                     root += '/';
                 }
             }
-            // if root is a URL, use that instead of appUri.
             if (Utils_1.UVUtils.isValidUrl(root)) {
                 return root + embedFile;
             }
@@ -19373,7 +19364,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 if (storedSettings) {
                     settings = $.extend(storedSettings.value, settings);
                 }
-                // store for ten years
                 Utils.Storage.set("uv.settings", settings, 315360000, Utils.StorageType.local);
             }
             this.data.config.options = $.extend(this.data.config.options, settings);
@@ -19383,7 +19373,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
         };
         BaseExtension.prototype.getSharePreview = function () {
             var title = this.helper.getLabel();
-            // todo: use getThumb (when implemented)
             var canvas = this.helper.getCurrentCanvas();
             var thumbnail = canvas.getProperty('thumbnail');
             if (!thumbnail || !(typeof (thumbnail) === 'string')) {
@@ -19424,12 +19413,9 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             return labels;
         };
         BaseExtension.prototype.getCurrentCanvasRange = function () {
-            //var rangePath: string = this.currentRangePath ? this.currentRangePath : '';
-            //var range: Manifesto.IRange = this.helper.getCanvasRange(this.helper.getCurrentCanvas(), rangePath);
             var range = this.helper.getCanvasRange(this.helper.getCurrentCanvas());
             return range;
         };
-        // todo: move to manifold?
         BaseExtension.prototype.getExternalResources = function (resources) {
             var _this = this;
             var indices = this.getPagedIndices();
@@ -19445,7 +19431,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 else {
                     r = canvas.externalResource;
                 }
-                // reload resources if passed
                 if (resources) {
                     var found = resources.find(function (f) {
                         return f.dataUri === r.dataUri;
@@ -19463,7 +19448,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             });
             var storageStrategy = this.data.config.options.tokenStorage;
             var authAPIVersion = this.data.config.options.authAPIVersion;
-            // if using auth api v1
             if (authAPIVersion === 1) {
                 return new Promise(function (resolve) {
                     var options = {
@@ -19488,11 +19472,8 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 });
             }
         };
-        // copy useful properties over to the data object to be opened in center panel's openMedia method
-        // this is the info.json if there is one, which can be opened natively by openseadragon.
         BaseExtension.prototype._prepareResourceData = function (resource) {
             resource.data.hasServiceDescriptor = resource.hasServiceDescriptor();
-            // if the data isn't an info.json, give it the necessary viewing properties
             if (!resource.hasServiceDescriptor()) {
                 resource.data.id = resource.dataUri;
                 resource.data.width = resource.width;
@@ -19508,7 +19489,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
                 return annotation.getBody();
             }
             else {
-                // legacy IxIF compatibility
                 var body = {
                     id: canvas.id,
                     type: canvas.getType(),
@@ -19552,7 +19532,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
         BaseExtension.prototype.isCatchAllMetric = function () {
             return this.metric.toString() === MetricType_1.MetricType.NONE.toString();
         };
-        // todo: use redux in manifold to get reset state
         BaseExtension.prototype.viewManifest = function (manifest) {
             var data = {};
             data.iiifResourceUri = this.helper.iiifResourceUri;
@@ -19562,7 +19541,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             data.canvasIndex = 0;
             this.reload(data);
         };
-        // todo: use redux in manifold to get reset state
         BaseExtension.prototype.viewCollection = function (collection) {
             var data = {};
             data.iiifResourceUri = this.helper.iiifResourceUri;
@@ -19605,7 +19583,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             return Utils.Bools.getBool(this.data.config.options.useArrowKeysToNavigate, true);
         };
         BaseExtension.prototype.bookmark = function () {
-            // override for each extension
         };
         BaseExtension.prototype.feedback = function () {
             this.fire(BaseEvents_1.BaseEvents.FEEDBACK, this.data);
@@ -19637,7 +19614,6 @@ define('modules/uv-shared-module/BaseExtension',["require", "exports", "../../Ut
             return serializedLocales;
         };
         BaseExtension.prototype.changeLocale = function (locale) {
-            // re-order locales so the passed locale is first
             var data = {};
             if (this.data.locales) {
                 data.locales = this.data.locales.slice(0);
@@ -19667,7 +19643,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-contentleftpanel-module/GalleryView',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/BaseView"], function (require, exports, BaseEvents_1, BaseView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var GalleryView = /** @class */ (function (_super) {
+    var GalleryView = (function (_super) {
         __extends(GalleryView, _super);
         function GalleryView($element) {
             var _this = _super.call(this, $element, true, true) || this;
@@ -19677,19 +19653,8 @@ define('modules/uv-contentleftpanel-module/GalleryView',["require", "exports", "
         GalleryView.prototype.create = function () {
             this.setConfig('contentLeftPanel');
             _super.prototype.create.call(this);
-            // search preview doesn't work well with the gallery because it loads thumbs in "chunks"
-            // $.subscribe(Events.SEARCH_PREVIEW_START, (e, canvasIndex) => {
-            //     this.galleryComponent.searchPreviewStart(canvasIndex);
-            // });
-            // $.subscribe(Events.SEARCH_PREVIEW_FINISH, () => {
-            //     this.galleryComponent.searchPreviewFinish();
-            // });
             this.$gallery = $('<div class="iiif-gallery-component"></div>');
             this.$element.append(this.$gallery);
-            // stencil.js demo
-            // const gallery = document.createElement('iiif-gallery');
-            // gallery.setAttribute('manifest', this.extension.helper.manifest.id);
-            // this.$element[0].appendChild(gallery);
         };
         GalleryView.prototype.setup = function () {
             this.galleryComponent = new IIIFComponents.GalleryComponent({
@@ -19715,7 +19680,6 @@ define('modules/uv-contentleftpanel-module/GalleryView',["require", "exports", "
             var _this = this;
             this.isOpen = true;
             this.$element.show();
-            // todo: would be better to have no imperative methods on components and use a reactive pattern
             setTimeout(function () {
                 _this.galleryComponent.selectIndex(_this.extension.helper.canvasIndex);
             }, 10);
@@ -19748,7 +19712,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/BaseExpandPanel',["require", "exports", "./BaseView"], function (require, exports, BaseView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var BaseExpandPanel = /** @class */ (function (_super) {
+    var BaseExpandPanel = (function (_super) {
         __extends(BaseExpandPanel, _super);
         function BaseExpandPanel($element) {
             var _this = _super.call(this, $element, false, true) || this;
@@ -19824,7 +19788,6 @@ define('modules/uv-shared-module/BaseExpandPanel',["require", "exports", "./Base
         BaseExpandPanel.prototype.toggle = function (autoToggled) {
             var _this = this;
             (autoToggled) ? this.autoToggled = true : this.autoToggled = false;
-            // if collapsing, hide contents immediately.
             if (this.isExpanded) {
                 this.$top.attr('aria-hidden', 'true');
                 this.$main.attr('aria-hidden', 'true');
@@ -19843,7 +19806,6 @@ define('modules/uv-shared-module/BaseExpandPanel',["require", "exports", "./Base
         BaseExpandPanel.prototype.toggled = function () {
             this.toggleStart();
             this.isExpanded = !this.isExpanded;
-            // if expanded show content when animation finished.
             if (this.isExpanded) {
                 this.$top.attr('aria-hidden', 'false');
                 this.$main.attr('aria-hidden', 'false');
@@ -19960,7 +19922,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/LeftPanel',["require", "exports", "./BaseEvents", "./BaseExpandPanel"], function (require, exports, BaseEvents_1, BaseExpandPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var LeftPanel = /** @class */ (function (_super) {
+    var LeftPanel = (function (_super) {
         __extends(LeftPanel, _super);
         function LeftPanel($element) {
             return _super.call(this, $element) || this;
@@ -20020,7 +19982,7 @@ define('modules/uv-shared-module/LeftPanel',["require", "exports", "./BaseEvents
 define('extensions/uv-seadragon-extension/Mode',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Mode = /** @class */ (function () {
+    var Mode = (function () {
         function Mode(value) {
             this.value = value;
         }
@@ -20047,7 +20009,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvents", "./BaseView"], function (require, exports, BaseEvents_1, BaseView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ThumbsView = /** @class */ (function (_super) {
+    var ThumbsView = (function (_super) {
         __extends(ThumbsView, _super);
         function ThumbsView($element) {
             var _this = _super.call(this, $element, true, true) || this;
@@ -20070,7 +20032,7 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             this.$thumbs = $('<div class="thumbs"></div>');
             this.$element.append(this.$thumbs);
             var viewingDirection = this.extension.helper.getViewingDirection() || manifesto.ViewingDirection.leftToRight();
-            this.$thumbs.addClass(viewingDirection.toString()); // defaults to "left-to-right"
+            this.$thumbs.addClass(viewingDirection.toString());
             var that = this;
             $.templates({
                 thumbsTemplate: '<div id="thumb{{>index}}" class="{{:~className()}}" data-src="{{>uri}}" data-visible="{{>visible}}" data-index="{{>index}}">\
@@ -20124,7 +20086,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
                     return '';
                 }
             });
-            // use unevent to detect scroll stop.
             this.$element.on('scroll', function () {
                 _this.scrollStop();
             }, 100);
@@ -20133,9 +20094,8 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
         ThumbsView.prototype.databind = function () {
             if (!this.thumbs)
                 return;
-            this._$thumbsCache = null; // delete cache
+            this._$thumbsCache = null;
             this.createThumbs();
-            // do initial load to show padlocks
             this.loadThumbs(0);
             this.selectIndex(this.extension.helper.canvasIndex);
         };
@@ -20143,7 +20103,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             var that = this;
             if (!this.thumbs)
                 return;
-            // get median height
             var heights = [];
             for (var i = 0; i < this.thumbs.length; i++) {
                 var thumb = this.thumbs[i];
@@ -20177,7 +20136,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             if (!this.thumbs || !this.thumbs.length)
                 return;
             var thumbType;
-            // get the type of the canvas content
             var canvas = this.extension.helper.getCanvasByIndex(index);
             var annotations = canvas.getContent();
             if (annotations.length) {
@@ -20201,7 +20159,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             for (var i = thumbRange.start; i <= thumbRange.end; i++) {
                 var $thumb = this.getThumbByIndex(i);
                 var $wrap = $thumb.find('.wrap');
-                // if no img has been added yet
                 if (!$wrap.hasClass('loading') && !$wrap.hasClass('loaded')) {
                     var visible = $thumb.attr('data-visible');
                     if (visible !== "false") {
@@ -20215,7 +20172,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
                             src += that.config.options.thumbsCacheInvalidation.paramType + "t=" + Utils.Dates.getTimeStamp();
                         }
                         var $img = $('<img src="' + src + '" alt=""/>');
-                        // fade in on load.
                         $img.hide();
                         $img.on('load', function () {
                             $(this).fadeIn(fadeDuration, function () {
@@ -20261,7 +20217,6 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             this.getThumbByIndex(index).addClass('selected');
         };
         ThumbsView.prototype.selectIndex = function (index) {
-            // may be authenticating
             if (index === -1)
                 return;
             if (!this.thumbs || !this.thumbs.length)
@@ -20270,12 +20225,9 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
             this.$selectedThumb = this.getThumbByIndex(index);
             this.addSelectedClassToThumbs(index);
             var indices = this.extension.getPagedIndices(index);
-            // scroll to thumb if the index change didn't originate
-            // within the thumbs view.
             if (!~indices.indexOf(this.lastThumbClickedIndex)) {
                 this.$element.scrollTop(this.$selectedThumb.position().top);
             }
-            // make sure visible images are loaded.
             this.loadThumbs(index);
         };
         ThumbsView.prototype.getAllThumbs = function () {
@@ -20302,7 +20254,7 @@ define('modules/uv-shared-module/ThumbsView',["require", "exports", "./BaseEvent
 define('extensions/uv-seadragon-extension/Events',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Events = /** @class */ (function () {
+    var Events = (function () {
         function Events() {
         }
         Events.namespace = 'openseadragonExtension.';
@@ -20347,7 +20299,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-contentleftpanel-module/ThumbsView',["require", "exports", "../uv-shared-module/ThumbsView", "../../extensions/uv-seadragon-extension/Events", "../../extensions/uv-seadragon-extension/Mode"], function (require, exports, ThumbsView_1, Events_1, Mode_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ThumbsView = /** @class */ (function (_super) {
+    var ThumbsView = (function (_super) {
         __extends(ThumbsView, _super);
         function ThumbsView() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -20356,7 +20308,6 @@ define('modules/uv-contentleftpanel-module/ThumbsView',["require", "exports", ".
             var _this = this;
             this.setConfig('contentLeftPanel');
             _super.prototype.create.call(this);
-            // todo: this should be a setting
             $.subscribe(Events_1.Events.MODE_CHANGED, function () {
                 _this.setLabel();
             });
@@ -20372,11 +20323,10 @@ define('modules/uv-contentleftpanel-module/ThumbsView',["require", "exports", ".
             var that = this;
             $.views.helpers({
                 separator: function () {
-                    // two thumbs per line
                     if (that.extension.helper.isPaged()) {
                         return ((this.data.index - 1) % 2 == 0) ? false : true;
                     }
-                    return true; // default to one thumbnail per row
+                    return true;
                 }
             });
         };
@@ -20387,7 +20337,6 @@ define('modules/uv-contentleftpanel-module/ThumbsView',["require", "exports", ".
             }
         };
         ThumbsView.prototype.isPageModeEnabled = function () {
-            // todo: move getMode to BaseExtension. call it getIndexingMode which can be Label or Index
             if (typeof this.extension.getMode === "function") {
                 return this.config.options.pageModeEnabled && this.extension.getMode().toString() === Mode_1.Mode.page.toString();
             }
@@ -20436,7 +20385,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-contentleftpanel-module/TreeView',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/BaseView"], function (require, exports, BaseEvents_1, BaseView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var TreeView = /** @class */ (function (_super) {
+    var TreeView = (function (_super) {
         __extends(TreeView, _super);
         function TreeView($element) {
             var _this = _super.call(this, $element, true, true) || this;
@@ -20503,7 +20452,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "exports", "../uv-shared-module/BaseEvents", "./GalleryView", "../uv-shared-module/LeftPanel", "../../extensions/uv-seadragon-extension/Mode", "./ThumbsView", "./TreeView"], function (require, exports, BaseEvents_1, GalleryView_1, LeftPanel_1, Mode_1, ThumbsView_1, TreeView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ContentLeftPanel = /** @class */ (function (_super) {
+    var ContentLeftPanel = (function (_super) {
         __extends(ContentLeftPanel, _super);
         function ContentLeftPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -20618,7 +20567,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             this.$sortByVolumeButton.addClass('on');
             var tabOrderConfig = this.options.tabOrder;
             if (tabOrderConfig) {
-                // sort tabs
                 tabOrderConfig = tabOrderConfig.toLowerCase();
                 tabOrderConfig = tabOrderConfig.replace(/ /g, "");
                 var tabOrder = tabOrderConfig.split(',');
@@ -20636,7 +20584,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             this.treeView.treeData = this.getTreeData();
             this.treeView.setup();
             this.databindTreeView();
-            // populate the tree select drop down when there are multiple top-level ranges
             var topRanges = this.extension.helper.getTopRanges();
             if (topRanges.length > 1) {
                 for (var i = 0; i < topRanges.length; i++) {
@@ -20715,7 +20662,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             var autoExpandTreeEnabled = Utils.Bools.getBool(this.config.options.autoExpandTreeEnabled, false);
             var autoExpandTreeIfFewerThan = this.config.options.autoExpandTreeIfFewerThan || 0;
             if (autoExpandTreeEnabled) {
-                // get total number of tree nodes
                 var flatTree = this.extension.helper.getFlattenedTree();
                 if (flatTree.length < autoExpandTreeIfFewerThan) {
                     return true;
@@ -20724,7 +20670,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             return false;
         };
         ContentLeftPanel.prototype.updateTreeTabByCanvasIndex = function () {
-            // update tab to current top range label (if there is one)
             var topRanges = this.extension.helper.getTopRanges();
             if (topRanges.length > 1) {
                 var index = this.getCurrentCanvasTopRangeIndex();
@@ -20793,15 +20738,12 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             if (viewingDirection && viewingDirection.toString() === manifesto.ViewingDirection.bottomToTop().toString()) {
                 thumbs.reverse();
             }
-            // add a search result icon for pages with results
             var searchResults = this.extension.annotations;
             if (searchResults && searchResults.length) {
                 var _loop_1 = function (i) {
                     var searchResult = searchResults[i];
-                    // find the thumb with the same canvasIndex and add the searchResult
                     var thumb = thumbs.en().where(function (t) { return t.index === searchResult.canvasIndex; }).first();
                     if (thumb) {
-                        // clone the data so searchResults isn't persisted on the canvas.
                         var data = $.extend(true, {}, thumb.data);
                         data.searchResults = searchResult.rects.length;
                         thumb.data = data;
@@ -20846,8 +20788,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             };
         };
         ContentLeftPanel.prototype.isPageModeEnabled = function () {
-            // todo: checks if the panel is being used in the openseadragon extension.
-            // pass a `isPageModeEnabled` function to the panel's constructor instead?
             if (typeof this.extension.getMode === "function") {
                 return Utils.Bools.getBool(this.config.options.pageModeEnabled, true) && this.extension.getMode().toString() === Mode_1.Mode.page.toString();
             }
@@ -20876,7 +20816,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
                 if (!treeData || !treeData.nodes.length) {
                     treeEnabled = false;
                 }
-                // hide the tabs if either tree or thumbs are disabled
                 if (!treeEnabled || !thumbsEnabled)
                     this.$tabs.hide();
                 if (thumbsEnabled && this.defaultToThumbsView()) {
@@ -20918,9 +20857,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
         };
         ContentLeftPanel.prototype.collapseFullFinish = function () {
             _super.prototype.collapseFullFinish.call(this);
-            // todo: write a more generic tabs system with base tab class.
-            // thumbsView may not necessarily have been created yet.
-            // replace thumbsView with galleryView.
             if (this.$thumbsButton.hasClass('on')) {
                 this.openThumbsView();
             }
@@ -20988,8 +20924,6 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
             return topRangeIndex;
         };
         ContentLeftPanel.prototype.selectCurrentTreeNode = function () {
-            // todo: merge selectCurrentTreeNodeByCanvas and selectCurrentTreeNodeByRange
-            // the openseadragon extension should keep track of the current range instead of using canvas index
             if (this.extension.name === 'uv-seadragon-extension') {
                 this.selectCurrentTreeNodeByCanvas();
             }
@@ -21021,16 +20955,10 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
                 var range = null;
                 if (currentCanvasTopRangeIndex !== -1) {
                     range = this.extension.getCurrentCanvasRange();
-                    //range = this.extension.helper.getCurrentRange();
                     if (range && range.treeNode) {
                         node = this.treeView.getNodeById(range.treeNode.id);
                     }
                 }
-                // use manifest root node
-                // if (!node){
-                //     id = this.extension.helper.manifest.defaultTree.id;
-                //     node = this.treeView.getNodeById(id);
-                // }
                 if (node && usingCorrectTree) {
                     this.treeView.selectNode(node);
                 }
@@ -21061,7 +20989,7 @@ define('modules/uv-contentleftpanel-module/ContentLeftPanel',["require", "export
 define('modules/uv-shared-module/DownloadOption',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadOption = /** @class */ (function () {
+    var DownloadOption = (function () {
         function DownloadOption(value) {
             this.value = value;
         }
@@ -21096,7 +21024,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue", "../uv-shared-module/DownloadOption"], function (require, exports, BaseEvents_1, Dialogue_1, DownloadOption_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -21113,7 +21041,6 @@ define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "..
             $.subscribe(this.closeCommand, function () {
                 _this.close();
             });
-            // create ui.
             this.$title = $('<h1>' + this.content.title + '</h1>');
             this.$content.append(this.$title);
             this.$noneAvailable = $('<div class="noneAvailable">' + this.content.noneAvailable + '</div>');
@@ -21127,14 +21054,12 @@ define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "..
             this.$termsOfUseButton.onPressed(function () {
                 $.publish(BaseEvents_1.BaseEvents.SHOW_TERMS_OF_USE);
             });
-            // hide
             this.$element.hide();
             this.updateTermsOfUseButton();
         };
         DownloadDialogue.prototype.addEntireFileDownloadOptions = function () {
             if (this.isDownloadOptionAvailable(DownloadOption_1.DownloadOption.entireFileAsOriginal)) {
                 this.$downloadOptions.empty();
-                // add each file src
                 var canvas = this.extension.helper.getCurrentCanvas();
                 var renderingFound = false;
                 var renderings = canvas.getRenderings();
@@ -21231,7 +21156,6 @@ define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "..
                 this.$noneAvailable.show();
             }
             else {
-                // select first option.
                 this.$noneAvailable.hide();
             }
         };
@@ -21246,7 +21170,6 @@ define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "..
         };
         DownloadDialogue.prototype.getFileExtension = function (fileUri) {
             var extension = fileUri.split('.').pop();
-            // if it's not a valid file extension
             if (extension.length > 5 || extension.indexOf('/') !== -1) {
                 return null;
             }
@@ -21255,7 +21178,6 @@ define('modules/uv-dialogues-module/DownloadDialogue',["require", "exports", "..
         DownloadDialogue.prototype.isDownloadOptionAvailable = function (option) {
             switch (option) {
                 case DownloadOption_1.DownloadOption.entireFileAsOriginal:
-                    // check if ui-extensions disable it
                     var uiExtensions = this.extension.helper.manifest.getService(manifesto.ServiceProfile.uiExtensions());
                     if (uiExtensions && !this.extension.helper.isUIEnabled('mediaDownload')) {
                         return false;
@@ -21302,7 +21224,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-av-extension/DownloadDialogue',["require", "exports", "../../modules/uv-dialogues-module/DownloadDialogue", "../../modules/uv-shared-module/DownloadOption", "../uv-seadragon-extension/DownloadType", "../../modules/uv-shared-module/BaseEvents"], function (require, exports, DownloadDialogue_1, DownloadOption_1, DownloadType_1, BaseEvents_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -21359,7 +21281,6 @@ define('extensions/uv-av-extension/DownloadDialogue',["require", "exports", "../
             if (hasCanvasRendering) {
                 var canvas = this.extension.helper.getCurrentCanvas();
                 var renderingOptions = this.getDownloadOptionsForRenderings(canvas, this.content.entireFileAsOriginal, DownloadOption_1.DownloadOption.dynamicCanvasRenderings);
-                // Add to options.
                 this.addDownloadOptionsForRenderings(renderingOptions);
             }
             if (this.isDownloadOptionAvailable(DownloadOption_1.DownloadOption.rangeRendering) && !this.extension.isThumbsViewOpen()) {
@@ -21374,7 +21295,6 @@ define('extensions/uv-av-extension/DownloadDialogue',["require", "exports", "../
                 this.$downloadButton.hide();
             }
             else {
-                // select first option.
                 this.$downloadOptions.find('li.option input:visible:first').prop('checked', true);
                 this.$noneAvailable.hide();
                 this.$downloadButton.show();
@@ -21408,7 +21328,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/FooterPanel',["require", "exports", "./BaseEvents", "./BaseView"], function (require, exports, BaseEvents_1, BaseView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var FooterPanel = /** @class */ (function (_super) {
+    var FooterPanel = (function (_super) {
         __extends(FooterPanel, _super);
         function FooterPanel($element) {
             return _super.call(this, $element) || this;
@@ -21484,12 +21404,10 @@ define('modules/uv-shared-module/FooterPanel',["require", "exports", "./BaseEven
             this.updateMinimisedButtons();
         };
         FooterPanel.prototype.updateMinimisedButtons = function () {
-            // if configured to always minimise buttons
             if (Utils.Bools.getBool(this.options.minimiseButtons, false)) {
                 this.$options.addClass('minimiseButtons');
                 return;
             }
-            // otherwise, check metric
             if (!this.extension.isDesktopMetric()) {
                 this.$options.addClass('minimiseButtons');
             }
@@ -21538,7 +21456,6 @@ define('modules/uv-shared-module/FooterPanel',["require", "exports", "./BaseEven
         };
         FooterPanel.prototype.updateEmbedButton = function () {
             if (this.extension.helper.isUIEnabled('embed') && Utils.Bools.getBool(this.options.embedEnabled, false)) {
-                // current jquery version sets display to 'inline' in mobile version, while this should remain hidden (see media query)
                 if (!this.extension.isMobile()) {
                     this.$embedButton.show();
                 }
@@ -21603,7 +21520,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-avmobilefooterpanel-module/MobileFooter',["require", "exports", "../uv-shared-module/FooterPanel"], function (require, exports, FooterPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var FooterPanel = /** @class */ (function (_super) {
+    var FooterPanel = (function (_super) {
         __extends(FooterPanel, _super);
         function FooterPanel($element) {
             return _super.call(this, $element) || this;
@@ -21624,7 +21541,7 @@ define('modules/uv-avmobilefooterpanel-module/MobileFooter',["require", "exports
 define('modules/uv-shared-module/Information',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Information = /** @class */ (function () {
+    var Information = (function () {
         function Information(message, actions) {
             this.message = message;
             this.actions = actions;
@@ -21637,7 +21554,7 @@ define('modules/uv-shared-module/Information',["require", "exports"], function (
 define('modules/uv-shared-module/InformationAction',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var InformationAction = /** @class */ (function () {
+    var InformationAction = (function () {
         function InformationAction() {
         }
         return InformationAction;
@@ -21648,7 +21565,7 @@ define('modules/uv-shared-module/InformationAction',["require", "exports"], func
 define('modules/uv-shared-module/InformationFactory',["require", "exports", "./BaseEvents", "./Information", "./InformationAction", "./InformationType"], function (require, exports, BaseEvents_1, Information_1, InformationAction_1, InformationType_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var InformationFactory = /** @class */ (function () {
+    var InformationFactory = (function () {
         function InformationFactory(extension) {
             this.extension = extension;
         }
@@ -21696,7 +21613,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/HeaderPanel',["require", "exports", "./BaseEvents", "./BaseView", "../uv-shared-module/InformationFactory"], function (require, exports, BaseEvents_1, BaseView_1, InformationFactory_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var HeaderPanel = /** @class */ (function (_super) {
+    var HeaderPanel = (function (_super) {
         __extends(HeaderPanel, _super);
         function HeaderPanel($element) {
             return _super.call(this, $element, false, false) || this;
@@ -21717,8 +21634,6 @@ define('modules/uv-shared-module/HeaderPanel',["require", "exports", "./BaseEven
             this.$options.append(this.$centerOptions);
             this.$rightOptions = $('<div class="rightOptions"></div>');
             this.$options.append(this.$rightOptions);
-            //this.$helpButton = $('<a href="#" class="action help">' + this.content.help + '</a>');
-            //this.$rightOptions.append(this.$helpButton);
             this.$localeToggleButton = $('<a class="localeToggle" tabindex="0"></a>');
             this.$rightOptions.append(this.$localeToggleButton);
             this.$settingsButton = $("\n          <button class=\"btn imageBtn settings\" tabindex=\"0\" title=\"" + this.content.settings + "\">\n            <i class=\"uv-icon-settings\" aria-hidden=\"true\"></i>" + this.content.settings + "\n          </button>\n        ");
@@ -21824,7 +21739,6 @@ define('modules/uv-shared-module/HeaderPanel',["require", "exports", "./BaseEven
                 $message.width(Math.floor(this.$element.width()) - Math.ceil($message.horizontalMargins()) - Math.ceil($actions.outerWidth(true)) - Math.ceil(this.$informationBox.find('.close').outerWidth(true)) - 2);
                 $message.text(this.information.message);
             }
-            // hide toggle buttons below minimum width
             if (this.extension.width() < this.extension.data.config.options.minWidthBreakPoint) {
                 if (this.localeToggleIsVisible())
                     this.$localeToggleButton.hide();
@@ -21852,7 +21766,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-shared-module/RightPanel',["require", "exports", "./BaseEvents", "./BaseExpandPanel"], function (require, exports, BaseEvents_1, BaseExpandPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var RightPanel = /** @class */ (function (_super) {
+    var RightPanel = (function (_super) {
         __extends(RightPanel, _super);
         function RightPanel($element) {
             return _super.call(this, $element) || this;
@@ -21917,7 +21831,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-moreinforightpanel-module/MoreInfoRightPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/RightPanel", "../../Utils"], function (require, exports, BaseEvents_1, RightPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MoreInfoRightPanel = /** @class */ (function (_super) {
+    var MoreInfoRightPanel = (function (_super) {
         __extends(MoreInfoRightPanel, _super);
         function MoreInfoRightPanel($element) {
             return _super.call(this, $element) || this;
@@ -21940,28 +21854,23 @@ define('modules/uv-moreinforightpanel-module/MoreInfoRightPanel',["require", "ex
                 data: this._getData()
             });
             this.metadataComponent.on('iiifViewerLinkClicked', function (href) {
-                // get the hash param.
                 var rangeId = Utils.Urls.getHashParameterFromString('rid', href);
                 var rawTime = Utils.Urls.getHashParameterFromString('t', href);
                 var time = rawTime ? parseInt(rawTime, 10) : null;
                 var canvasId = Utils.Urls.getHashParameterFromString('c', href);
-                // First change canvas id.
                 if (canvasId) {
                     var canvasIndex = _this.extension.helper.getCanvasIndexById(canvasId);
                     if (canvasIndex) {
                         $.publish(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, [canvasIndex]);
                     }
                 }
-                // Then change range id.
                 if (rangeId) {
                     var range = _this.extension.helper.getRangeById(rangeId);
                     if (range) {
                         $.publish(BaseEvents_1.BaseEvents.RANGE_CHANGED, [range]);
                     }
                 }
-                // Finally change timestamp.
                 if (time !== null) {
-                    // @todo validate time? Validation should probably be art of extension.helper.
                     $.publish(BaseEvents_1.BaseEvents.CURRENT_TIME_CHANGED, [time]);
                 }
             }, false);
@@ -22023,7 +21932,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/SettingsDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22054,7 +21963,6 @@ define('modules/uv-dialogues-module/SettingsDialogue',["require", "exports", "..
             this.$locale.append(this.$localeLabel);
             this.$localeDropDown = $('<select id="locale"></select>');
             this.$locale.append(this.$localeDropDown);
-            // initialise ui.
             this.$title.text(this.content.title);
             this.$website.html(this.content.website);
             this.$website.targetBlank();
@@ -22113,7 +22021,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-av-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22140,7 +22048,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/ShareDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             var _this = _super.call(this, $element) || this;
@@ -22201,10 +22109,6 @@ define('modules/uv-dialogues-module/ShareDialogue',["require", "exports", "../uv
             this.$tabsContent.append(this.$embedView);
             this.$embedHeader = $('<div class="header"></div>');
             this.$embedView.append(this.$embedHeader);
-            // this.$link = $('<a target="_blank"></a>');
-            // this.$embedView.find('.leftCol').append(this.$link);
-            // this.$image = $('<img class="share" />');
-            // this.$embedView.append(this.$image);
             this.$code = $("<input class=\"code\" type=\"text\" readonly aria-label=\"" + this.content.embed + "\"/>");
             this.$embedView.append(this.$code);
             this.$customSize = $('<div class="customSize"></div>');
@@ -22328,16 +22232,6 @@ define('modules/uv-dialogues-module/ShareDialogue',["require", "exports", "../uv
                 this.$embedHeader.hide();
             }
         };
-        // updateThumbnail(): void {
-        //     var canvas: Manifesto.ICanvas = this.extension.helper.getCurrentCanvas();
-        //     if (!canvas) return;
-        //     var thumbnail = canvas.getProperty('thumbnail');
-        //     if (!thumbnail || !_.isString(thumbnail)){
-        //         thumbnail = canvas.getCanonicalImageUri(this.extension.data.config.options.bookmarkThumbWidth);
-        //     }
-        //     this.$link.attr('href', thumbnail);
-        //     this.$image.attr('src', thumbnail);
-        // }
         ShareDialogue.prototype.getSelectedSize = function () {
             return this.$customSizeDropDown.find(':selected');
         };
@@ -22438,7 +22332,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-av-extension/ShareDialogue',["require", "exports", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22473,7 +22367,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-av-extension/Extension',["require", "exports", "../../modules/uv-avcenterpanel-module/AVCenterPanel", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/BaseExtension", "../../modules/uv-contentleftpanel-module/ContentLeftPanel", "./DownloadDialogue", "../../modules/uv-shared-module/FooterPanel", "../../modules/uv-avmobilefooterpanel-module/MobileFooter", "../../modules/uv-shared-module/HeaderPanel", "../../modules/uv-moreinforightpanel-module/MoreInfoRightPanel", "./SettingsDialogue", "./ShareDialogue", "../../modules/uv-shared-module/Shell"], function (require, exports, AVCenterPanel_1, BaseEvents_1, BaseExtension_1, ContentLeftPanel_1, DownloadDialogue_1, FooterPanel_1, MobileFooter_1, HeaderPanel_1, MoreInfoRightPanel_1, SettingsDialogue_1, ShareDialogue_1, Shell_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -22481,7 +22375,6 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
         Extension.prototype.create = function () {
             var _this = this;
             _super.prototype.create.call(this);
-            //requirejs.config({shim: {'uv/lib/hls.min': { deps: ['require'], exports: "Hls"}}});
             $.subscribe(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, function (e, canvasIndex) {
                 _this.viewCanvas(canvasIndex);
             });
@@ -22500,7 +22393,7 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
                 window.WaveformData = dep;
             }
             else if (index === this.getDependencyIndex('hls')) {
-                window.Hls = dep; //https://github.com/mrdoob/three.js/issues/9602
+                window.Hls = dep;
             }
         };
         Extension.prototype.createModules = function () {
@@ -22582,10 +22475,8 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
                 return;
             switch (data.type) {
                 case manifesto.IIIFResourceType.manifest().toString():
-                    // do nothing
                     break;
                 case manifesto.IIIFResourceType.collection().toString():
-                    // do nothing
                     break;
                 default:
                     this.viewRange(data.path);
@@ -22597,17 +22488,6 @@ define('extensions/uv-av-extension/Extension',["require", "exports", "../../modu
             if (!range)
                 return;
             $.publish(BaseEvents_1.BaseEvents.RANGE_CHANGED, [range]);
-            // don't update the canvas index, only when thumbs are clicked
-            // if (range.canvases && range.canvases.length) {
-            //     const canvasId: string = range.canvases[0];
-            //     const canvas: Manifesto.ICanvas | null = this.helper.getCanvasById(canvasId);
-            //     if (canvas) {
-            //         const canvasIndex: number = canvas.index;
-            //         if (canvasIndex !== this.helper.canvasIndex) {
-            //             $.publish(BaseEvents.CANVAS_INDEX_CHANGED, [canvasIndex]);
-            //         }
-            //     }
-            // }
         };
         return Extension;
     }(BaseExtension_1.BaseExtension));
@@ -22627,7 +22507,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-filelinkcenterpanel-module/FileLinkCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../../Utils"], function (require, exports, BaseEvents_1, CenterPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var FileLinkCenterPanel = /** @class */ (function (_super) {
+    var FileLinkCenterPanel = (function (_super) {
         __extends(FileLinkCenterPanel, _super);
         function FileLinkCenterPanel($element) {
             return _super.call(this, $element) || this;
@@ -22715,7 +22595,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/HelpDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var HelpDialogue = /** @class */ (function (_super) {
+    var HelpDialogue = (function (_super) {
         __extends(HelpDialogue, _super);
         function HelpDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22738,10 +22618,8 @@ define('modules/uv-dialogues-module/HelpDialogue',["require", "exports", "../uv-
             this.$content.append(this.$scroll);
             this.$message = $('<p></p>');
             this.$scroll.append(this.$message);
-            // initialise ui.
             this.$title.text(this.content.title);
             this.$message.html(this.content.text);
-            // ensure anchor tags link to _blank.
             this.$message.targetBlank();
             this.$element.hide();
         };
@@ -22766,7 +22644,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-resourcesleftpanel-module/ThumbsView',["require", "exports", "../uv-shared-module/ThumbsView"], function (require, exports, ThumbsView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ThumbsView = /** @class */ (function (_super) {
+    var ThumbsView = (function (_super) {
         __extends(ThumbsView, _super);
         function ThumbsView() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -22793,7 +22671,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-resourcesleftpanel-module/ResourcesLeftPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/LeftPanel", "./ThumbsView"], function (require, exports, BaseEvents_1, LeftPanel_1, ThumbsView_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ResourcesLeftPanel = /** @class */ (function (_super) {
+    var ResourcesLeftPanel = (function (_super) {
         __extends(ResourcesLeftPanel, _super);
         function ResourcesLeftPanel($element) {
             return _super.call(this, $element) || this;
@@ -22802,19 +22680,6 @@ define('modules/uv-resourcesleftpanel-module/ResourcesLeftPanel',["require", "ex
             this.setConfig('resourcesLeftPanel');
             _super.prototype.create.call(this);
             this.setTitle(this.content.title);
-            /*
-             TODO: make tabs work
-            this.$tabs = $('<div class="tabs"></div>');
-            this.$main.append(this.$tabs);
-    
-            this.$thumbsButton = $('<a class="thumbs tab">' + this.content.thumbnails + '</a>');
-            this.$thumbsButton.prop('title', this.content.thumbnails);
-            this.$tabs.append(this.$thumbsButton);
-    
-            this.$resourcesButton = $('<a class="resources tab">' + this.content.resources+ '</a>');
-            this.$resourcesButton.prop('title', this.content.resources);
-            this.$tabs.append(this.$resourcesButton);
-             */
             this.$tabsContent = $('<div class="tabsContent"></div>');
             this.$main.append(this.$tabsContent);
             this.$views = $('<div class="views"></div>');
@@ -22868,7 +22733,6 @@ define('modules/uv-resourcesleftpanel-module/ResourcesLeftPanel',["require", "ex
                 height = 100;
             }
             this.thumbsView.thumbs = this.extension.helper.getThumbs(width, height);
-            // hide thumb selector for single-part manifests
             if (this.thumbsView.thumbs.length < 2) {
                 this.$thumbsView.hide();
             }
@@ -22913,7 +22777,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-default-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22940,7 +22804,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-default-extension/ShareDialogue',["require", "exports", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             return _super.call(this, $element) || this;
@@ -22975,7 +22839,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-default-extension/Extension',["require", "exports", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/BaseExtension", "../../modules/uv-filelinkcenterpanel-module/FileLinkCenterPanel", "../../modules/uv-shared-module/FooterPanel", "../../modules/uv-shared-module/HeaderPanel", "../../modules/uv-dialogues-module/HelpDialogue", "../../modules/uv-moreinforightpanel-module/MoreInfoRightPanel", "../../modules/uv-resourcesleftpanel-module/ResourcesLeftPanel", "./SettingsDialogue", "./ShareDialogue", "../../modules/uv-shared-module/Shell"], function (require, exports, BaseEvents_1, BaseExtension_1, FileLinkCenterPanel_1, FooterPanel_1, HeaderPanel_1, HelpDialogue_1, MoreInfoRightPanel_1, ResourcesLeftPanel_1, SettingsDialogue_1, ShareDialogue_1, Shell_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -22983,7 +22847,6 @@ define('extensions/uv-default-extension/Extension',["require", "exports", "../..
         Extension.prototype.create = function () {
             var _this = this;
             _super.prototype.create.call(this);
-            // listen for mediaelement enter/exit fullscreen events.
             $(window).bind('enterfullscreen', function () {
                 $.publish(BaseEvents_1.BaseEvents.TOGGLE_FULLSCREEN);
             });
@@ -23042,8 +22905,6 @@ define('extensions/uv-default-extension/Extension',["require", "exports", "../..
                 && ((this.helper.isMultiCanvas() || this.helper.isMultiSequence()) || this.helper.hasResources());
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
-            //const configUri: string = this.data.config.uri || '';
-            //const script: string = String.format(template, this.getSerializedLocales(), configUri, this.helper.iiifResourceUri, this.helper.collectionIndex, this.helper.manifestIndex, this.helper.sequenceIndex, this.helper.canvasIndex, width, height, this.data.embedScriptUri);
             var appUri = this.getAppUri();
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
@@ -23057,7 +22918,7 @@ define('extensions/uv-default-extension/Extension',["require", "exports", "../..
 define('modules/uv-shared-module/Bookmark',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Bookmark = /** @class */ (function () {
+    var Bookmark = (function () {
         function Bookmark() {
         }
         return Bookmark;
@@ -23078,7 +22939,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-mediaelement-extension/DownloadDialogue',["require", "exports", "../../modules/uv-dialogues-module/DownloadDialogue"], function (require, exports, DownloadDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -23104,7 +22965,7 @@ define('extensions/uv-mediaelement-extension/DownloadDialogue',["require", "expo
 define('extensions/uv-mediaelement-extension/Events',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Events = /** @class */ (function () {
+    var Events = (function () {
         function Events() {
         }
         Events.namespace = 'mediaelementExtension.';
@@ -23129,7 +22990,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../../extensions/uv-mediaelement-extension/Events", "../uv-shared-module/CenterPanel", "../../Utils"], function (require, exports, BaseEvents_1, Events_1, CenterPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MediaElementCenterPanel = /** @class */ (function (_super) {
+    var MediaElementCenterPanel = (function (_super) {
         __extends(MediaElementCenterPanel, _super);
         function MediaElementCenterPanel($element) {
             return _super.call(this, $element) || this;
@@ -23138,8 +22999,6 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
             this.setConfig('mediaelementCenterPanel');
             _super.prototype.create.call(this);
             var that = this;
-            // events.
-            // only full screen video
             if (this.isVideo()) {
                 $.subscribe(BaseEvents_1.BaseEvents.TOGGLE_FULLSCREEN, function () {
                     if (that.component.isFullScreen) {
@@ -23196,7 +23055,6 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
                     _this.$media = $('<video controls="controls" preload="none"></video>');
                     _this.$container.append(_this.$media);
                     _this.player = new MediaElementPlayer($('video')[0], {
-                        //pluginPath: this.extension.data.root + 'lib/mediaelement/',
                         poster: poster,
                         features: ['playpause', 'current', 'progress', 'volume'],
                         success: function (mediaElement, originalNode) {
@@ -23207,7 +23065,6 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
                                 $.publish(Events_1.Events.MEDIA_PLAYED, [Math.floor(mediaElement.currentTime)]);
                             });
                             mediaElement.addEventListener('pause', function () {
-                                // mediaelement creates a pause event before the ended event. ignore this.
                                 if (Math.floor(mediaElement.currentTime) != Math.floor(mediaElement.duration)) {
                                     $.publish(Events_1.Events.MEDIA_PAUSED, [Math.floor(mediaElement.currentTime)]);
                                 }
@@ -23236,7 +23093,6 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
                                 $.publish(Events_1.Events.MEDIA_PLAYED, [Math.floor(mediaElement.currentTime)]);
                             });
                             mediaElement.addEventListener('pause', function () {
-                                // mediaelement creates a pause event before the ended event. ignore this.
                                 if (Math.floor(mediaElement.currentTime) != Math.floor(mediaElement.duration)) {
                                     $.publish(Events_1.Events.MEDIA_PAUSED, [Math.floor(mediaElement.currentTime)]);
                                 }
@@ -23256,13 +23112,11 @@ define('modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel',["req
         };
         MediaElementCenterPanel.prototype.resize = function () {
             _super.prototype.resize.call(this);
-            // if in Firefox < v13 don't resize the media container.
             if (window.browserDetect.browser === 'Firefox' && window.browserDetect.version < 13) {
                 this.$container.width(this.mediaWidth);
                 this.$container.height(this.mediaHeight);
             }
             else {
-                // fit media to available space.
                 var size = Utils.Dimensions.fitRect(this.mediaWidth, this.mediaHeight, this.$content.width(), this.$content.height());
                 this.$container.height(size.height);
                 this.$container.width(size.width);
@@ -23309,7 +23163,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-mediaelement-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -23336,7 +23190,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-mediaelement-extension/ShareDialogue',["require", "exports", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             return _super.call(this, $element) || this;
@@ -23371,7 +23225,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-mediaelement-extension/Extension',["require", "exports", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/BaseExtension", "../../modules/uv-shared-module/Bookmark", "./DownloadDialogue", "./Events", "../../modules/uv-shared-module/FooterPanel", "../../modules/uv-shared-module/HeaderPanel", "../../modules/uv-dialogues-module/HelpDialogue", "../../modules/uv-mediaelementcenterpanel-module/MediaElementCenterPanel", "../../modules/uv-moreinforightpanel-module/MoreInfoRightPanel", "../../modules/uv-resourcesleftpanel-module/ResourcesLeftPanel", "./SettingsDialogue", "./ShareDialogue", "../../modules/uv-shared-module/Shell"], function (require, exports, BaseEvents_1, BaseExtension_1, Bookmark_1, DownloadDialogue_1, Events_1, FooterPanel_1, HeaderPanel_1, HelpDialogue_1, MediaElementCenterPanel_1, MoreInfoRightPanel_1, ResourcesLeftPanel_1, SettingsDialogue_1, ShareDialogue_1, Shell_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -23379,7 +23233,6 @@ define('extensions/uv-mediaelement-extension/Extension',["require", "exports", "
         Extension.prototype.create = function () {
             var _this = this;
             _super.prototype.create.call(this);
-            // listen for mediaelement enter/exit fullscreen events.
             $(window).bind('enterfullscreen', function () {
                 $.publish(BaseEvents_1.BaseEvents.TOGGLE_FULLSCREEN);
             });
@@ -23476,14 +23329,11 @@ define('extensions/uv-mediaelement-extension/Extension',["require", "exports", "
             this.fire(BaseEvents_1.BaseEvents.BOOKMARK, bookmark);
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
-            //const configUri: string = this.data.config.uri || '';
-            //const script: string = String.format(template, this.getSerializedLocales(), configUri, this.helper.iiifResourceUri, this.helper.collectionIndex, this.helper.manifestIndex, this.helper.sequenceIndex, this.helper.canvasIndex, width, height, this.data.embedScriptUri);
             var appUri = this.getAppUri();
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
             return script;
         };
-        // todo: use canvas.getThumbnail()
         Extension.prototype.getPosterImageUri = function () {
             var canvas = this.helper.getCurrentCanvas();
             var annotations = canvas.getContent();
@@ -23529,7 +23379,7 @@ define('extensions/uv-mediaelement-extension/Extension',["require", "exports", "
 define('modules/uv-shared-module/AnnotationResults',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AnnotationResults = /** @class */ (function () {
+    var AnnotationResults = (function () {
         function AnnotationResults() {
         }
         return AnnotationResults;
@@ -23540,7 +23390,7 @@ define('modules/uv-shared-module/AnnotationResults',["require", "exports"], func
 define('modules/uv-shared-module/Point',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Point = /** @class */ (function () {
+    var Point = (function () {
         function Point(x, y) {
             this.x = x;
             this.y = y;
@@ -23554,7 +23404,7 @@ define('extensions/uv-seadragon-extension/CroppedImageDimensions',["require", "e
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Size = Utils.Size;
-    var CroppedImageDimensions = /** @class */ (function () {
+    var CroppedImageDimensions = (function () {
         function CroppedImageDimensions() {
             this.region = new Size(0, 0);
             this.regionPos = new Point_1.Point(0, 0);
@@ -23579,7 +23429,7 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Size = Manifesto.Size;
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -23588,7 +23438,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
             var _this = this;
             this.setConfig('downloadDialogue');
             _super.prototype.create.call(this);
-            // create ui.
             this.$settingsButton = $('<a class="settings" href="#">' + this.content.editSettings + '</a>');
             this.$pagingNote = $('<div class="pagingNote">' + this.content.pagingNote + ' </div>');
             this.$pagingNote.append(this.$settingsButton);
@@ -23624,8 +23473,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
             this.$buttons.prepend(this.$downloadButton);
             this.$explanatoryTextTemplate = $('<span class="explanatory"></span>');
             var that = this;
-            // what happens on download is specific to the extension (except for renderings which need to be moved to the base download dialogue)
-            // todo: we need to make everything a list of radio button options in the base class, then we can unify everything into a single render method
             this.$downloadButton.on('click', function (e) {
                 e.preventDefault();
                 var $selectedOption = that.getSelectedOption();
@@ -23644,13 +23491,7 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                         }
                     }
                     if (type = DownloadType_1.DownloadType.ENTIREDOCUMENTASPDF) {
-                        //var printService: Manifesto.IService = this.extension.helper.manifest.getService(manifesto.ServiceProfile.printExtensions());
-                        // if downloading a pdf - if there's a print service, generate an event instead of opening a new window.
-                        // if (printService && this.extension.isOnHomeDomain()){
-                        //     $.publish(Events.PRINT);
-                        // } else {
                         window.open(_this.renderingUrls[id]);
-                        //}
                     }
                 }
                 else {
@@ -23709,7 +23550,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 var label = this.content.currentViewAsJpg;
                 var viewer = this.extension.getViewer();
                 var dimensions = this.extension.getCroppedImageDimensions(canvas, viewer);
-                // dimensions
                 if (dimensions) {
                     label = hasNormalDimensions ?
                         Utils.Strings.format(label, dimensions.size.width.toString(), dimensions.size.height.toString()) :
@@ -23723,7 +23563,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 else {
                     this.$currentViewAsJpgButton.hide();
                 }
-                // explanatory text
                 if (Utils.Bools.getBool(this.options.optionsExplanatoryTextEnabled, false)) {
                     var text = this.content.currentViewAsJpgExplanation;
                     if (text) {
@@ -23746,10 +23585,8 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 else {
                     mime = '?';
                 }
-                // dimensions
                 var size = this.getCanvasComputedDimensions(this.extension.helper.getCurrentCanvas());
                 if (!size) {
-                    // if there is no image service, allow the image to be downloaded directly.
                     if (canvas.externalResource && !canvas.externalResource.hasServiceDescriptor()) {
                         var label = Utils.Strings.format(this.content.wholeImageHighRes, '?', '?', mime);
                         $label.text(label);
@@ -23770,7 +23607,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                     this.$wholeImageHighResButton.data('height', size.height);
                     this.$wholeImageHighResButton.show();
                 }
-                // explanatory text
                 if (Utils.Bools.getBool(this.options.optionsExplanatoryTextEnabled, false)) {
                     var text = this.content.wholeImageHighResExplanation;
                     if (text) {
@@ -23797,7 +23633,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 $label.text(label);
                 $input.prop('title', label);
                 this.$wholeImagesHighResButton.show();
-                // explanatory text
                 if (Utils.Bools.getBool(this.options.optionsExplanatoryTextEnabled, false)) {
                     var text = this.content.wholeImagesHighResExplanation;
                     if (text) {
@@ -23822,7 +23657,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 this.$wholeImageLowResAsJpgButton.data('width', size.width);
                 this.$wholeImageLowResAsJpgButton.data('height', size.height);
                 this.$wholeImageLowResAsJpgButton.show();
-                // explanatory text
                 if (Utils.Bools.getBool(this.options.optionsExplanatoryTextEnabled, false)) {
                     var text = this.content.wholeImageLowResAsJpgExplanation;
                     if (text) {
@@ -23841,7 +23675,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 $label.text(this.content.downloadSelection);
                 $input.prop('title', this.content.downloadSelection);
                 this.$selectionButton.show();
-                // explanatory text
                 if (Utils.Bools.getBool(this.options.optionsExplanatoryTextEnabled, false)) {
                     var text = this.content.selectionExplanation;
                     if (text) {
@@ -23879,7 +23712,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 var renderingOptions = this.getDownloadOptionsForRenderings(this.extension.helper.getCurrentSequence(), this.content.entireDocument, DownloadOption_1.DownloadOption.dynamicSequenceRenderings);
                 this.addDownloadOptionsForRenderings(renderingOptions);
             }
-            // hide the current view option if it's equivalent to whole image.
             if (this.isDownloadOptionAvailable(DownloadOption_1.DownloadOption.currentViewAsJpg)) {
                 var currentWidth = parseInt(this.$currentViewAsJpgButton.data('width').toString());
                 var currentHeight = parseInt(this.$currentViewAsJpgButton.data('height').toString());
@@ -23888,7 +23720,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 var percentageWidth = (currentWidth / wholeWidth) * 100;
                 var percentageHeight = (currentHeight / wholeHeight) * 100;
                 var disabledPercentage = this.options.currentViewDisabledPercentage;
-                // if over disabledPercentage of the size of whole image
                 if (percentageWidth >= disabledPercentage && percentageHeight >= disabledPercentage) {
                     this.$currentViewAsJpgButton.hide();
                 }
@@ -23896,7 +23727,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                     this.$currentViewAsJpgButton.show();
                 }
             }
-            // order by image area
             var $options = this.$imageOptions.find('li.single');
             $options = $options.sort(function (a, b) {
                 var aWidth = $(a).data('width');
@@ -23918,13 +23748,11 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 return 0;
             });
             $options.detach().appendTo(this.$imageOptions);
-            // hide empty groups
             var $groups = this.$downloadOptions.find('li.group');
             $groups.each(function (index, group) {
                 var $group = $(group);
                 $group.show();
                 if ($group.find('li.option:hidden').length === $group.find('li.option').length) {
-                    // all options are hidden, hide group.
                     $group.hide();
                 }
             });
@@ -23940,7 +23768,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 this.$downloadButton.hide();
             }
             else {
-                // select first option.
                 this.$downloadOptions.find('li.option input:visible:first').prop("checked", true);
                 this.$noneAvailable.hide();
                 this.$downloadButton.show();
@@ -23984,7 +23811,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 return uri;
             }
             else if (canvas.externalResource && !canvas.externalResource.hasServiceDescriptor()) {
-                // if there is no image service, return the dataUri.
                 return canvas.externalResource.dataUri;
             }
             return '';
@@ -24000,7 +23826,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
             return null;
         };
         DownloadDialogue.prototype.getCanvasDimensions = function (canvas) {
-            // externalResource may not have loaded yet
             if (canvas.externalResource.data) {
                 var width = canvas.externalResource.data.width;
                 var height = canvas.externalResource.data.height;
@@ -24037,11 +23862,8 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 return false;
             }
             var canvas = this.extension.helper.getCurrentCanvas();
-            // if the external resource doesn't have a service descriptor or is level 0
-            // only allow wholeImageHighRes
             if (!canvas.externalResource.hasServiceDescriptor() || this._isLevel0(canvas.externalResource.data.profile)) {
                 if (option === DownloadOption_1.DownloadOption.wholeImageHighRes) {
-                    // if in one-up mode, or in two-up mode with a single page being shown
                     if (!this.extension.isPagingSettingEnabled() ||
                         this.extension.isPagingSettingEnabled() && this.extension.resources && this.extension.resources.length === 1) {
                         return true;
@@ -24054,7 +23876,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                 case DownloadOption_1.DownloadOption.dynamicCanvasRenderings:
                 case DownloadOption_1.DownloadOption.dynamicImageRenderings:
                 case DownloadOption_1.DownloadOption.wholeImageHighRes:
-                    // if in one-up mode, or in two-up mode with a single page being shown
                     if (!this.extension.isPagingSettingEnabled() ||
                         this.extension.isPagingSettingEnabled() && this.extension.resources && this.extension.resources.length === 1) {
                         var maxDimensions = canvas.getMaxDimensions();
@@ -24075,7 +23896,6 @@ define('extensions/uv-seadragon-extension/DownloadDialogue',["require", "exports
                     }
                     return false;
                 case DownloadOption_1.DownloadOption.wholeImageLowResAsJpg:
-                    // hide low-res option if hi-res width is smaller than constraint
                     var size = this.getCanvasComputedDimensions(canvas);
                     if (!size) {
                         return false;
@@ -24111,7 +23931,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/ExternalContentDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue"], function (require, exports, BaseEvents_1, Dialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ExternalContentDialogue = /** @class */ (function (_super) {
+    var ExternalContentDialogue = (function (_super) {
         __extends(ExternalContentDialogue, _super);
         function ExternalContentDialogue($element) {
             return _super.call(this, $element) || this;
@@ -24156,7 +23976,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-osdmobilefooterpanel-module/MobileFooter',["require", "exports", "../uv-shared-module/FooterPanel", "../../extensions/uv-seadragon-extension/Events"], function (require, exports, FooterPanel_1, Events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var FooterPanel = /** @class */ (function (_super) {
+    var FooterPanel = (function (_super) {
         __extends(FooterPanel, _super);
         function FooterPanel($element) {
             return _super.call(this, $element) || this;
@@ -24194,7 +24014,7 @@ define('modules/uv-osdmobilefooterpanel-module/MobileFooter',["require", "export
 define('modules/uv-shared-module/AutoComplete',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AutoComplete = /** @class */ (function () {
+    var AutoComplete = (function () {
         function AutoComplete(element, autoCompleteFunc, parseResultsFunc, onSelect, delay, minChars, positionAbove, allowWords) {
             if (delay === void 0) { delay = 300; }
             if (minChars === void 0) { minChars = 2; }
@@ -24209,7 +24029,6 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
             this._parseResultsFunc = parseResultsFunc;
             this._positionAbove = positionAbove;
             this._allowWords = allowWords;
-            // create ui.
             this._$searchResultsList = $('<ul class="autocomplete"></ul>');
             if (this._positionAbove) {
                 this._$element.parent().prepend(this._$searchResultsList);
@@ -24218,8 +24037,6 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
                 this._$element.parent().append(this._$searchResultsList);
             }
             this._$searchResultTemplate = $('<li class="result"><a href="#" tabindex="-1"></a></li>');
-            // init ui.
-            // callback after set period.
             var typewatch = (function () {
                 var timer = 0;
                 return function (cb, ms) {
@@ -24230,7 +24047,6 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
             var that = this;
             this._$element.on("keydown", function (e) {
                 var originalEvent = e.originalEvent;
-                //that._lastKeyDownWasNavigation = that._isNavigationKeyDown(originalEvent);
                 var charCode = Utils.Keyboard.getCharCode(originalEvent);
                 var cancelEvent = false;
                 if (charCode === KeyCodes.KeyDown.LeftArrow) {
@@ -24245,14 +24061,11 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
                         originalEvent.stopPropagation();
                 }
             });
-            // auto complete
             this._$element.on("keyup", function (e) {
-                // if pressing enter without a list item selected
                 if (!that._getSelectedListItem().length && e.keyCode === KeyCodes.KeyDown.Enter) {
                     that._onSelect(that._getTerms());
                     return;
                 }
-                // If there are search results
                 if (that._$searchResultsList.is(':visible') && that._results.length) {
                     if (e.keyCode === KeyCodes.KeyDown.Enter) {
                         that._searchForItem(that._getSelectedListItem());
@@ -24267,23 +24080,18 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
                     }
                 }
                 if (e.keyCode !== KeyCodes.KeyDown.Enter) {
-                    // after a delay, show autocomplete list.
                     typewatch(function () {
                         var val = that._getTerms();
-                        // if there are more than x chars
-                        // update the autocomplete list.
                         if (val && val.length > that._minChars && that._searchForWords(val)) {
                             that._search(val);
                         }
                         else {
-                            // otherwise, hide the autocomplete list.
                             that._clearResults();
                             that._hideResults();
                         }
                     }, that._delay);
                 }
             });
-            // hide results if clicked outside.
             $(document).on('mouseup', function (e) {
                 if (_this._$searchResultsList.parent().has($(e.target)[0]).length === 0) {
                     _this._clearResults();
@@ -24359,13 +24167,9 @@ define('modules/uv-shared-module/AutoComplete',["require", "exports"], function 
             }
         };
         AutoComplete.prototype._listResults = function (results) {
-            // get an array of strings
             this._results = this._parseResultsFunc(results);
             this._clearResults();
             if (!this._results.length) {
-                // don't do this, because there still may be results for the PHRASE but not the word.
-                // they won't know until they do the search.
-                //this.searchResultsList.append('<li>no results</li>');
                 this._hideResults();
                 return;
             }
@@ -24412,7 +24216,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", "../uv-shared-module/AutoComplete", "../uv-shared-module/BaseEvents", "../../extensions/uv-seadragon-extension/Events", "../uv-shared-module/FooterPanel", "../../extensions/uv-seadragon-extension/Mode", "../../Utils"], function (require, exports, AutoComplete_1, BaseEvents_1, Events_1, FooterPanel_1, Mode_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var FooterPanel = /** @class */ (function (_super) {
+    var FooterPanel = (function (_super) {
         __extends(FooterPanel, _super);
         function FooterPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -24432,7 +24236,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             $.subscribe(BaseEvents_1.BaseEvents.CLEAR_ANNOTATIONS, function () {
                 _this.clearSearchResults();
             });
-            // todo: this should be a setting
             $.subscribe(Events_1.Events.MODE_CHANGED, function () {
                 _this.settingsChanged();
             });
@@ -24454,7 +24257,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             });
             this.$printButton = $("\n          <button class=\"print btn imageBtn\" title=\"" + this.content.print + "\" tabindex=\"0\">\n            <i class=\"uv-icon uv-icon-print\" aria-hidden=\"true\"></i>" + this.content.print + "\n          </button>\n        ");
             this.$options.prepend(this.$printButton);
-            // search input.
             this.$searchContainer = $('<div class="search"></div>');
             this.$element.prepend(this.$searchContainer);
             this.$searchOptions = $('<div class="searchOptions"></div>');
@@ -24467,7 +24269,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             this.$searchTextContainer.append(this.$searchText);
             this.$searchButton = $('<a class="imageButton searchButton" tabindex="0"></a>');
             this.$searchTextContainer.append(this.$searchButton);
-            // search results.
             this.$searchPagerContainer = $('<div class="searchPager"></div>');
             this.$element.prepend(this.$searchPagerContainer);
             this.$searchPagerControls = $('<div class="controls"></div>');
@@ -24480,7 +24281,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             this.$searchResultsInfo.append(this.$clearSearchResultsButton);
             this.$nextResultButton = $('<a class="nextResult" title="' + this.content.nextResult + '">' + this.content.nextResult + '</a>');
             this.$searchPagerControls.append(this.$nextResultButton);
-            // placemarker line.
             this.$searchResultsContainer = $('<div class="searchResults"></div>');
             this.$element.prepend(this.$searchResultsContainer);
             this.$line = $('<div class="line"></div>');
@@ -24495,17 +24295,14 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             this.$placemarkerDetails.append(this.$placemarkerDetailsTop);
             this.$placemarkerDetailsBottom = $('<p></p>');
             this.$placemarkerDetails.append(this.$placemarkerDetailsBottom);
-            // initialise ui.
             this.$searchPagerContainer.hide();
             this.$placemarkerDetails.hide();
-            // ui event handlers.
             var that = this;
             this.$searchButton.on('click', function (e) {
                 e.preventDefault();
                 _this.search(_this.$searchText.val());
             });
             this.$searchText.on('focus', function () {
-                // clear initial text.
                 if (_this.$searchText.val() === _this.content.enterKeyword)
                     _this.$searchText.val('');
             });
@@ -24515,7 +24312,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             this.$placemarkerDetails.on('mouseleave', function () {
                 $(this).hide();
                 $.publish(Events_1.Events.SEARCH_PREVIEW_FINISH);
-                // reset all placemarkers.
                 var placemarkers = that.getSearchResultPlacemarkers();
                 placemarkers.removeClass('hover');
             });
@@ -24538,7 +24334,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
                 e.preventDefault();
                 $.publish(BaseEvents_1.BaseEvents.CLEAR_ANNOTATIONS);
             });
-            // hide search options if not enabled/supported.
             if (!this.isSearchEnabled()) {
                 this.$searchContainer.hide();
                 this.$searchPagerContainer.hide();
@@ -24589,7 +24384,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             var currentCanvasIndex = this.extension.helper.canvasIndex;
             var firstSearchResultCanvasIndex = this.getFirstSearchResultCanvasIndex();
             var currentSearchResultRectIndex = this.getCurrentSearchResultRectIndex();
-            // if zoom to search result is enabled and there is a highlighted search result.
             if (this.isZoomToSearchResultEnabled() && this.extension.currentAnnotationRect) {
                 if (currentCanvasIndex < firstSearchResultCanvasIndex) {
                     return false;
@@ -24607,7 +24401,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             var currentCanvasIndex = this.extension.helper.canvasIndex;
             var lastSearchResultCanvasIndex = this.getLastSearchResultCanvasIndex();
             var currentSearchResultRectIndex = this.getCurrentSearchResultRectIndex();
-            // if zoom to search result is enabled and there is a highlighted search result.
             if (this.isZoomToSearchResultEnabled() && this.extension.currentAnnotationRect) {
                 if (currentCanvasIndex > lastSearchResultCanvasIndex) {
                     return false;
@@ -24668,8 +24461,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
         };
         FooterPanel.prototype.updatePrintButton = function () {
             var configEnabled = Utils.Bools.getBool(this.options.printEnabled, false);
-            //var printService: Manifesto.IService = this.extension.helper.manifest.getService(manifesto.ServiceProfile.printExtensions());
-            //if (configEnabled && printService && this.extension.isOnHomeDomain()){
             if (configEnabled) {
                 this.$printButton.show();
             }
@@ -24685,7 +24476,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
                 });
                 return;
             }
-            // blur search field
             this.$searchText.blur();
             this.showSearchSpinner();
             $.publish(Events_1.Events.SEARCH, [this.terms]);
@@ -24703,14 +24493,12 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             var searchResults = this.getSearchResults();
             if (!searchResults || !searchResults.length)
                 return;
-            // clear all existing placemarkers
             var placemarkers = this.getSearchResultPlacemarkers();
             placemarkers.remove();
             var pageWidth = this.getPageLineRatio();
             var lineTop = this.$line.position().top;
             var lineLeft = this.$line.position().left;
             var that = this;
-            // for each page with a result, place a marker along the line.
             for (var i = 0; i < searchResults.length; i++) {
                 var result = searchResults[i];
                 var distance = result.canvasIndex * pageWidth;
@@ -24730,17 +24518,11 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
         };
         FooterPanel.prototype.onPlacemarkerTouchStart = function (that) {
             that.placemarkerTouched = true;
-            //const $placemarker: JQuery = $(this);
-            //const index: number = parseInt($placemarker.attr('data-index'));
-            //$.publish(Events.VIEW_PAGE, [index]);
         };
         FooterPanel.prototype.onPlacemarkerClick = function (that) {
             if (that.placemarkerTouched)
                 return;
             that.placemarkerTouched = false;
-            //const $placemarker: JQuery = $(this);
-            //const index: number = parseInt($placemarker.attr('data-index'));
-            //$.publish(Events.VIEW_PAGE, [index]);
         };
         FooterPanel.prototype.onPlacemarkerMouseEnter = function (that) {
             if (that.placemarkerTouched)
@@ -24815,7 +24597,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
         FooterPanel.prototype.setPageMarkerPosition = function () {
             if (this.extension.helper.canvasIndex === null)
                 return;
-            // position placemarker showing current page.
             var pageLineRatio = this.getPageLineRatio();
             var lineTop = this.$line.position().top;
             var lineLeft = this.$line.position().left;
@@ -24826,8 +24607,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
                 top: top,
                 left: left
             });
-            // if the remaining distance to the right is less than the width of the label
-            // shift it to the left.
             var lineWidth = this.$line.width();
             if (left + this.$pagePositionLabel.outerWidth(true) > lineWidth) {
                 left -= this.$pagePositionLabel.outerWidth(true);
@@ -24847,20 +24626,15 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             if (!this.isSearchEnabled()) {
                 return;
             }
-            // clear all existing placemarkers
             var $placemarkers = this.getSearchResultPlacemarkers();
             $placemarkers.remove();
-            // clear search input field.
             this.$searchText.val(this.content.enterKeyword);
-            // hide pager.
             this.$searchContainer.show();
             this.$searchPagerContainer.hide();
-            // set focus to search box.
             this.$searchText.focus();
         };
         FooterPanel.prototype.getPageLineRatio = function () {
             var lineWidth = this.$line.width();
-            // find page/width ratio by dividing the line width by the number of pages in the book.
             if (this.extension.helper.getTotalCanvases() === 1)
                 return 0;
             return lineWidth / (this.extension.helper.getTotalCanvases() - 1);
@@ -24905,7 +24679,6 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             }
             this.hideSearchSpinner();
             this.positionSearchResultPlacemarkers();
-            // show pager.
             this.$searchContainer.hide();
             this.$searchPagerControls.css({
                 'left': 0
@@ -24941,11 +24714,9 @@ define('modules/uv-searchfooterpanel-module/FooterPanel',["require", "exports", 
             this.setPageMarkerPosition();
             this.$searchPagerContainer.width(this.$element.width());
             var center = this.$element.width() / 2;
-            // position search pager controls.
             this.$searchPagerControls.css({
                 'left': center - (this.$searchPagerControls.width() / 2)
             });
-            // position search input.
             this.$searchOptions.css({
                 'left': center - (this.$searchOptions.outerWidth() / 2)
             });
@@ -24968,7 +24739,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-dialogues-module/MoreInfoDialogue',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/Dialogue", "../../Utils"], function (require, exports, BaseEvents_1, Dialogue_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MoreInfoDialogue = /** @class */ (function (_super) {
+    var MoreInfoDialogue = (function (_super) {
         __extends(MoreInfoDialogue, _super);
         function MoreInfoDialogue($element) {
             return _super.call(this, $element) || this;
@@ -24987,7 +24758,6 @@ define('modules/uv-dialogues-module/MoreInfoDialogue',["require", "exports", "..
             });
             this.config.content = this.extension.data.config.modules.moreInfoRightPanel.content;
             this.config.options = this.extension.data.config.modules.moreInfoRightPanel.options;
-            // create ui
             this.$title = $('<h1>' + this.config.content.title + '</h1>');
             this.$content.append(this.$title);
             this.$metadata = $('<div class="iiif-metadata-component"></div>');
@@ -24995,7 +24765,6 @@ define('modules/uv-dialogues-module/MoreInfoDialogue',["require", "exports", "..
             this.metadataComponent = new IIIFComponents.MetadataComponent({
                 target: this.$metadata[0]
             });
-            // hide
             this.$element.hide();
         };
         MoreInfoDialogue.prototype.open = function ($triggerButton) {
@@ -25049,7 +24818,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-multiselectdialogue-module/MultiSelectDialogue',["require", "exports", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/Dialogue", "../../extensions/uv-seadragon-extension/Mode"], function (require, exports, BaseEvents_1, Dialogue_1, Mode_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MultiSelectDialogue = /** @class */ (function (_super) {
+    var MultiSelectDialogue = (function (_super) {
         __extends(MultiSelectDialogue, _super);
         function MultiSelectDialogue($element) {
             return _super.call(this, $element) || this;
@@ -25128,7 +24897,7 @@ define('modules/uv-multiselectdialogue-module/MultiSelectDialogue',["require", "
 define('extensions/uv-seadragon-extension/MultiSelectionArgs',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MultiSelectionArgs = /** @class */ (function () {
+    var MultiSelectionArgs = (function () {
         function MultiSelectionArgs() {
         }
         return MultiSelectionArgs;
@@ -25149,7 +24918,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "exports", "../uv-shared-module/AutoComplete", "../uv-shared-module/BaseEvents", "../../extensions/uv-seadragon-extension/Events", "../uv-shared-module/HeaderPanel", "../../extensions/uv-seadragon-extension/Mode", "../../Utils"], function (require, exports, AutoComplete_1, BaseEvents_1, Events_1, HeaderPanel_1, Mode_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var PagingHeaderPanel = /** @class */ (function (_super) {
+    var PagingHeaderPanel = (function (_super) {
         __extends(PagingHeaderPanel, _super);
         function PagingHeaderPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -25206,7 +24975,6 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
                 new AutoComplete_1.AutoComplete(this.$autoCompleteBox, function (term, cb) {
                     var results = [];
                     var canvases = _this.extension.helper.getCanvases();
-                    // if in page mode, get canvases by label.
                     if (_this.isPageModeEnabled()) {
                         for (var i = 0; i < canvases.length; i++) {
                             var canvas = canvases[i];
@@ -25217,7 +24985,6 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
                         }
                     }
                     else {
-                        // get canvas by index
                         for (var i = 0; i < canvases.length; i++) {
                             var canvas = canvases[i];
                             if (canvas.index.toString().startsWith(term)) {
@@ -25264,7 +25031,6 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
             }
             else {
                 this.$imageModeOption.attr('checked', 'checked');
-                // disable page mode option.
                 this.$pageModeOption.attr('disabled', 'disabled');
                 this.$pageModeLabel.addClass('disabled');
             }
@@ -25300,11 +25066,9 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
             this.setNavigationTitles();
             this.setTotal();
             var viewingDirection = this.extension.helper.getViewingDirection() || manifesto.ViewingDirection.leftToRight();
-            // check if the book has more than one page, otherwise hide prev/next options.
             if (this.extension.helper.getTotalCanvases() === 1) {
                 this.$centerOptions.hide();
             }
-            // ui event handlers.
             this.$firstButton.onPressed(function () {
                 switch (viewingDirection.toString()) {
                     case manifesto.ViewingDirection.leftToRight().toString():
@@ -25353,17 +25117,12 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
                         break;
                 }
             });
-            // If page mode is disabled, we don't need to show radio buttons since
-            // there is only one option:
             if (!this.config.options.pageModeEnabled) {
                 this.$imageModeOption.hide();
                 this.$pageModeLabel.hide();
                 this.$pageModeOption.hide();
             }
             else {
-                // Only activate click actions for mode buttons when controls are
-                // visible, since otherwise, clicking on the "Image" label can
-                // trigger unexpected/undesired side effects.
                 this.$imageModeOption.on('click', function (e) {
                     $.publish(Events_1.Events.MODE_CHANGED, [Mode_1.Mode.image.toString()]);
                 });
@@ -25390,31 +25149,12 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
                 this.$modeOptions.hide();
                 this.$centerOptions.addClass('modeOptionsDisabled');
             }
-            // Search is shown as default
             if (this.options.imageSelectionBoxEnabled === true && this.options.autoCompleteBoxEnabled !== true) {
                 this.$search.hide();
             }
             if (this.options.helpEnabled === false) {
                 this.$helpButton.hide();
             }
-            // todo: discuss on community call
-            // Get visible element in centerOptions with greatest tabIndex
-            // var $elementWithGreatestTabIndex: JQuery = this.$centerOptions.getVisibleElementWithGreatestTabIndex();
-            // // cycle focus back to start.
-            // if ($elementWithGreatestTabIndex) {
-            //     $elementWithGreatestTabIndex.blur(() => {
-            //         if (this.extension.tabbing && !this.extension.shifted) {
-            //             this.$nextButton.focus();
-            //         }
-            //     });
-            // }
-            // this.$nextButton.blur(() => {
-            //     if (this.extension.tabbing && this.extension.shifted) {
-            //         setTimeout(() => {
-            //             $elementWithGreatestTabIndex.focus();
-            //         }, 100);
-            //     }
-            // });
             if (!Utils.Bools.getBool(this.options.pagingToggleEnabled, true)) {
                 this.$pagingToggleButtons.hide();
             }
@@ -25648,7 +25388,6 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
         };
         PagingHeaderPanel.prototype.resize = function () {
             _super.prototype.resize.call(this);
-            // hide toggle buttons below minimum width
             if (this.extension.width() < this.extension.data.config.options.minWidthBreakPoint) {
                 if (this.pagingToggleIsVisible())
                     this.$pagingToggleButtons.hide();
@@ -25670,7 +25409,7 @@ define('modules/uv-pagingheaderpanel-module/PagingHeaderPanel',["require", "expo
 define('extensions/uv-seadragon-extension/Bounds',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Bounds = /** @class */ (function () {
+    var Bounds = (function () {
         function Bounds(x, y, w, h) {
             this.x = x;
             this.y = y;
@@ -25702,7 +25441,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../../extensions/uv-seadragon-extension/Bounds", "../uv-shared-module/CenterPanel", "../../extensions/uv-seadragon-extension/Events", "../../Utils"], function (require, exports, BaseEvents_1, Bounds_1, CenterPanel_1, Events_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SeadragonCenterPanel = /** @class */ (function (_super) {
+    var SeadragonCenterPanel = (function (_super) {
         __extends(SeadragonCenterPanel, _super);
         function SeadragonCenterPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -25801,7 +25540,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var _this = this;
             this.$spinner = $('<div class="spinner"></div>');
             this.$content.append(this.$spinner);
-            // add to window object for testing automation purposes.
             window.openSeadragonViewer = this.viewer = OpenSeadragon({
                 id: "viewer",
                 ajaxWithCredentials: false,
@@ -25889,11 +25627,9 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             this.$viewportNavButtonsContainer = this.$viewer.find('.openseadragon-container > div:not(.openseadragon-canvas):first');
             this.$viewportNavButtons = this.$viewportNavButtonsContainer.find('.viewportNavButton');
             this.$canvas = $(this.viewer.canvas);
-            // disable right click on canvas
             this.$canvas.on('contextmenu', function () { return false; });
             this.$navigator = this.$viewer.find(".navigator");
             this.setNavigatorVisible();
-            // events
             this.$element.on('mousemove', function () {
                 if (_this.controlsVisible)
                     return;
@@ -25906,10 +25642,7 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                 _this.controlsVisible = false;
                 _this.viewer.setControlsEnabled(false);
             });
-            // when mouse move stopped
             this.$element.on('mousemove', function () {
-                // if over element, hide controls.
-                // When over prev/next buttons keep controls enabled
                 if (_this.$prevButton.ismouseover()) {
                     return;
                 }
@@ -25926,8 +25659,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             this.viewer.addHandler('tile-drawn', function () {
                 _this.$spinner.hide();
             });
-            //this.viewer.addHandler("open-failed", () => {
-            //});
             this.viewer.addHandler('resize', function (viewer) {
                 $.publish(Events_1.Events.SEADRAGON_RESIZE, [viewer]);
                 _this.viewerResize(viewer);
@@ -26013,7 +25744,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                         break;
                 }
             });
-            // When Prev/Next buttons are focused, make sure the controls are enabled
             this.$prevButton.on('focus', function () {
                 if (_this.controlsVisible)
                     return;
@@ -26070,19 +25800,15 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var bottomPage;
             var page;
             var nextPage;
-            // if there's more than one image, determine alignment strategy
             if (resources.length > 1) {
                 if (resources.length === 2) {
-                    // recto verso
                     if (this.extension.helper.isVerticallyAligned()) {
-                        // vertical alignment
                         topPage = resources[0];
                         topPage.y = 0;
                         bottomPage = resources[1];
                         bottomPage.y = topPage.height + this.config.options.pageGap;
                     }
                     else {
-                        // horizontal alignment
                         leftPage = resources[0];
                         leftPage.x = 0;
                         rightPage = resources[1];
@@ -26090,11 +25816,8 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                     }
                 }
                 else {
-                    // scroll
                     if (this.extension.helper.isVerticallyAligned()) {
-                        // vertical alignment
                         if (this.extension.helper.isTopToBottom()) {
-                            // top to bottom
                             for (var i = 0; i < resources.length - 1; i++) {
                                 page = resources[i];
                                 nextPage = resources[i + 1];
@@ -26103,7 +25826,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                             }
                         }
                         else {
-                            // bottom to top
                             for (var i = resources.length; i > 0; i--) {
                                 page = resources[i];
                                 nextPage = resources[i - 1];
@@ -26112,9 +25834,7 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                         }
                     }
                     else {
-                        // horizontal alignment
                         if (this.extension.helper.isLeftToRight()) {
-                            // left to right
                             for (var i = 0; i < resources.length - 1; i++) {
                                 page = resources[i];
                                 nextPage = resources[i + 1];
@@ -26122,7 +25842,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                             }
                         }
                         else {
-                            // right to left
                             for (var i = resources.length - 1; i > 0; i--) {
                                 page = resources[i];
                                 nextPage = resources[i - 1];
@@ -26173,7 +25892,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             this.setNavigatorVisible();
             this.overlayAnnotations();
             this.updateBounds();
-            // this only happens if prev/next search result were clicked and caused a reload
             if (this.navigatedFromSearch) {
                 this.navigatedFromSearch = false;
                 this.zoomToInitialAnnotation();
@@ -26205,7 +25923,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
         };
         SeadragonCenterPanel.prototype.updateBounds = function () {
             var settings = this.extension.getSettings();
-            // if this is the first load and there are initial bounds, fit to those.
             if (this.isFirstLoad) {
                 this.initialRotation = this.extension.data.rotation;
                 if (this.initialRotation) {
@@ -26293,7 +26010,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var center = viewer.viewport.getCenter(true);
             if (!center)
                 return;
-            // postpone pan for a millisecond - fixes iPad image stretching/squashing issue.
             setTimeout(function () {
                 viewer.viewport.panTo(center, true);
             }, 1);
@@ -26323,7 +26039,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             return annotations.en().selectMany(function (x) { return x.rects; }).toArray();
         };
         SeadragonCenterPanel.prototype.updateVisibleAnnotationRects = function () {
-            // after animating, loop through all search result rects and flag their visibility based on whether they are inside the current viewport.
             var annotationRects = this.getAnnotationRectsForCurrentImages();
             for (var i = 0; i < annotationRects.length; i++) {
                 var rect = annotationRects[i];
@@ -26342,23 +26057,13 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var annotationRects = this.getAnnotationRectsForCurrentImages();
             var currentAnnotationRect = this.extension.currentAnnotationRect;
             var currentAnnotationRectIndex = currentAnnotationRect ? this.getAnnotationRectIndex(currentAnnotationRect) : annotationRects.length;
-            //const currentAnnotationRectIndex: number = this.getAnnotationRectIndex(<AnnotationRect>currentAnnotationRect);
             var foundRect = null;
-            // if there's no currentAnnotationRect selected, index is the total available annotation rects for the current images.
-            // minusing 1 makes the index the last of the available rects for the current images.
             for (var i = currentAnnotationRectIndex - 1; i >= 0; i--) {
                 var rect = annotationRects[i];
-                // this was removed as users found it confusing.
-                // find the prev visible or non-visible rect.
-                //if (rect.isVisible) {
-                //    continue;
-                //} else {
                 foundRect = rect;
                 break;
-                //}
             }
             if (foundRect && this.isZoomToSearchResultEnabled()) {
-                // if the rect's canvasIndex is less than the current canvasIndex
                 if (foundRect.canvasIndex < this.extension.helper.canvasIndex) {
                     this.extension.currentAnnotationRect = foundRect;
                     this.navigatedFromSearch = true;
@@ -26378,21 +26083,12 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var currentAnnotationRect = this.extension.currentAnnotationRect;
             var currentAnnotationRectIndex = currentAnnotationRect ? this.getAnnotationRectIndex(currentAnnotationRect) : -1;
             var foundRect = null;
-            // if there's no currentAnnotationRect selected, index is -1.
-            // adding 1 makes the index 0 of available rects for the current images.
             for (var i = currentAnnotationRectIndex + 1; i < annotationRects.length; i++) {
                 var rect = annotationRects[i];
-                // this was removed as users found it confusing.
-                // find the next visible or non-visible rect.
-                //if (rect.isVisible) {
-                //    continue;
-                //} else {
                 foundRect = rect;
                 break;
-                //}
             }
             if (foundRect && this.isZoomToSearchResultEnabled()) {
-                // if the rect's canvasIndex is greater than the current canvasIndex
                 if (foundRect.canvasIndex > this.extension.helper.canvasIndex) {
                     this.extension.currentAnnotationRect = foundRect;
                     this.navigatedFromSearch = true;
@@ -26418,11 +26114,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
             var annotationRects = this.getAnnotationRectsForCurrentImages();
             if (!annotationRects.length)
                 return null;
-            // if we've got this far it means that a reload has happened
-            // check if the lastCanvasIndex is greater or less than the current canvasIndex
-            // if greater than, select the last annotation on the current page
-            // if less than, select the first annotation on the current page
-            // otherwise default to the first annotation
             var previousAnnotationRect = this.extension.previousAnnotationRect;
             if (!previousAnnotationRect) {
                 if (this.extension.lastCanvasIndex > this.extension.helper.canvasIndex) {
@@ -26434,8 +26125,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
         SeadragonCenterPanel.prototype.zoomToAnnotation = function (annotationRect) {
             this.extension.previousAnnotationRect = this.extension.currentAnnotationRect || annotationRect;
             this.extension.currentAnnotationRect = annotationRect;
-            // if zoomToBoundsEnabled, zoom to the annotation's bounds.
-            // otherwise, pan into view preserving the current zoom level.
             if (Utils.Bools.getBool(this.config.options.zoomToBoundsEnabled, false)) {
                 this.fitToBounds(new Bounds_1.Bounds(annotationRect.viewportX, annotationRect.viewportY, annotationRect.width, annotationRect.height), false);
             }
@@ -26517,7 +26206,6 @@ define('modules/uv-seadragoncenterpanel-module/SeadragonCenterPanel',["require",
                         break;
                 }
             }
-            // stretch navigator, allowing time for OSD to resize
             setTimeout(function () {
                 if (_this.extension.helper.isContinuous()) {
                     if (_this.extension.helper.isHorizontallyAligned()) {
@@ -26565,7 +26253,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-seadragon-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -26576,7 +26264,6 @@ define('extensions/uv-seadragon-extension/SettingsDialogue',["require", "exports
             _super.prototype.create.call(this);
             this.$navigatorEnabled = $('<div class="setting navigatorEnabled"></div>');
             this.$scroll.append(this.$navigatorEnabled);
-            // todo: use .checkboxButton jquery extension
             this.$navigatorEnabledCheckbox = $('<input id="navigatorEnabled" type="checkbox" tabindex="0" />');
             this.$navigatorEnabled.append(this.$navigatorEnabledCheckbox);
             this.$navigatorEnabledLabel = $('<label for="navigatorEnabled">' + this.content.navigatorEnabled + '</label>');
@@ -26691,7 +26378,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-seadragon-extension/ShareDialogue',["require", "exports", "./Events", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, Events_1, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             var _this = _super.call(this, $element) || this;
@@ -26736,7 +26423,7 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var AnnotationGroup = Manifold.AnnotationGroup;
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -26968,10 +26655,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
                 var settings = _this.getSettings();
                 $.publish(BaseEvents_1.BaseEvents.SETTINGS_CHANGED, [settings]);
             });
-            // $.subscribe(Events.VIEW_PAGE, (e: any, index: number) => {
-            //     this.fire(Events.VIEW_PAGE, index);
-            //     $.publish(BaseEvents.CANVAS_INDEX_CHANGED, [index]);
-            // });
         };
         Extension.prototype.createModules = function () {
             _super.prototype.createModules.call(this);
@@ -27037,13 +26720,9 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         };
         Extension.prototype.render = function () {
             _super.prototype.render.call(this);
-            //Utils.Async.waitFor(() => {
-            //    return this.centerPanel && this.centerPanel.isCreated;
-            //}, () => {
             this.checkForAnnotations();
             this.checkForSearchParam();
             this.checkForRotationParam();
-            //});
         };
         Extension.prototype.checkForAnnotations = function () {
             if (this.data.annotations) {
@@ -27054,7 +26733,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         };
         Extension.prototype.annotate = function (annotations, terms) {
             this.annotations = annotations;
-            // sort the annotations by canvasIndex
             this.annotations = annotations.sort(function (a, b) {
                 return a.canvasIndex - b.canvasIndex;
             });
@@ -27062,11 +26740,8 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             annotationResults.terms = terms;
             annotationResults.annotations = this.annotations;
             $.publish(BaseEvents_1.BaseEvents.ANNOTATIONS, [annotationResults]);
-            // reload current index as it may contain annotations.
-            //$.publish(BaseEvents.CANVAS_INDEX_CHANGED, [this.helper.canvasIndex]);
         };
         Extension.prototype.checkForSearchParam = function () {
-            // if a highlight param is set, use it to search.
             var highlight = this.data.highlight;
             if (highlight) {
                 highlight.replace(/\+/g, " ").replace(/"/g, "");
@@ -27074,14 +26749,12 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             }
         };
         Extension.prototype.checkForRotationParam = function () {
-            // if a rotation value is passed, set rotation
             var rotation = this.data.rotation;
             if (rotation) {
                 $.publish(Events_1.Events.SEADRAGON_ROTATION, [rotation]);
             }
         };
         Extension.prototype.viewPage = function (canvasIndex) {
-            // if it's an invalid canvas index.
             if (canvasIndex === -1)
                 return;
             var isReload = false;
@@ -27094,7 +26767,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             }
             if (this.isPagingSettingEnabled() && !isReload) {
                 var indices = this.getPagedIndices(canvasIndex);
-                // if the page is already displayed, only advance canvasIndex.
                 if (indices.includes(this.helper.canvasIndex)) {
                     this.viewCanvas(canvasIndex);
                     return;
@@ -27132,7 +26804,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             return this.currentRotation;
         };
         Extension.prototype.viewRange = function (path) {
-            //this.currentRangePath = path;
             var range = this.helper.getRangeByPath(path);
             if (!range)
                 return;
@@ -27164,8 +26835,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
                     this.viewManifest(data);
                     break;
                 case manifesto.IIIFResourceType.collection().toString():
-                    // note: this won't get called as the tree component now has branchNodesSelectable = false
-                    // useful to keep around for reference
                     this.viewCollection(data);
                     break;
                 default:
@@ -27175,14 +26844,12 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         };
         Extension.prototype.clearAnnotations = function () {
             this.annotations = null;
-            // reload current index as it may contain results.
             $.publish(BaseEvents_1.BaseEvents.CANVAS_INDEX_CHANGED, [this.helper.canvasIndex]);
         };
         Extension.prototype.prevSearchResult = function () {
             var foundResult;
             if (!this.annotations)
                 return;
-            // get the first result with a canvasIndex less than the current index.
             for (var i = this.annotations.length - 1; i >= 0; i--) {
                 var result = this.annotations[i];
                 if (result.canvasIndex <= this.getPrevPageIndex()) {
@@ -27195,7 +26862,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         Extension.prototype.nextSearchResult = function () {
             if (!this.annotations)
                 return;
-            // get the first result with an index greater than the current index.
             for (var i = 0; i < this.annotations.length; i++) {
                 var result = this.annotations[i];
                 if (result && result.canvasIndex >= this.getNextPageIndex()) {
@@ -27218,11 +26884,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             this.fire(BaseEvents_1.BaseEvents.BOOKMARK, bookmark);
         };
         Extension.prototype.print = function () {
-            // var args: MultiSelectionArgs = new MultiSelectionArgs();
-            // args.manifestUri = this.helper.iiifResourceUri;
-            // args.allCanvases = true;
-            // args.format = this.data.config.options.printMimeType;
-            // args.sequence = this.helper.getCurrentSequence().id;
             window.print();
             this.fire(Events_1.Events.PRINT);
         };
@@ -27240,7 +26901,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             var height = Math.floor(bounds.height);
             var x = Math.floor(bounds.x);
             var y = Math.floor(bounds.y);
-            // constrain to image bounds
             if (x + width > canvas.getWidth()) {
                 width = canvas.getWidth() - x;
             }
@@ -27281,52 +26941,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             dimensions.size = new manifesto.Size(width, height);
             return dimensions;
         };
-        // keep this around for reference
-        // getOnScreenCroppedImageDimensions(canvas: Manifesto.ICanvas, viewer: any): CroppedImageDimensions {
-        //     if (!viewer) return null;
-        //     if (!viewer.viewport) return null;
-        //     if (!canvas.getHeight() || !canvas.getWidth()){
-        //         return null;
-        //     }
-        //     var bounds = viewer.viewport.getBounds(true);
-        //     var containerSize = viewer.viewport.getContainerSize();
-        //     var zoom = viewer.viewport.getZoom(true);
-        //     var top = Math.max(0, bounds.y);
-        //     var left = Math.max(0, bounds.x);
-        //     // change top to be normalised value proportional to height of image, not width (as per OSD).
-        //     top = 1 / (canvas.getHeight() / parseInt(String(canvas.getWidth() * top)));
-        //     // get on-screen pixel sizes.
-        //     var viewportWidthPx = containerSize.x;
-        //     var viewportHeightPx = containerSize.y;
-        //     var imageWidthPx = parseInt(String(viewportWidthPx * zoom));
-        //     var ratio = canvas.getWidth() / imageWidthPx;
-        //     var imageHeightPx = parseInt(String(canvas.getHeight() / ratio));
-        //     var viewportLeftPx = parseInt(String(left * imageWidthPx));
-        //     var viewportTopPx = parseInt(String(top * imageHeightPx));
-        //     var rect1Left = 0;
-        //     var rect1Right = imageWidthPx;
-        //     var rect1Top = 0;
-        //     var rect1Bottom = imageHeightPx;
-        //     var rect2Left = viewportLeftPx;
-        //     var rect2Right = viewportLeftPx + viewportWidthPx;
-        //     var rect2Top = viewportTopPx;
-        //     var rect2Bottom = viewportTopPx + viewportHeightPx;
-        //     var sizeWidth = Math.max(0, Math.min(rect1Right, rect2Right) - Math.max(rect1Left, rect2Left));
-        //     var sizeHeight = Math.max(0, Math.min(rect1Bottom, rect2Bottom) - Math.max(rect1Top, rect2Top));
-        //     // get original image pixel sizes.
-        //     var ratio2 = canvas.getWidth() / imageWidthPx;
-        //     var regionWidth = parseInt(String(sizeWidth * ratio2));
-        //     var regionHeight = parseInt(String(sizeHeight * ratio2));
-        //     var regionTop = parseInt(String(canvas.getHeight() * top));
-        //     var regionLeft = parseInt(String(canvas.getWidth() * left));
-        //     if (regionTop < 0) regionTop = 0;
-        //     if (regionLeft < 0) regionLeft = 0;
-        //     var dimensions: CroppedImageDimensions = new CroppedImageDimensions();
-        //     dimensions.region = new manifesto.Size(regionWidth, regionHeight);
-        //     dimensions.regionPos = new Point(regionLeft, regionTop);
-        //     dimensions.size = new manifesto.Size(sizeWidth, sizeHeight);
-        //     return dimensions;
-        // }
         Extension.prototype.getCroppedImageUri = function (canvas, viewer) {
             if (!viewer)
                 return null;
@@ -27336,8 +26950,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             if (!dimensions) {
                 return null;
             }
-            // construct uri
-            // {baseuri}/{id}/{region}/{size}/{rotation}/{quality}.jpg
             var baseUri = this.getImageBaseUri(canvas);
             var id = this.getImageId(canvas);
             if (!id) {
@@ -27358,7 +26970,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         };
         Extension.prototype.getConfinedImageUri = function (canvas, width) {
             var baseUri = this.getImageBaseUri(canvas);
-            // {baseuri}/{id}/{region}/{size}/{rotation}/{quality}.jpg
             var id = this.getImageId(canvas);
             if (!id) {
                 return null;
@@ -27381,7 +26992,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         };
         Extension.prototype.getImageBaseUri = function (canvas) {
             var uri = this.getInfoUri(canvas);
-            // First trim off info.json, then trim off ID....
             uri = uri.substr(0, uri.lastIndexOf("/"));
             return uri.substr(0, uri.lastIndexOf("/"));
         };
@@ -27404,7 +27014,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
                 }
             }
             if (!infoUri) {
-                // todo: use compiler flag (when available)
                 infoUri = 'lib/imageunavailable.json';
             }
             return infoUri;
@@ -27493,10 +27102,8 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             if (this.isAnnotating)
                 return;
             this.isAnnotating = true;
-            // clear search results
             this.annotations = [];
             var that = this;
-            // searching
             var searchUri = this.getSearchServiceUri();
             if (!searchUri)
                 return;
@@ -27534,7 +27141,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
                 var canvasIndex = this_1.helper.getCanvasIndexById(resource.on.match(/(.*)#/)[1]);
                 var annotationGroup = new AnnotationGroup(resource, canvasIndex);
                 var match = parsed.en().where(function (x) { return x.canvasIndex === annotationGroup.canvasIndex; }).first();
-                // if there's already an annotation for the canvas index, add a rect to it, otherwise create a new AnnotationGroup
                 if (match) {
                     match.addRect(resource);
                 }
@@ -27546,7 +27152,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
             for (var i = 0; i < annotations.resources.length; i++) {
                 _loop_1(i);
             }
-            // sort by canvasIndex
             parsed.sort(function (a, b) {
                 return a.canvasIndex - b.canvasIndex;
             });
@@ -27578,7 +27183,6 @@ define('extensions/uv-seadragon-extension/Extension',["require", "exports", "../
         Extension.prototype.getPagedIndices = function (canvasIndex) {
             if (canvasIndex === void 0) { canvasIndex = this.helper.canvasIndex; }
             var indices = [];
-            // if it's a continuous manifest, get all resources.
             if (this.helper.isContinuous()) {
                 indices = $.map(this.helper.getCanvases(), function (c, index) {
                     return index;
@@ -27623,7 +27227,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-pdf-extension/DownloadDialogue',["require", "exports", "../../modules/uv-dialogues-module/DownloadDialogue"], function (require, exports, DownloadDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -27639,7 +27243,6 @@ define('extensions/uv-pdf-extension/DownloadDialogue',["require", "exports", "..
                 this.$noneAvailable.show();
             }
             else {
-                // select first option.
                 this.$noneAvailable.hide();
             }
             this.resize();
@@ -27655,7 +27258,7 @@ define('extensions/uv-pdf-extension/DownloadDialogue',["require", "exports", "..
 define('extensions/uv-pdf-extension/Events',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Events = /** @class */ (function () {
+    var Events = (function () {
         function Events() {
         }
         Events.namespace = 'pdfExtension.';
@@ -27680,7 +27283,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-pdfcenterpanel-module/PDFCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../../extensions/uv-pdf-extension/Events"], function (require, exports, BaseEvents_1, CenterPanel_1, Events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var PDFCenterPanel = /** @class */ (function (_super) {
+    var PDFCenterPanel = (function (_super) {
         __extends(PDFCenterPanel, _super);
         function PDFCenterPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -27865,7 +27468,6 @@ define('modules/uv-pdfcenterpanel-module/PDFCenterPanel',["require", "exports", 
             this._pageRendering = true;
             this._$zoomOutButton.enable();
             this._$zoomInButton.enable();
-            //disable zoom if not possible
             var lowScale = this._scale - 0.5;
             var highScale = this._scale + 0.5;
             if (lowScale < this._minScale) {
@@ -27874,36 +27476,22 @@ define('modules/uv-pdfcenterpanel-module/PDFCenterPanel',["require", "exports", 
             if (highScale > this._maxScale) {
                 this._$zoomInButton.disable();
             }
-            //this._pdfDoc.getPage(num).then((page: any) => {
             this._pdfDoc.getPage(num).then(function (page) {
                 if (_this._renderTask) {
                     _this._renderTask.cancel();
                 }
-                // how to fit to the available space
-                // const height: number = this.$content.height();
-                // this._canvas.height = height;
-                // this._viewport = page.getViewport(this._canvas.height / page.getViewport(1.0).height);
-                // const width: number = this._viewport.width;
-                // this._canvas.width = width;
-                // this._$canvas.css({
-                //     left: (this.$content.width() / 2) - (width / 2)
-                // });
-                // scale viewport
                 _this._viewport = page.getViewport(_this._scale);
                 _this._canvas.height = _this._viewport.height;
                 _this._canvas.width = _this._viewport.width;
-                // Render PDF page into canvas context
                 var renderContext = {
                     canvasContext: _this._ctx,
                     viewport: _this._viewport
                 };
                 _this._renderTask = page.render(renderContext);
-                // Wait for rendering to finish
                 _this._renderTask.promise.then(function () {
                     $.publish(Events_1.Events.PAGE_INDEX_CHANGED, [_this._pageIndex]);
                     _this._pageRendering = false;
                     if (_this._pageIndexPending !== null) {
-                        // New page rendering is pending
                         _this._render(_this._pageIndexPending);
                         _this._pageIndexPending = null;
                     }
@@ -27920,7 +27508,6 @@ define('modules/uv-pdfcenterpanel-module/PDFCenterPanel',["require", "exports", 
                         _this.enableNextButton();
                     }
                 }).catch(function (err) {
-                    //console.log(err);
                 });
             });
         };
@@ -27969,7 +27556,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-pdfheaderpanel-module/PDFHeaderPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../../extensions/uv-pdf-extension/Events", "../uv-shared-module/HeaderPanel"], function (require, exports, BaseEvents_1, Events_1, HeaderPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var PDFHeaderPanel = /** @class */ (function (_super) {
+    var PDFHeaderPanel = (function (_super) {
         __extends(PDFHeaderPanel, _super);
         function PDFHeaderPanel($element) {
             var _this = _super.call(this, $element) || this;
@@ -28017,7 +27604,6 @@ define('modules/uv-pdfheaderpanel-module/PDFHeaderPanel',["require", "exports", 
             this.$lastButton = $("\n          <button class=\"btn imageBtn last\" tabindex=\"0\" title=\"" + this.content.last + "\">\n            <i class=\"uv-icon-last\" aria-hidden=\"true\"></i>" + this.content.last + "\n          </button>\n        ");
             this.$nextOptions.append(this.$lastButton);
             this.$lastButton.disable();
-            // ui event handlers.
             this.$firstButton.onPressed(function () {
                 $.publish(BaseEvents_1.BaseEvents.FIRST);
             });
@@ -28042,7 +27628,6 @@ define('modules/uv-pdfheaderpanel-module/PDFHeaderPanel',["require", "exports", 
             });
         };
         PDFHeaderPanel.prototype.render = function () {
-            // check if the book has more than one page, otherwise hide prev/next options.
             if (this._pdfDoc.numPages === 1) {
                 this.$centerOptions.hide();
             }
@@ -28103,7 +27688,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-pdf-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -28130,7 +27715,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-pdf-extension/ShareDialogue',["require", "exports", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             return _super.call(this, $element) || this;
@@ -28165,7 +27750,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-pdf-extension/Extension',["require", "exports", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/BaseExtension", "../../modules/uv-shared-module/Bookmark", "./DownloadDialogue", "../../modules/uv-shared-module/FooterPanel", "../../modules/uv-moreinforightpanel-module/MoreInfoRightPanel", "../../modules/uv-pdfcenterpanel-module/PDFCenterPanel", "../../modules/uv-pdfheaderpanel-module/PDFHeaderPanel", "../../modules/uv-resourcesleftpanel-module/ResourcesLeftPanel", "./SettingsDialogue", "./ShareDialogue", "../../modules/uv-shared-module/Shell"], function (require, exports, BaseEvents_1, BaseExtension_1, Bookmark_1, DownloadDialogue_1, FooterPanel_1, MoreInfoRightPanel_1, PDFCenterPanel_1, PDFHeaderPanel_1, ResourcesLeftPanel_1, SettingsDialogue_1, ShareDialogue_1, Shell_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -28202,7 +27787,7 @@ define('extensions/uv-pdf-extension/Extension',["require", "exports", "../../mod
             $.subscribe(BaseEvents_1.BaseEvents.EXIT_FULLSCREEN, function () {
                 setTimeout(function () {
                     _this.resize();
-                }, 10); // allow time to exit full screen, then resize
+                }, 10);
             });
         };
         Extension.prototype.render = function () {
@@ -28265,8 +27850,6 @@ define('extensions/uv-pdf-extension/Extension',["require", "exports", "../../mod
             this.fire(BaseEvents_1.BaseEvents.BOOKMARK, bookmark);
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
-            //const configUri = this.data.config.uri || '';
-            //const script = String.format(template, this.getSerializedLocales(), configUri, this.helper.iiifResourceUri, this.helper.collectionIndex, this.helper.manifestIndex, this.helper.sequenceIndex, this.helper.canvasIndex, width, height, this.data.embedScriptUri);
             var appUri = this.getAppUri();
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
@@ -28290,7 +27873,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-virtex-extension/DownloadDialogue',["require", "exports", "../../modules/uv-dialogues-module/DownloadDialogue"], function (require, exports, DownloadDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var DownloadDialogue = /** @class */ (function (_super) {
+    var DownloadDialogue = (function (_super) {
         __extends(DownloadDialogue, _super);
         function DownloadDialogue($element) {
             return _super.call(this, $element) || this;
@@ -28326,7 +27909,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-virtex-extension/SettingsDialogue',["require", "exports", "../../modules/uv-dialogues-module/SettingsDialogue"], function (require, exports, SettingsDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SettingsDialogue = /** @class */ (function (_super) {
+    var SettingsDialogue = (function (_super) {
         __extends(SettingsDialogue, _super);
         function SettingsDialogue($element) {
             return _super.call(this, $element) || this;
@@ -28353,7 +27936,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-virtex-extension/ShareDialogue',["require", "exports", "../../modules/uv-dialogues-module/ShareDialogue"], function (require, exports, ShareDialogue_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ShareDialogue = /** @class */ (function (_super) {
+    var ShareDialogue = (function (_super) {
         __extends(ShareDialogue, _super);
         function ShareDialogue($element) {
             return _super.call(this, $element) || this;
@@ -28388,7 +27971,7 @@ var __extends = (this && this.__extends) || (function () {
 define('modules/uv-virtexcenterpanel-module/VirtexCenterPanel',["require", "exports", "../uv-shared-module/BaseEvents", "../uv-shared-module/CenterPanel", "../../Utils"], function (require, exports, BaseEvents_1, CenterPanel_1, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var VirtexCenterPanel = /** @class */ (function (_super) {
+    var VirtexCenterPanel = (function (_super) {
         __extends(VirtexCenterPanel, _super);
         function VirtexCenterPanel($element) {
             return _super.call(this, $element) || this;
@@ -28442,7 +28025,6 @@ define('modules/uv-virtexcenterpanel-module/VirtexCenterPanel',["require", "expo
                 var canvas = _this.extension.helper.getCurrentCanvas();
                 var formats = _this.extension.getMediaFormats(canvas);
                 var resourceType = null;
-                // default to threejs format.
                 var fileType = new Virtex.FileType("application/vnd.threejs+json");
                 if (formats && formats.length) {
                     mediaUri = formats[0].id;
@@ -28508,7 +28090,7 @@ var __extends = (this && this.__extends) || (function () {
 define('extensions/uv-virtex-extension/Extension',["require", "exports", "../../modules/uv-shared-module/BaseEvents", "../../modules/uv-shared-module/BaseExtension", "../../modules/uv-shared-module/Bookmark", "../../modules/uv-contentleftpanel-module/ContentLeftPanel", "./DownloadDialogue", "../../modules/uv-shared-module/FooterPanel", "../../modules/uv-shared-module/HeaderPanel", "../../modules/uv-moreinforightpanel-module/MoreInfoRightPanel", "./SettingsDialogue", "./ShareDialogue", "../../modules/uv-shared-module/Shell", "../../modules/uv-virtexcenterpanel-module/VirtexCenterPanel"], function (require, exports, BaseEvents_1, BaseExtension_1, Bookmark_1, ContentLeftPanel_1, DownloadDialogue_1, FooterPanel_1, HeaderPanel_1, MoreInfoRightPanel_1, SettingsDialogue_1, ShareDialogue_1, Shell_1, VirtexCenterPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Extension = /** @class */ (function (_super) {
+    var Extension = (function (_super) {
         __extends(Extension, _super);
         function Extension() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -28571,7 +28153,7 @@ define('extensions/uv-virtex-extension/Extension',["require", "exports", "../../
         };
         Extension.prototype.dependencyLoaded = function (index, dep) {
             if (index === 0) {
-                window.THREE = dep; //https://github.com/mrdoob/three.js/issues/9602
+                window.THREE = dep;
             }
         };
         Extension.prototype.isLeftPanelEnabled = function () {
@@ -28591,8 +28173,6 @@ define('extensions/uv-virtex-extension/Extension',["require", "exports", "../../
             this.fire(BaseEvents_1.BaseEvents.BOOKMARK, bookmark);
         };
         Extension.prototype.getEmbedScript = function (template, width, height) {
-            //const configUri: string = this.data.config.uri || '';
-            //const script: string = String.format(template, this.getSerializedLocales(), configUri, this.helper.iiifResourceUri, this.helper.collectionIndex, this.helper.manifestIndex, this.helper.sequenceIndex, this.helper.canvasIndex, width, height, this.data.embedScriptUri);
             var appUri = this.getAppUri();
             var iframeSrc = appUri + "#?manifest=" + this.helper.iiifResourceUri + "&c=" + this.helper.collectionIndex + "&m=" + this.helper.manifestIndex + "&s=" + this.helper.sequenceIndex + "&cv=" + this.helper.canvasIndex;
             var script = Utils.Strings.format(template, iframeSrc, width.toString(), height.toString());
@@ -28616,7 +28196,7 @@ var __extends = (this && this.__extends) || (function () {
 define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEvents", "./extensions/uv-av-extension/Extension", "./extensions/uv-default-extension/Extension", "./extensions/uv-mediaelement-extension/Extension", "./extensions/uv-seadragon-extension/Extension", "./extensions/uv-pdf-extension/Extension", "./extensions/uv-virtex-extension/Extension", "./Utils"], function (require, exports, BaseEvents_1, Extension_1, Extension_2, Extension_3, Extension_4, Extension_5, Extension_6, Utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var UVComponent = /** @class */ (function (_super) {
+    var UVComponent = (function (_super) {
         __extends(UVComponent, _super);
         function UVComponent(options) {
             var _this = _super.call(this, options) || this;
@@ -28655,7 +28235,6 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
                 type: Extension_5.Extension,
                 name: 'uv-pdf-extension'
             };
-            // presentation 3
             this._extensions[manifesto.MediaType.jpg().toString()] = {
                 type: Extension_4.Extension,
                 name: 'uv-seadragon-extension'
@@ -28733,26 +28312,22 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
             };
         };
         UVComponent.prototype.set = function (data) {
-            // if this is the first set
             if (!this.extension) {
                 if (!data.iiifResourceUri) {
                     this._error("iiifResourceUri is required.");
                     return;
                 }
-                // remove '/' from root
                 if (data.root && data.root.endsWith('/')) {
                     data.root = data.root.substring(0, data.root.length - 1);
                 }
                 this._reload(data);
             }
             else {
-                // changing any of these data properties forces the UV to reload.
                 if (Utils_1.UVUtils.propertiesChanged(data, this.extension.data, ['collectionIndex', 'manifestIndex', 'config', 'configUri', 'domain', 'embedDomain', 'embedScriptUri', 'iiifResourceUri', 'isHomeDomain', 'isLightbox', 'isOnlyInstance', 'isReload', 'locales', 'root'])) {
                     this.extension.data = Object.assign({}, this.extension.data, data);
                     this._reload(this.extension.data);
                 }
                 else {
-                    // no need to reload, just update.
                     this.extension.data = Object.assign({}, this.extension.data, data);
                     this.extension.render();
                 }
@@ -28765,14 +28340,12 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
         };
         UVComponent.prototype._reload = function (data) {
             var _this = this;
-            $.disposePubSub(); // remove any existing event listeners
+            $.disposePubSub();
             $.subscribe(BaseEvents_1.BaseEvents.RELOAD, function (e, data) {
                 _this.fire(BaseEvents_1.BaseEvents.RELOAD, data);
             });
             var $elem = $(this.options.target);
-            // empty the containing element
             $elem.empty();
-            // add loading class
             $elem.addClass('loading');
             jQuery.support.cors = true;
             var that = this;
@@ -28805,14 +28378,6 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
                     return;
                 }
                 var extension = undefined;
-                // if the canvas has a duration, use the uv-av-extension
-                // const duration: number | null = canvas.getDuration();
-                // if (typeof(duration) !== 'undefined') {
-                //     extension = that._extensions["av"];
-                // } else {
-                // canvasType will always be "canvas" in IIIF presentation 3.0
-                // to determine the correct extension to use, we need to inspect canvas.content.items[0].format
-                // which is an iana media type: http://www.iana.org/assignments/media-types/media-types.xhtml
                 var content = canvas.getContent();
                 if (content.length) {
                     var annotation = content[0];
@@ -28822,7 +28387,6 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
                         if (format) {
                             extension = that._extensions[format.toString()];
                             if (!extension) {
-                                // try type
                                 var type = body[0].getType();
                                 if (type) {
                                     extension = that._extensions[type.toString()];
@@ -28840,17 +28404,13 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
                 else {
                     var canvasType = canvas.getType();
                     if (canvasType) {
-                        // try using canvasType
                         extension = that._extensions[canvasType.toString()];
                     }
-                    // if there isn't an extension for the canvasType, try the format
                     if (!extension) {
                         var format = canvas.getProperty('format');
                         extension = that._extensions[format];
                     }
                 }
-                //}
-                // if there still isn't a matching extension, use the default extension.
                 if (!extension) {
                     extension = that._extensions['default'];
                 }
@@ -28883,12 +28443,9 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
         };
         UVComponent.prototype._extendConfig = function (data, extension, config, configExtension, cb) {
             config.name = extension.name;
-            // if configUri has been set, extend the existing config object.
             if (configExtension) {
-                // save a reference to the config extension uri.
                 config.uri = data.configUri;
                 $.extend(true, config, configExtension);
-                //$.extend(true, config, configExtension, data.config);
             }
             cb(config);
         };
@@ -28908,7 +28465,6 @@ define('UVComponent',["require", "exports", "./modules/uv-shared-module/BaseEven
                     });
                 }
                 else {
-                    // use jsonp
                     var settings = {
                         url: configUri,
                         type: 'GET',
@@ -28972,8 +28528,6 @@ if (typeof jQuery === "function") {
         return jQuery;
     });
 }
-// IE CustomEvent Polyfill
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 (function () {
     if (typeof window.CustomEvent === "function")
         return false;
@@ -28987,10 +28541,6 @@ if (typeof jQuery === "function") {
     window.CustomEvent = CustomEvent;
     return;
 })();
-// bundled into dist/uv.js
-// - things in src/lib that are generic to all extensions
-// - bundled data providers
-// - UVComponent
 requirejs([
     './lib/base64.min.js',
     './lib/browserdetect.js',

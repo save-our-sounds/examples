@@ -47,7 +47,7 @@
             <!-- <br><button id="expando" class="expand">expand</button> -->
         </div>
 		
-		<main role="main">
+		<div role="main">
 			<div id="message" style="display: none">
 				<span class="msg">
 					Login to British Library listen to full track
@@ -94,7 +94,7 @@
 				<h2>Illud mollis moderatius</h2>
 				<p>Eum facete intellegat ei, ut mazim melius usu. Has elit simul primis ne, regione minimum id cum. Sea deleniti dissentiet ea. Illud mollis moderatius ut per, at qui ubique populo. Eum ad cibo legimus, vim ei quidam fastidii.</p>
 			</article>
-		</main>
+		</div>
 		<aside>
 			<div>Another sound file</div>
 			<div>Another sound file</div>
@@ -120,9 +120,12 @@
 
 			urlDataProvider = new UV.URLDataProvider();
 
+			manifest = Utils.Urls.getHashParameter('manifest');
+
 			var data = {
 				root: './uv',
 				configUri: 'template-config.json',
+				iiifResourceUri: manifest,
 				collectionIndex: Number(urlDataProvider.get('c', 0)),
 				manifestIndex: Number(urlDataProvider.get('m', 0)),
 				sequenceIndex: Number(urlDataProvider.get('s', 0)),
@@ -142,7 +145,6 @@
 
 			uv.on('canvasIndexChanged', function(index) {
 				var canvas = uv.extension.helper.getCanvasByIndex(index);
-				console.log(canvas);
 				$('#canvas-label').text(canvas.getLabel().map(function(t){return t.value;}).join(''));
 			});
 
@@ -197,6 +199,7 @@
 
 				uv.extension.centerPanel.avcomponent.on('rangechanged', function(rangeId) {
 					var range = uv.extension.helper.getRangeById(rangeId);
+
 					if (!range) {
 						$('#range-title').text('');
 						$('#range-metadata').text('');
@@ -212,15 +215,6 @@
 					$('#range-metadata').html(metadata);
 				});
 			});
-
-			// are there uv hash parameters?
-			manifest = Utils.Urls.getHashParameter('manifest');
-
-			if (manifest) {
-				uv.set(Object.assign(data, {
-					iiifResourceUri: manifest
-				}));
-			}
 
 		}, false);
 
